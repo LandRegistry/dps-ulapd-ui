@@ -27,7 +27,7 @@ pycparser==2.19           # via cffi
 pyyaml==5.1.1             # via logconfig
 requests==2.21.0
 urllib3==1.24.3           # via requests
-werkzeug==0.14.1          # via flask (fixed)
+werkzeug==0.15.3          # via flask (fixed)
 wtforms==2.2.1            # via flask-wtf
 boto3==1.9.88
 Markdown==3.0.1
