@@ -1,0 +1,36 @@
+{% extends "app/base.html" %}
+{% block title %}{{title}}{% endblock %}
+{% block content %}
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      <div class="govuk-panel govuk-panel--confirmation">
+        <h1 class="govuk-panel__title">
+            {{title}}
+        </h1>
+        {% if panel_body %}
+        <div class="govuk-panel__body">
+          <strong>{{panel_body['sub_title']}}</strong>
+          {% if panel_body['reference'] %}
+            Your reference number
+            <br/><strong>{{panel_body['reference']}}</strong>
+          {% endif %}
+        </div>
+        {% endif %}
+      </div>
+
+      <p class="govuk-body">{{event_description}}</p>
+
+      <h2 class="govuk-heading-l">What happens next</h2>
+
+      {% for p in what_is_next %}
+        <p class="govuk-body">
+            {{p|safe}}
+        </p>
+      {% endfor %}
+
+      {% if registration %}
+        {% include "app/confirmation/registration.html" %}
+      {% endif %}
+    </div>
+  </div>
+{% endblock %}

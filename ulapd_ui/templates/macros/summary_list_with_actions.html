@@ -1,0 +1,19 @@
+{% macro row(label, value, link, multiline=false) %}
+<div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key dps-!-no-wordbreak">
+        {{label}}
+    </dt>
+    <dd class="govuk-summary-list__value">
+        {% if multiline %}
+            {{ (value | reject('equalto', '')) | join('<br/>' | safe) }}
+        {% else %}
+            {{ value }}
+        {% endif %}
+    </dd>
+    <dd class="govuk-summary-list__actions">
+        <a class="govuk-link" href="{{link}}">
+            Change
+        </a>
+    </dd>
+</div>
+{% endmacro %}

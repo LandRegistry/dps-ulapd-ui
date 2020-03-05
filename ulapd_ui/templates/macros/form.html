@@ -1,0 +1,181 @@
+{% macro input(name, class="govuk-input--width-10", label="", type="text", value="", is_required=false, nested=false, hint_element='span', hint=none, fields=none, hidden_label=none) %}
+    {% if nested %}
+        {% set div_id = (name + "-div") %}
+    {% else %}
+        {% set div_id = name %}
+    {% endif %}
+
+    {% if name == "email" and fields["hmlr_email"] %}
+        {% set hmlr_email = True %}
+    {% endif %}
+
+    <div class="govuk-form-group {% if (fields[name] and fields[name]['error']|length) or hmlr_email %} govuk-form-group--error {% endif %}" id="{{div_id}}">
+        <label class="govuk-label" for="{{name}}-input">
+            {{label}}
+            {% if hidden_label %}
+                <span class="govuk-visually-hidden"> {{hidden_label}}</span>
+            {% endif %}
+        </label>
+        {% if hint %}
+            <{{hint_element}} id="{{name}}-hint" class="govuk-hint">
+                {{hint | safe}}
+            </{{hint_element}}>
+        {% endif %}
+        {% if hmlr_email %}
+            <span class="govuk-error-message">
+                {{fields['error']}}
+            </span>
+        {% elif fields[name] %}
+            {% for error in fields[name]['error'] %}
+                <span class="govuk-error-message">
+                {% if name == "email" and "already exists" in error %}
+                    We already have an account for this email address. Would you like to <a class="govuk-link" href="{{ url_for('password.get_password_reset') }}">reset your password</a> or <a class="govuk-link" href="{{ url_for('sign-in.get_signin') }}">sign in now</a>?
+                {% else %}
+                    {{error}}
+                {% endif %}
+                </span>
+            {% endfor %}
+        {% endif %}
+        <input
+        class="govuk-input {{class}} {% if fields[name] and fields[name]['error']|length %} govuk-form-input--error {% endif %}"
+        name="{{name}}"
+        id="{{name}}-input"
+        type="{{type}}"
+        {% if 'password' in name %}
+            value=""
+        {% elif fields[name] %}
+            value="{{fields[name]['data']}}"
+        {% else %}
+            value="{{value}}"
+        {% endif %}
+        {% if is_required %} required {% endif %}>
+    </div>
+{% endmacro %}
+
+{% macro field_group(name, inputs, fields=none) %}
+<div class="govuk-form-group {% if fields[name] and fields[name]['error']|length %} govuk-form-group--error {% endif %} ">
+    <div id="{{name}}" class="govuk-form-group">
+        {% if fields[name] %}
+            {% for error in fields[name]['error'] %}
+                <span class="govuk-error-message">
+                    {{error}}
+                </span>
+            {% endfor %}
+        {% endif %}
+        {% for html_input in inputs %}
+            {{ input(html_input['name'], class=html_input['class'] or "", label=html_input['label'], type=html_input['type'] or "text", value=html_input['value'], is_required=html_input['is_required'], fields=fields, hidden_label=html_input['hidden_label'] or none) }}
+        {% endfor %}
+    </div>
+</div>
+{% endmacro %}
+
+{% macro radio(name, id="", label="", type="radio", value="", is_required=false, checked_value="") %}
+    <div class="govuk-radios__item">
+        <input class="govuk-radios__input" id="{{id}}" name="{{name}}" type="{{type}}" value="{{value}}" {% if checked_value == value %}checked{% endif %} {% if is_required %} required {% endif %}>
+        <label class="govuk-label govuk-radios__label" for={{id}}>
+            {{label}}
+        </label>
+    </div>
+{% endmacro %}
+
+{% macro dynamic_radio(name, label, value=none, label_element="label", label_class="govuk-label", options=[], fields=none, details=None, error_list=false, question=None)%}
+    <div class="govuk-form-group" id="{{name}}">
+        <fieldset class="govuk-fieldset">
+            <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
+                <{{label_element}} class="{{label_class}}">
+                    {{label}}
+                </{{label_element}}>
+            </legend>
+
+            {% if question %}
+                <p>{{ question }}</p>
+            {% endif %}
+
+            {% if error_list %}
+                {% set error_title = 'There are errors on this page' %}
+                {% include 'app/macros/error_list.html' %}
+            {% endif %}
+
+            {% if details %}
+                <p class="govuk-body-l govuk-inset-text">{{ details }}</p>
+            {% endif %}
+
+            {% if fields[name] %}
+                {% for error in fields[name]['error'] %}
+                <span class="govuk-error-message">
+                    {{error}}
+                </span>
+                {% endfor %}
+            {% endif %}
+            <div class="govuk-radios govuk-radios--conditional {% if fields[name] and fields[name]['error']|length %} govuk-form-group--error {% endif %}" data-module="radios">
+
+                {% for option in options %}
+                    <div class="govuk-radios__item">
+                    <input
+                        class="govuk-radios__input"
+                        id="{{option['id']}}"
+                        name="{{name}}"
+                        type="radio"
+                        value="{{option['value']}}"
+                        data-aria-controls="{{option['field_name']}}"
+                        {% if fields[name] and fields[name]['data'] == option['value'] %} checked {% elif value == option['value'] %} checked {% endif %}
+                    >
+                    <label class="govuk-label govuk-radios__label" for="{{option['id']}}">
+                        {{option['label']}}
+                    </label>
+                    </div>
+                    {% if option['field_name'] is defined %}
+                    <div class="govuk-radios__conditional govuk-radios__conditional--hidden" id="{{option['field_name']}}">
+                        {{input(option['field_name'], value=option['field_value'] or "", class="govuk-!-width-one-third", label=option['field_label'], type=option['field_type'] or 'text', hint=option['hint'], nested=true, fields=fields)}}
+                        {% if option['hint'] is defined %}
+                        {% endif %}
+                    </div>
+                    {% endif %}
+
+                {% endfor %}
+            </div>
+        </fieldset>
+    </div>
+{% endmacro %}
+
+{% macro checkbox(name, label, fields, checked=false)%}
+<div class="govuk-form-group {% if fields[name] and fields[name]['error']|length %} govuk-form-group--error {% endif %}" id="{{name}}">
+    <div class="govuk-checkboxes">
+        {% if fields[name] %}
+            {% for error in fields[name]['error'] %}
+                <span class="govuk-error-message">
+                    {{error}}
+                </span>
+            {% endfor %}
+        {% endif %}
+        <div class="govuk-checkboxes__item">
+            <input class="govuk-checkboxes__input" id="{{name}}-input" name="{{name}}" type="checkbox" value="true"{% if checked == true %} checked {% endif %}>
+            <label class="govuk-label govuk-checkboxes__label" for="{{name}}-input">
+                {{label|safe}}
+            </label>
+        </div>
+    </div>
+    <br/>
+</div>
+{% endmacro %}
+
+<!-- This is not currently in use but may want it at some point -->
+{% macro multi_checkbox(name, label, fields, checked=false)%}
+<div class="govuk-form-group {% if fields[name] and fields[name]['error']|length %} govuk-form-group--error {% endif %}" id="{{name}}">
+    <div class="govuk-checkboxes">
+        {% if fields[name] %}
+            {% for error in fields[name]['error'] %}
+                <span class="govuk-error-message">
+                    {{error}}
+                </span>
+            {% endfor %}
+        {% endif %}
+        <div class="govuk-checkboxes__item">
+            <input class="govuk-checkboxes__input" id="{{name}}-input" name="{{name}}" type="checkbox" value="true"{% if checked == true %} checked {% endif %}>
+            <label class="govuk-label govuk-checkboxes__label" for="{{name}}-input">
+                {{label|safe}}
+            </label>
+        </div>
+    </div>
+</div>
+{% endmacro %}

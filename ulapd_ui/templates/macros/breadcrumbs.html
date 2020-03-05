@@ -1,0 +1,19 @@
+{% macro bread_crumbs(breadcrumb_links) %}
+<div class="govuk-breadcrumbs">
+    <ol class="govuk-breadcrumbs__list">
+        {% if breadcrumb_links|length > 0 %}
+            {% for link in breadcrumb_links %}
+                <li class="govuk-breadcrumbs__list-item" aria-current="page">
+                {% if link['href'] is none %}
+                    <p>{{link['label']}}</p>
+                {% else %}
+                    <a class="govuk-breadcrumbs__link" href="{{link['href']}}">{{link['label']}}</a>
+                {% endif %}
+                </li>
+            {% endfor %}
+        {% else %}
+            <li><a class="govuk-breadcrumbs__link" href="/">Home</a></li>
+        {% endif %}
+    </ol>
+</div>
+{% endmacro %}

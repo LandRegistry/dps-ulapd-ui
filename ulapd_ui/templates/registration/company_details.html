@@ -1,0 +1,28 @@
+{% extends "app/base.html" %}
+{% import "app/macros/form.html" as dps_form %}
+{% block title %}Company details{% endblock %}
+{% block content %}
+<div class="govuk-grid-row filter-user-type">
+    <div class="govuk-grid-column-two-thirds">
+    {% include "app/partials/backbtn.html" %}
+        {% if fields %}
+            <script type="application/json" data-ga-form-validation="uk_org_info">
+                {{ fields|tojson }}
+            </script>
+        {% endif %}
+        <form action="/registration/company-details" method="POST" enctype="application/x-www-form-urlencoded">
+            <fieldset class="govuk-fieldset">
+                <legend>
+                    <h1 class="govuk-heading-xl">Company details</h1>
+                </legend>
+
+                {% include 'app/macros/error_list.html' %}
+
+                {{dps_form.input('name', value=session['dps-session']['registration']['uk_org_name'] or "", class='', label='Name', fields=fields or none)}}
+                {{dps_form.input('reg_no', value=session['dps-session']['registration']['uk_org_reg_no'] or "", class='govuk-!-width-two-thirds', label='Company registration number', hint_element='div', hint="You can find this number on GOV.UK.<br/>It has either:<ul class='govuk-hint govuk-list govuk-list--bullet'><li class='govuk-hint-list-bullet'>8 numbers</li><li class='govuk-hint-list-bullet'>2 letters and 6 numbers</li></ul>", fields=fields or none)}}
+            </fieldset>
+            <button type="submit" class="govuk-button">Continue</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

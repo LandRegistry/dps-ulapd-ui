@@ -1,0 +1,74 @@
+{% extends "app/base.html" %}
+{% import "app/macros/form.html" as dps_form %}
+{% from "app/macros/breadcrumbs.html" import bread_crumbs %}
+{% block title %}Choose your account{% endblock %}
+{% block content %}
+<div class="govuk-grid-row filter-user-type">
+    {{ bread_crumbs(breadcrumb_links) }}
+    <div class="govuk-grid-column-two-thirds">
+        <h1 class="govuk-heading-xl">Create an account</h1>
+
+        {% if errors %}
+        <div class="govuk-error-summary" aria-labelledby="error-summary-title" role="alert" tabindex="-1" data-module="error-summary">
+            <h2 class="govuk-error-summary__title" id="error-summary-title">
+                There are errors on this page
+            </h2>
+            <div class="govuk-error-summary__body">
+                <ul class="govuk-list govuk-error-summary__list">
+                    <li><a href="#user-type-selection">Choose 1 option</a></li>
+                </ul>
+            </div>
+
+        </div>
+        {% endif %}
+            
+        <p>I’m requesting access to this data for: </p>
+
+        <form action="/registration" method="POST" enctype="application/x-www-form-urlencoded">
+            <div class="govuk-form-group {% if errors %} govuk-form-group--error {% endif %} govuk-!-padding-bottom-5">
+                {% if errors %}
+                <span id="user-type-error" class="govuk-error-message">
+                    Choose 1 option
+                </span>
+                {% endif %}
+
+                <fieldset class="govuk-fieldset">
+                    <legend class="govuk-fieldset__legend govuk-fieldset__legend--m govuk-visually-hidden">
+                        Account types
+                    </legend>
+
+                    <div class="govuk-radios">
+                        {{ dps_form.radio("user_type", id="personal", label="my own use", type="radio", value="personal", checked_value=registration['user_type'] or none)}}
+                        {{ dps_form.radio("user_type", id="uk-organisation", label="a UK organisation", type="radio", value="uk-organisation", checked_value=registration['user_type'] or none)}}
+                        {{ dps_form.radio("user_type", id="overseas-organisation", label="an overseas organisation", type="radio", value="overseas-organisation", checked_value=registration['user_type'] or none)}}
+                    </div>
+                </fieldset>
+                <details class="govuk-details govuk-!-padding-top-5" data-module="govuk-details">
+                        <summary class="govuk-details__summary">
+                            <span class="govuk-details__summary-text">
+                                Why do I need an account?
+                            </span>
+                        </summary>
+                        <div class="govuk-details__text">
+                            <br/>
+                            <h3 class="govuk-heading-m">We need to check your identity</h3>
+            
+                            <p>We’ll check your identity with the information you give. We do this to detect and prevent fraud.</p>
+            
+                            <p>We may share your personal details with third parties to do these checks.</p>
+            
+                            <p>Our <a class="govuk-link" href="https://www.gov.uk/government/organisations/land-registry/about/personal-information-charter">Personal Information Charter</a> has more details about how we use your information.</p>
+            
+                            <h3 class="govuk-heading-m">You need to agree to data licences</h3>
+            
+                            <p>Each dataset has a licence which tells you how you can use the data.</p>
+            
+                            <p>You must agree to the licence of each dataset you use. We’ll keep a record that you have agreed to the licence.</p>
+                        </div>
+                    </details>
+                <button type="submit" class="govuk-button">Continue</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

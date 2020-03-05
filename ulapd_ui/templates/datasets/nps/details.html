@@ -1,0 +1,236 @@
+{% extends "app/base.html" %}
+{% from "app/macros/breadcrumbs.html" import bread_crumbs %}
+{% block title %}{{ dataset_details['title'] }}{% endblock %}
+{% block content %}
+{% include "app/partials/navbar.html" %}
+<div class="details-page">
+    {{ bread_crumbs(breadcrumb_links) }}
+
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full">
+            <span class="govuk-caption-xl">Dataset</span>
+            <h1 class="govuk-heading-xl">{{dataset_details['title']}}</h1>
+        </div>
+    </div>
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-one-third">
+            <div class="table_of_contents" id="contents">
+                <p class="govuk-body">Contents</p>
+                <ul>
+                    <li><a class="govuk-link" href="#dataset">The dataset</a></li>
+                    <li><a class="govuk-link" href="#sample">Get a sample of the data</a></li>
+                    <li><a class="govuk-link" href="#buy">Buy the dataset</a></li>
+                    <li><a class="govuk-link" href="#access">Access the data</a></li>
+                    <li><a class="govuk-link" href="#contact">Contact us</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="govuk-grid-column-two-thirds">
+            <h2 id="dataset" class="govuk-heading-l">The dataset</h2>
+            <p class="govuk-body">
+                The National Polygon Service contains 3 licensed, chargeable datasets:
+            </p>
+            <ul class="govuk-list">
+                <li><a class="govuk-link" href="#polygon">National Polygon dataset</a></li>
+                <li><a class="govuk-link" href="#descriptor">Title Descriptor dataset</a></li>
+                <li><a class="govuk-link" href="#uprn">Title Number and UPRN Look Up dataset</a></li>
+            </ul>
+            <p class="govuk-body">
+                These datasets are only available as part of the National Polygon Service and you'll
+                need to agree to a licence to use them.
+            </p>
+            <h3 class="govuk-heading-m" id="polygon">National Polygon dataset</h3>
+            <p class="govuk-body">
+                This dataset shows the indicative shape and position of each boundary of a registered
+                title for land and property in England and Wales. Every freehold or leasehold title
+                has at least one index polygon.
+            </p>
+            <p class="govuk-body">
+                This dataset has more than 25 million titles and 28 million polygons. HM Land
+                Registry index polygons are mapped against MasterMap, Ordnance Survey's large scale map.
+            </p>
+            <h4 class="govuk-heading-s">Included in this dataset</h4>
+            <p class="govuk-body">
+                The data includes:
+            </p>
+            <ul class="govuk-list govuk-list--bullet">
+                <li>shape</li>
+                <li>polygon identification</li>
+                <li>title number</li>
+                <li>polygon creation date</li>
+                <li>update date - date when title was changed</li>
+                <li>version of polygon identification number</li>
+                <li>record status - shows changes to the record</li>
+            </ul>
+            <p class="govuk-body">
+                <a class="govuk-link" href="/datasets/nps/tech-spec/1">Read the technical specification for
+                the National Polygon dataset</a>
+            </p>
+            <h3 class="govuk-heading-m" id="descriptor">Title Descriptor dataset</h3>
+            <p class="govuk-body">
+                This dataset describes legal interests that are recorded against freehold and leasehold estates
+                registered in England and Wales. (An estate is property and/or land.) An estate is given a unique
+                title number when it is registered. This means you can get data from individual records.
+            </p>
+            <h4 class="govuk-heading-s">Included in this dataset</h4>
+            <p class="govuk-body">
+                The data includes:
+            </p>
+            <ul class="govuk-list govuk-list--bullet">
+                <li>title number</li>
+                <li>estate interest</li>
+                <li>class of title</li>
+                <li>registered status</li>
+                <li>record status</li>
+            </ul>
+            <p class="govuk-body">
+                <a class="govuk-link" href="/datasets/nps/tech-spec/3">Read the technical specification for
+                the Title Descriptor dataset</a>
+            </p>
+            <h3 class="govuk-heading-m" id="uprn">Title Number and UPRN Look Up dataset</h3>
+            <p class="govuk-body">
+                This dataset contains HM Land Registry title numbers and Unique Property Reference Numbers (UPRN)
+                for freehold and leasehold land and property registered in England and Wales.
+            </p>
+            <p class="govuk-body">
+                UPRNs are unique 12 digit numbers created by local authorities and Ordnance Survey. Every addressable
+                location in the UK gets a UPRN for the lifetime of the property. Ordnance Survey uses AddressBase to
+                link property information to a map whenever possible.
+            </p>
+            <p class="govuk-body">
+                Title number and UPRNs can only be linked if there is relationship between Ordance Survey's AddressBase
+                address and the title number.
+            </p>
+            <p class="govuk-body">
+                Using UPRNs and title numbers together allows you to match and merge datasets from different sources.
+            </p>
+            <h4 class="govuk-heading-s">Included in this dataset</h4>
+            <p class="govuk-body">
+                The data includes:
+            </p>
+            <ul class="govuk-list govuk-list--bullet">
+                <li>title number</li>
+                <li>UPRN</li>
+            </ul>
+            <p class="govuk-body">
+                <a class="govuk-link" href="/datasets/nps/tech-spec/2">Read the technical specification for
+                the Title Number and UPRN Look Up dataset</a>
+            </p>
+            <br>
+            <br>
+            <br>
+            <h2 id="sample" class="govuk-heading-l">Get a sample of the dataset</h2>
+            <p class="govuk-body">
+                The sample of the National Polygon Service dataset contains a 5km<sup>2</sup> extract of the
+                Bristol area on 5 February 2016. It's free of charge to download.
+            </p>
+            <p class="govuk-body">
+                The data includes:
+            </p>
+            <ul class="govuk-list govuk-list--bullet">
+                <li>National Polygon dataset</li>
+                <li>Title Descriptor dataset</li>
+                <li>Title Number and UPRN Look Up dataset</li>
+            </ul>
+            <h3 class="govuk-heading-m">How to get the sample data</h3>
+            <p class="govuk-body">
+                You'll need to create an account or sign in and agree to the
+                <a class="govuk-link" href="/datasets/nps_sample/licence/view">sample data licence</a> to
+                download the data.
+            </p>
+            {% if not g.user %}
+                <a class="govuk-button" href="{{ url_for('registration.user_type') }}">Create account</a>
+                <a class="govuk-link" href="{{ url_for('sign-in.get_signin') }}"
+                    style="padding-left: 30px; margin-top: 8px; position: absolute; font-size: 22px">Sign in</a>
+            {% elif g.user and licence_signed['nps_sample'] %}
+                <a class="govuk-button" href="{{ url_for('.download', dataset_id='nps_sample', file_name='LR_NPS_SAMPLE.zip') }}">Download sample - 2.3MB, ZIP</a>
+            {% else %}
+                <a class="govuk-button" href="{{ url_for('.get_agree_licence', dataset_id='nps_sample') }}">Agree licence and download sample</a>
+            {% endif %}
+            <br>
+            <br>
+            <br>
+            <h2 id="buy" class="govuk-heading-l">Buy the dataset</h2>
+            <p class="govuk-body">
+                <a class="govuk-link" href="#contact">Contact us</a> if you want to buy this dataset. It costs £20,000 per year plus VAT.
+            </p>
+            <p class="govuk-body">
+                You'll be able to access the data after you've:
+            </p>
+            <ul class="govuk-list govuk-list--bullet">
+                <li>agreed to licences from Ordnance Survey and HM Land Registry</li>
+                <li>paid for the dataset</li>
+            </ul>
+            <h3 class="govuk-heading-m">Dataset licence</h3>
+            <p class="govuk-body">
+                Your use of the National Polygon Service is governed by the terms and conditions of a licence.
+            </p>
+            <p class="govuk-body">
+                We use data from Ordnance Survey to prepare polygons and the dataset. This data including the UPRN and polygon ID
+                is under licence.
+            </p>
+            <p class="govuk-body">
+                You'll need to <a class="govuk-link" href="https://www.ordnancesurvey.co.uk/contact/">contact Ordnance Survey</a>
+                and enter into a licence agreement with them to use this data.
+            </p>
+            <p class="govuk-body">
+                We can only supply this dataset to you once you've entered into this agreement.
+            </p>
+            <br>
+            <br>
+            <br>
+            <h2 id="access" class="govuk-heading-l">Access the dataset</h2>
+            <h3 class="govuk-heading-m">Download the data</h3>
+            <p class="govuk-body">
+                The dataset is updated on the second working day of the month. The data includes an ESRI shapefile and CSV files.
+                You can download the:
+            </p>
+            <ul class="govuk-list govuk-list--bullet">
+                <li>complete file - this is a complete file of the current data and contains all of the changes that happened during the month</li>
+                <li>change only file - this only includes data that has changed since the previous month's release</li>
+                <li>validation file - this checks that the data has been downloaded correctly</li>
+            </ul>
+            <p class="govuk-inset-text">
+                The Title Number and UPRN Look Up dataset does not have a change only file.
+            </p>
+            <h3 class="govuk-heading-m">Access the data with an API</h3>
+            <p class="govuk-body">
+                You'll get an API key when you've:
+            </p>
+            <ul class="govuk-list govuk-list--bullet">
+                <li>agreed to the licences</li>
+                <li>paid for the data</li>
+                <li>signed in to your account</li>
+            </ul>
+            <p class="govuk-body">
+                For more information, read our guidelines on <a class="govuk-link" href="{{ url_for('general.get_api_info') }}">
+                accessing data with the API</a> and <a class="govuk-link" href="{{ url_for('general.get_api_documentation') }}">
+                API technical details</a>.
+            </p>
+            <br>
+            <br>
+            <br>
+            <h2 id="contact" class="govuk-heading-l">Contact details</h2>
+            <p class="govuk-body">
+                If you need more information or you want to buy the data, contact us:
+            </p>
+            <p class="govuk-body">
+                <strong>Data Services Team</strong><br>
+                HM Land Registry<br>
+                Rosebrae Court<br>
+                Woodside Ferry Approach<br>
+                Birkenhead<br>
+                Merseyside<br>
+                CH41 6DU
+            </p>
+            <p class="govuk-body">
+                Email: <a class="govuk-link" href="mailto:data.services@landregistry.gov.uk​" title="This link will open your default email application">data.services@landregistry.gov.uk​</a>
+            </p>
+            <p class="govuk-body">
+                Telephone: 0300 006 0478
+            </p>
+        </div>
+    </div>
+    {% include "app/partials/base_bar.html" %}
+</div>
+{% endblock %}

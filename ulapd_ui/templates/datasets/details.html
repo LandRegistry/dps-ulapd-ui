@@ -1,0 +1,178 @@
+{% extends "app/base.html" %}
+{% from "app/macros/breadcrumbs.html" import bread_crumbs %}
+{% block title %}Dataset Details{% endblock %}
+{% block content %}
+{% include "app/partials/navbar.html" %}
+<div class="details-page">
+    {{ bread_crumbs(breadcrumb_links) }}
+
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full">
+            <div class="blue-box">
+
+                <span class="govuk-caption-xl">Dataset</span>
+                <h1 class="govuk-heading-xl">{{dataset_details['title']}}</h1>
+
+                <p>
+                {% if dataset_details['name'] == 'nps' %}
+                    {% if not licence_signed['nps'] %}
+                        <span class="free-badge">{{dataset_details['fee']}}</span>
+                    {% endif %}
+
+                    {% if licence_signed['nps_sample'] and not licence_signed['nps']%}
+                        <span class="green-badge">Sample licence agreed</span>
+                    {% endif %}
+
+                    {% if licence_signed['nps'] %}
+                        <span class="green-badge">Licence agreed</span>
+                    {% endif %}
+                {% else %}
+                    <span class="free-badge">{{dataset_details['fee']}}</span>
+
+                    {% if licence_signed %}
+                        <span class="green-badge">Licence agreed</span>
+                    {% endif %}
+                {% endif %}
+                </p>
+
+                <p>{{dataset_details['description']}}</p>
+
+                <p>The data is updated on the second working day of each month.</p>
+
+                {% if dataset_details['name'] == 'nps' %}
+                    <p><strong>{{dataset_details['resources'][0]['format']}} file</strong>, containing <strong>shape files and CSVs</strong>, <strong>{{ dataset_details['file_size'] }}</strong></p>
+                {% else %}
+                    <p>Last updated on the <strong>{{ readable_date }}</strong>, file format and size <strong>{{ dataset_details['format'] }}, {{ dataset_details['file_size'] }}</strong></p>
+                {% endif %}
+
+                <div class="govuk-grid-row">
+                    {% if not is_restricted %}
+                        {% if not g.user %}
+                            <div class="govuk-grid-column-two-thirds">
+                                <p class="govuk-!-font-weight-bold blue-highlight-panel">
+                                    You need to 
+                                    <a class="white-link-text" href="{{ url_for('registration.user_type') }}">create an account</a>
+                                    or
+                                    <a class="white-link-text" href="{{ url_for('sign-in.get_signin') }}">sign in</a>
+                                    to download this file.
+                                </p>
+                            </div>
+                        {% endif %}
+                        {% if g.user and not licence_signed %}
+                            <div class="govuk-grid-column-two-thirds">
+                                <p class="govuk-!-font-weight-bold blue-highlight-panel">
+                                    <a class="white-link-text" href="{{ url_for('.get_agree_licence', dataset_id=dataset_details['name']) }}" class="download"><span>Agree to licence and download this data</span></a>
+                                </p>
+                            </div>
+                        {% elif g.user and licence_signed %}
+                            <div class="govuk-grid-column-two-thirds">
+                                <p class="govuk-!-font-weight-bold blue-highlight-panel">
+                                    <a class="white-link-text" href="{{ url_for('.get_download', dataset_id=dataset_details['name']) }}" class="download" data-download-btn><span>Download this data</span></a>
+                                </p>
+                            </div>
+                        {% endif %}
+                    {% else %}
+                        {% if not g.user %}
+                            <div class="govuk-grid-column-one-half">
+                                <p class="govuk-!-font-weight-bold blue-highlight-panel">
+                                    <span class="govuk-heading-m">Get this data</span>
+                                    Contact HM Land Registry to <a class="white-link-text" href="#purchase-the-data">purchase this data</a>
+                                </p>
+                            </div>
+                            <div class="govuk-grid-column-one-half">
+                                <p class="govuk-!-font-weight-bold blue-highlight-panel">
+                                    <span class="govuk-heading-m">Get a sample of this data</span>
+                                    <a class="white-link-text" href="{{ url_for('registration.user_type') }}">Create an account</a> or 
+                                    <a class="white-link-text" href="{{ url_for('sign-in.get_signin') }}">sign in</a> to download sample data
+                                </p>
+                            </div>
+                        {% endif %}
+                        {% if g.user and not licence_signed['nps_sample'] and not licence_signed['nps'] %}
+                            <div class="govuk-grid-column-one-half">
+                                <p class="govuk-!-font-weight-bold blue-highlight-panel">
+                                    <span class="govuk-heading-m">Get this data</span>
+                                    Contact HM Land Registry to <a class="white-link-text" href="#purchase-the-data">purchase this data</a>
+                                </p>
+                            </div>
+                            <div class="govuk-grid-column-one-half">
+                                <p class="govuk-!-font-weight-bold blue-highlight-panel">
+                                    <span class="govuk-heading-m">Get a sample of this data</span>
+                                    <a class="white-link-text" href="{{ url_for('.get_agree_licence', dataset_id='nps_sample') }}">Agree to licence and download a sample of this data</a>
+                                </p>
+                            </div>
+                        {% elif g.user and licence_signed['nps_sample'] and not licence_signed['nps'] %}
+                            <div class="govuk-grid-column-one-half">
+                                <p class="govuk-!-font-weight-bold blue-highlight-panel">
+                                    <span class="govuk-heading-m">Get this data</span>
+                                    Contact HM Land Registry to <a class="white-link-text" href="#purchase-the-data">purchase this data</a>
+                                </p>
+                            </div>
+                            <div class="govuk-grid-column-one-half">
+                                <p class="govuk-!-font-weight-bold blue-highlight-panel">
+                                    <span class="govuk-heading-m">Get a sample of this data</span>
+                                    <a href="{{ url_for('.download', dataset_id='nps_sample', file_name='LR_NPS_SAMPLE.zip') }}">Download a sample of this data</a>
+                                    Shape file - 25Mb
+                                </p>
+                            </div>
+                        {% endif %}
+                        {% if g.user and licence_signed['nps'] %}
+                            <div class="govuk-grid-column-one-half">
+                                <p class="govuk-!-font-weight-bold blue-highlight-panel">
+                                    <a class="white-link-text" href="{{ url_for('.get_download', dataset_id=dataset_details['name']) }}">Download this data</a>
+                                </p>
+                            </div>
+                        {% endif %}
+                    {% endif %}
+                </div>
+            </div>
+
+            <br>
+            <div class="table_of_contents">
+                <p>Contents</p>
+                <ul>
+                    {% if not is_restricted %}
+                    <li><a class="govuk-link" href="#example_data">Example data</a></li>
+                    {% endif %}
+
+                    {% for entry in dataset_details['toc_details_page'] %}
+                    <li><a class="govuk-link" href="#{{ entry['id'] }}">{{ entry['name'] }}</a></li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="product-info">
+                {% if not is_restricted %}
+                <h2 id="example_data">Example data</h2>
+                <p>This is an example of the data in {{ dataset_details['title'] }}.</p>
+                <div class="govuk-inset-text">
+                    <p><a class="govuk-link" href="{{url_for('datasets.download', dataset_id=dataset_details['name'], file_name='example.csv')}}"><strong>Download example</strong></a> - You do not need to create an account.</p>
+                </div>
+                <br>
+                <table id="example-data" class="govuk-table table-hack">
+                    <thead class="govuk-table__head">
+                        <tr class="govuk-table__row">
+                            <th class="govuk-table__header">Data</th>
+                            <th class="govuk-table__header">What this means</th>
+                            <th class="govuk-table__header">Example data 1</th>
+                            <th class="govuk-table__header">Example data 2</th>
+                        </tr>
+                    </thead>
+                    <tbody class="govuk-table__body">
+                        {% for example in dataset_details['example_data']%}
+                        <tr class="govuk-table__row">
+                            <th class="govuk-table__cell">{{example['data']}}</th>
+                            <td class="govuk-table__cell">{{example['meaning']}}</td>
+                            {% for example_data in example['examples'] %}
+                            <td class="govuk-table__cell">{{example_data}}</td>
+                            {% endfor %}
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                {% endif %}
+                {{ md | safe }}
+            </div>
+        </div>
+        {% include "app/partials/base_bar.html" %}
+    </div>
+</div>
+{% endblock %}

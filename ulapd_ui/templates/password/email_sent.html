@@ -1,0 +1,12 @@
+{% extends "app/base.html" %}
+{% block title %}Password Reset{% endblock %}
+{% block content %}
+<div class="column-two-thirds">
+    <h1 class="govuk-heading-l">Password reset</h1>
+    <p>We've sent an email to {{email}}.<br/>Click the link in this email to change your password.</p>
+    <p>Didn't get the email? Check your junk folder.</p>
+    <p>
+        <a class="govuk-link" href="{{ url_for('password.get_password_reset') }}">Request a new password</a>
+    </p>
+</div>
+{% endblock %}

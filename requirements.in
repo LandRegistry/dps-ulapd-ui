@@ -1,0 +1,12 @@
+Flask-Compress==1.4.0
+Flask-LogConfig==0.4.2
+Flask-Script==2.0.6
+Flask==1.0.2
+gunicorn==19.9.0
+requests==2.21.0
+Flask-WTF==0.14.2
+misaka==2.1.1
+deepmerge==0.0.5
+cachelib==0.1
+werkzeug==0.14.1
+

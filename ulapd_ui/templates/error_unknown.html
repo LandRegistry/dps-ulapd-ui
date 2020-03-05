@@ -1,0 +1,18 @@
+{% extends "app/base.html" %}
+{% block title %}Unknown Error{% endblock %}
+{% block content %}
+{% include "app/partials/navbar.html" %}
+<div class="govuk-grid-row">
+    <h1 class="govuk-heading-xl">
+        Something went wrong
+    </h1>
+
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds no-padding">
+            <p>Refresh this page to try again.</p>
+
+            <p><a class="govuk-link" href="/">Start again</a><p>
+        </div>
+    </div>
+</div>
+{% endblock %}

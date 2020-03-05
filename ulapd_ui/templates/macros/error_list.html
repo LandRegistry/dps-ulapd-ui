@@ -1,0 +1,29 @@
+{% if fields %}
+<div class="govuk-error-summary" aria-labelledby="error-summary-title" role="alert" tabindex="-1" data-module="error-summary">
+    <h2 class="govuk-error-summary__title" id="error-summary-title">
+        {{ error_title }}
+    </h2>
+    <div class="govuk-error-summary__body">
+        <ul class="govuk-list govuk-error-summary__list">
+            {% if fields['hmlr_email'] %}
+                <li><a class="govuk-link" href="#{{fields['name']}}">
+                    {{fields['error']}}
+                </a></li>
+                <li><a class="govuk-link" href="{{fields['link']}}">
+                    {{fields['link_text']}}
+                </a></li>
+            {% else %}
+                {% for name, field in fields.items() %}
+                    {% if fields[name] %}
+                        {% for error in fields[name]['error'] %}
+                            <li><a class="govuk-link" href="#{{name}}">
+                                {{error}}
+                            </a></li>
+                        {% endfor %}
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+        </ul>
+    </div>
+</div>
+{% endif %}

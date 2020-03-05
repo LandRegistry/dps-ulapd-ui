@@ -1,0 +1,53 @@
+{% extends "app/base.html" %}
+{% import "app/macros/form.html" as dps_form %}
+{% block title %}Create an account{% endblock %}
+{% block content %}
+<div class="govuk-grid-row filter-user-type">
+    <div class="govuk-grid-column-two-thirds">
+    {% include "app/partials/backbtn.html" %}
+
+        {% if fields %}
+            <script type="application/json" data-ga-form-validation="personal_address">
+                {{ fields|tojson }}
+            </script>
+        {% endif %}
+        <form action="/registration/contact-preferences" method="POST" enctype="application/x-www-form-urlencoded">
+            <div class="govuk-form-group">
+                    <fieldset class="govuk-fieldset" aria-describedby="research-hint">
+                    <legend class="govuk-fieldset__legend govuk-fieldset__legend--xl">
+                        <h1 class="govuk-fieldset__heading">
+                                How should we contact you for research?
+                        </h1>
+                    </legend>
+                    {% include 'app/macros/error_list.html' %}
+                    <span id="research-hint" class="govuk-hint">
+                        Select all that apply.
+                    </span>
+                    <div class="govuk-checkboxes">
+                        <div class="govuk-checkboxes__item">
+                        <input class="govuk-checkboxes__input" id="preferences-1" name="preferences" type="checkbox" value="Telephone" {% if session['dps-session']['registration']['telephone_pref'] == true %}checked=True{% else %}{% endif %}>
+                        <label class="govuk-label govuk-checkboxes__label" for="preferences-1">
+                            Telephone
+                        </label>
+                        </div>
+                        <div class="govuk-checkboxes__item">
+                        <input class="govuk-checkboxes__input" id="preferences-2" name="preferences" type="checkbox" value="Email"  {% if session['dps-session']['registration']['email_pref'] == true %}checked=True{% else %}{% endif %}>
+                        <label class="govuk-label govuk-checkboxes__label" for="preferences-2">
+                            Email
+                        </label>
+                        </div>
+                        <div class="govuk-checkboxes__item">
+                        <input class="govuk-checkboxes__input" id="preferences-3" name="preferences" type="checkbox" value="Post" {% if session['dps-session']['registration']['post_pref'] == true %}checked=True{% else %}{% endif %}>
+                        <label class="govuk-label govuk-checkboxes__label" for="preferences-3">
+                            Post
+                        </label>
+                        </div>
+                    </div>
+                    </fieldset>
+                </div>
+                <input type="hidden" id="user_type" name="user_type" value={{ session['dps-session']['registration']['user_type']}}>
+                <button type="submit" class="govuk-button">Continue</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,754 @@
+{% extends "app/base.html" %}
+{% block title %}National Polygon dataset - Technical specification{% endblock %}
+{% block content %}
+{% include "app/partials/backbtn.html" %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+        <span class="govuk-caption-xl">Technical specification</span>
+        <h1 class="govuk-heading-xl">National Polygon dataset</h1>
+    </div>
+</div>
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-one-third">
+        <div class="table_of_contents" id="contents">
+            <p class="govuk-body"><strong>Contents</strong></p>
+            <ul>
+                <li><a class="govuk-link" href="#overview">Overview</a></li>
+                <li><a class="govuk-link" href="#scope">Specification scope</a></li>
+                <li><a class="govuk-link" href="#identification">Data product identification</a></li>
+                <li><a class="govuk-link" href="#content">Data content and structure</a></li>
+                <li><a class="govuk-link" href="#quality">Data quality</a></li>
+                <li><a class="govuk-link" href="#capture">Data capture information</a></li>
+                <li><a class="govuk-link" href="#maintenance">Data maintenance</a></li>
+                <li><a class="govuk-link" href="#glossary">Glossary</a></li>
+                <li><a class="govuk-link" href="#delivery">Data product delivery</a></li>
+                <li><a class="govuk-link" href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="govuk-grid-column-two-thirds">
+        <h2 id="overview" class="govuk-heading-l">Overview</h2>
+        <p class="govuk-body">
+            This is the published dataset of HM Land Registry Index Polygons. Index Polygons are a representation of a
+            registered title
+            showing its location and extent.
+        </p>
+        <p class="govuk-body">
+            The title plan and register record the general position of the boundaries of a registered title unless shown
+            as
+            having
+            been determined as an exact boundary in accordance to section 60, Land Registration Act 2002.
+        </p>
+        <p class="govuk-body">
+            An index polygon is part of the Index referred to in section 68, 2002 Land Registration Act and rule 10,
+            Land
+            Registration
+            Rules 2003. Its purpose is to provide an index to show the indicative location of a registered title. Index
+            polygons
+            are held
+            in vector format.
+        </p>
+        <p class="govuk-body">
+            The title plan and register share the same ID called the Title Number. Every registered title has at least
+            one
+            index
+            polygon.
+            An index polygon has a unique Polygon ID (Poly_ID). The relationship between the registered title and index
+            polygon(s) is
+            managed through the title number.
+        </p>
+        <p class="govuk-body">
+            HM Land Registry Index Polygons are mapped against Ordnance Survey large scale data, MasterMap, Index
+            Polygons
+            will
+            follow
+            features in MasterMap where those features relate to the ownership boundary. Ownership boundaries do not
+            always
+            follow
+            features mapped in MasterMap.
+        </p>
+
+        <h2 id="scope" class="govuk-heading-l ">Specification Scope</h2>
+
+        <table class="govuk-table">
+            <tr class="govuk-table__row">
+                <th scope="col" class="govuk-table__header" colspan="2">Key Features</th>
+            </tr>
+            <tr class="govuk-table__row">
+                <td class="govuk-table__cell">Polygons</td>
+                <td class="govuk-table__cell">HM Land Registry's Index Polygons</td>
+            </tr>
+            <tr class="govuk-table__row">
+                <td class="govuk-table__cell">Format</td>
+                <td class="govuk-table__cell">ESRI shapefile</td>
+            </tr>
+            <tr class="govuk-table__row">
+                <td class="govuk-table__cell">Coordinate reference system</td>
+                <td class="govuk-table__cell">British National Grid (EPSG:27700)</td>
+            </tr>
+        </table>
+
+        <h3 class="govuk-heading-m">Relationship to other HM Land Registry data products</h3>
+        <p class="govuk-body">
+            The National Polygon Dataset is the published dataset of Index polygons for England and Wales. Each index
+            polygon
+            contains a
+            title number to enable the polygons to be linked to the Title Descriptor and UPRN datasets. The separation
+            of
+            this
+            data into three
+            data sets means that each data set is smaller and easier to handle and that data currency and updates can be
+            more
+            simply managed.
+        </p>
+        <p class="govuk-body">
+            The INSPIRE Index Polygons are a sub-set of the National Polygon dataset, made up of polygons related to
+            freehold
+            titles.
+            INSPIRE Index Polygons have a much simpler set of attributes, describing the polygon unique identifier, the
+            polygon
+            create date and
+            the polygon last updated date.
+        </p>
+        <p class="govuk-body">
+            Relationships can be made between the National Polygon Dataset and other information in the title register
+            by
+            linking via the title number.
+        </p>
+        <p class="govuk-body">
+            The combination of the National Polygon, Title Descriptor and Title Number and UPRN Look Up datasets form
+            the
+            <a class="govuk-link" href="/datasets/nps" target="_blank" title="This link will open in a new tab">National
+                Polygon
+                Service</a> dataset.
+        </p>
+
+        <h2 id="identification" class="govuk-heading-l  ">Data product identification</h2>
+
+        <h3 class="govuk-heading-m">Purpose</h3>
+        <p class="govuk-body">
+            HM Land Registry are mandated to create an index polygon for each title registration as described in section
+            68,
+            2002 Land Registration
+            Act and rule 10, Land Registration Rules 2003.
+        </p>
+        <p class="govuk-body">
+            The purpose of the index polygon is to show the location of a registered title, to general boundaries and in
+            context
+            of HM Land
+            Registry practice.
+        </p>
+        <p class="govuk-body">
+            The National Polygon Dataset (NPD) is a data product to enable HM Land Registry customers to efficiently
+            locate
+            the
+            indicative
+            ownership extent of registered titles across England and Wales. The data can be used in a geographic
+            information
+            system (GIS) to
+            view and query title index extents.
+        </p>
+        <p class="govuk-body">
+            The data contains a title number to enable relationships to be made between the NPD and other HM Land
+            Registry
+            data.
+            The data also includes the Title Descriptor and UPRN datasets which describes the relationship between the
+            NPD
+            polygons and
+            the Unique Property Reference Number (UPRN) from AddressBase. This means that customers can use the UPRN to
+            make
+            relationships
+            between NPD and other central and local Government data that uses AddressBase UPRN’s.
+        </p>
+
+        <h3 class="govuk-heading-m">Spatial representation</h3>
+        <p class="govuk-body">Data is available as vector polygons.</p>
+
+        <h3 class="govuk-heading-m">Spatial resolution</h3>
+        <p class="govuk-body">
+            Polygons captured against the Ordnance Survey large scale map at a scale of 1:1,250, 1:2,500 and 1:10,000
+            dependent
+            upon
+            the scale of OS MasterMap.
+        </p>
+
+        <h2 id="content" class="govuk-heading-l ">Data content and structure</h2>
+
+        <h3 class="govuk-heading-m">Table 1 - NPD class diagram</h3>
+        <table class="govuk-table">
+            <tr class="govuk-table__row">
+                <th scope="col" class="govuk-table__header">Polygon</th>
+            </tr>
+            <tr class="govuk-table__row">
+                <td class="govuk-table__cell">Shape</td>
+            </tr>
+            <tr class="govuk-table__row">
+                <td class="govuk-table__cell">Poly_ID</td>
+            </tr>
+            <tr class="govuk-table__row">
+                <td class="govuk-table__cell">Title_No</td>
+            </tr>
+            <tr class="govuk-table__row">
+                <td class="govuk-table__cell">INSERT</td>
+            </tr>
+            <tr class="govuk-table__row">
+                <td class="govuk-table__cell">UPDATE</td>
+            </tr>
+            <tr class="govuk-table__row">
+                <td class="govuk-table__cell">Rec_Status</td>
+            </tr>
+        </table>
+
+        <h3 class="govuk-heading-m">Table 2 - NPD table structure</h3>
+        <table class="govuk-table">
+            <tr class="govuk-table__row">
+                <th scope="col" class="govuk-table__header">Field name</th>
+                <th scope="col" class="govuk-table__header">Data type</th>
+                <th scope="col" class="govuk-table__header">Mandatory</th>
+                <th scope="col" class="govuk-table__header">Description</th>
+            </tr>
+            <tr class="govuk-table__row">
+                <td class="govuk-table__cell">Shape</td>
+                <td class="govuk-table__cell">Geometry</td>
+                <td class="govuk-table__cell">Yes</td>
+                <td class="govuk-table__cell">Geometry of the Index Polygon must be a single area</td>
+            </tr>
+            <tr class="govuk-table__row">
+                <td class="govuk-table__cell">Poly_ID</td>
+                <td class="govuk-table__cell">Number</td>
+                <td class="govuk-table__cell">Yes</td>
+                <td class="govuk-table__cell">
+                    Unique polygon reference. Identifier is unique to spatial object and managed through lifecycle rules
+                    for
+                    the
+                    dataset
+                </td>
+            </tr>
+            <tr class="govuk-table__row">
+                <td class="govuk-table__cell">Title_No</td>
+                <td class="govuk-table__cell">Character</td>
+                <td class="govuk-table__cell">Yes</td>
+                <td class="govuk-table__cell">
+                    Identifier of the title registration, required to enable associations to be made with the text
+                    register
+                </td>
+            </tr>
+            <tr class="govuk-table__row">
+                <td class="govuk-table__cell">INSERT</td>
+                <td class="govuk-table__cell">Text</td>
+                <td class="govuk-table__cell">Yes</td>
+                <td class="govuk-table__cell">Date on which the polygon in the title was initially created on the index
+                    map
+                </td>
+            </tr>
+            <tr class="govuk-table__row">
+                <td class="govuk-table__cell">UPDATE</td>
+                <td class="govuk-table__cell">Text</td>
+                <td class="govuk-table__cell">Yes</td>
+                <td class="govuk-table__cell">Date on which all or part of the title was last updated</td>
+            </tr>
+            <tr class="govuk-table__row">
+                <td class="govuk-table__cell">Rec_Status</td>
+                <td class="govuk-table__cell">Character</td>
+                <td class="govuk-table__cell">Yes</td>
+                <td class="govuk-table__cell">Identifier to describe status of the polygon. Added (A), Changed (C),
+                    Deleted
+                    (D)
+                </td>
+            </tr>
+        </table>
+
+        <h2 id="quality" class="govuk-heading-l ">Data quality</h2>
+        <p class="govuk-body">
+            The National Polygon Dataset contains a number of known issues, including:
+        </p>
+        <ul class="govuk-list govuk-list--bullet">
+            <li>small sliver gaps and overlaps</li>
+            <li>technical overlapping polygons (polygons where small overlaps exist due to mapping inconsistencies, that
+                do
+                not
+                describe a real conflict of registered titles)</li>
+            <li>actual overlaps, where two or more registered titles include the same land/property and will be resolved
+                upon
+                application</li>
+        </ul>
+        <p class="govuk-body">
+            The data also contains data types that facilitate the process of Land Registration and are a real managed
+            part
+            of
+            the data
+            model but could be considered an issue if the data is not understood, these feature types are explained
+            further
+            on
+            in the document.
+        </p>
+        <p class="govuk-body">
+            The data has been captured for the purposes of enabling land registration, and thus has evolved to be fit
+            for
+            our
+            purpose and the
+            processes and tools that we use.
+        </p>
+        <p class="govuk-body">
+            We welcome <a class="govuk-link" href="https://www.smartsurvey.co.uk/s/HMLR_feedback/" target="_blank"
+                title="This link will open in a new tab">feedback</a> on any data quality issues.
+        </p>
+
+        <h2 id="capture" class="govuk-heading-l ">Data capture information</h2>
+        <p class="govuk-body">
+            An index polygon is a representation of the title extent. HM Land Registry practice allows for an index
+            polygon
+            extent to be the same size, larger or smaller than the extent shown on a title plan. This means that index
+            polygons
+            cannot and should not be relied upon as showing the extent of registered titles. Practice has been reviewed
+            and
+            changed over many years, the index polygon dataset includes polygons based on former practice(s) and does
+            contain
+            inconsistencies.
+        </p>
+        <p class="govuk-body">
+            Index polygons were manually captured on OS county series sheets, national grid sheets and parcels books.
+        </p>
+        <p class="govuk-body">
+            HM Land Registry implemented its computer mapping system (production environment) in 2001, and all 19
+            million
+            index
+            polygons
+            held in paper format at that time had to be vectorised. The program of vectorisation started in August 2001
+            and
+            was
+            completed
+            in February 2004.These polygons were mapped against OS Land-Line.
+        </p>
+        <p class="govuk-body">
+            With so many polygons to vectorise within a finite time frame, HM Land Registry was pragmatic in achieving
+            an
+            effective and
+            efficient capture at that time. This meant that we introduced temporary practice, index polygons were
+            completed
+            pictorially
+            and title plans were seldom used to validate an indexed extent.
+        </p>
+        <p class="govuk-body">
+            Index polygons affected by the OS’ Positional Accuracy Programme (PAI) were subsequently amended. HM Land
+            Registry’s
+            PAI program
+            ran from 2005 to 2008.Many were moved in sympathy with the OS mapping. This was done through an automated
+            process.
+            Those that did
+            not meet certain criteria were referred for manual investigation whereby index polygons were manually
+            compared
+            with
+            the title plan.
+        </p>
+        <p class="govuk-body">
+            Around 2009 HM Land Registry embarked on a quality initiative called the Quality Improvement Flowline (QIF);
+            almost
+            14 million index
+            polygons went through this process. Some minor overlaps were resolved and extent matching was done
+            automatically,
+            each index polygon
+            was reconciled with the title plan. By this time HM Land Registry was taking OS MasterMap (OSMM), the new
+            large
+            scale map product from
+            Ordnance Survey which replaced LandLine.
+        </p>
+        <p class="govuk-body">
+            HM Land Registry receives a daily change only update (COU) of OSMM but this is used for the creation of new
+            Index
+            Polygons and Title Plans,
+            rather than to review or update current registrations. Index Polygons will be updated when there is
+            appropriate
+            activity on a title, or
+            an adjoining title demands a change.
+        </p>
+        <p class="govuk-body">
+            Large scale OS map products (OS Land-Line and OSMM) capture features at various scales 1:1,250 for urban
+            areas,
+            1:2,500 for semi urban
+            and rural areas and 1:10,000 for mountain and moorland areas.
+        </p>
+        <p class="govuk-body">
+            All HM Land Registry data including index polygons are captured to British National Grid.
+        </p>
+
+        <h3 class="govuk-heading-m">Table 3: NPD feature types</h3>
+        <table class="govuk-table">
+            <tr class="govuk-table__row">
+                <th scope="col" class="govuk-table__header">No</th>
+                <th scope="col" class="govuk-table__header">Type</th>
+                <th scope="col" class="govuk-table__header">Description</th>
+            </tr>
+            <tr class="govuk-table__row">
+                <td class="govuk-table__cell">1</td>
+                <td class="govuk-table__cell">Indicative Extent Current practice</td>
+                <td class="govuk-table__cell">
+                    The index polygon is a good representation of, if not identical to the title plan.
+                    This is the most common feature in the dataset.
+                </td>
+            </tr>
+            <tr class="govuk-table__row">
+                <td class="govuk-table__cell">2</td>
+                <td class="govuk-table__cell">Footprint Current practice</td>
+                <td class="govuk-table__cell">
+                    Capturing indicative extents where multiple registered titles exist in a building result in a
+                    cluttered
+                    and
+                    difficult to
+                    interrogate index map. To deal with this, HM Land Registry captures footprint index polygons.
+                    Footprint
+                    indexing involves
+                    the capture of an area larger than the title extent. Whilst normally the footprint will be captured
+                    to
+                    the
+                    defined boundaries
+                    of a building shown on OSMM. The index polygon should be captured to the smallest footprint that
+                    fully
+                    accommodates the title
+                    extent. Where the registered title comprises land that falls outside the building footprint for
+                    example
+                    garden ground or
+                    parking space this should be shown as a separate polygon(s) with an indicative extent. Commonly seen
+                    in
+                    floor level
+                    registrations, also bin stores, advertising hoardings and solar panels.
+                </td>
+            </tr>
+            <tr class="govuk-table__row">
+                <td class="govuk-table__cell">3</td>
+                <td class="govuk-table__cell">Artificial Footprint Current practice</td>
+                <td class="govuk-table__cell">
+                    Where a large number of floor level registrations affect an unusually large defined area on the OSMM
+                    (typically a shopping mall or similar development) indexing to the footprint of the whole
+                    development
+                    makes
+                    interrogating the
+                    index map less effective. HM Land Registry mapping system struggles to deal with a huge amount of
+                    multiple
+                    layered polygons.
+                    In such circumstances HM Land Registry may be divide the area into smaller artificial footprint
+                    areas
+                    within
+                    the building footprint.
+                    Additionally if it is difficult to clearly show small registrations that are not defined on the
+                    OSMM. We
+                    may
+                    capture a larger
+                    artificial footprint to include all the small areas. Commonly seen in shopping malls, small plot
+                    schemes
+                    and
+                    bin stores.
+                </td>
+            </tr>
+            <tr class="govuk-table__row">
+                <td class="govuk-table__cell">4</td>
+                <td class="govuk-table__cell">Exaggerated Extent Current practice</td>
+                <td class="govuk-table__cell">
+                    To allow small areas of land that are undefined on the OSMM to be easily identified all index
+                    polygons
+                    should have a width of
+                    at least 1m. Where a narrow strip of registered land adjoins other registered land, the adjoining
+                    index
+                    polygon will be reduced
+                    in size to allow for the strip to be shown with a 1m width. Commonly seen with ransom strips and
+                    pipelines
+                    less than 1m.
+                </td>
+            </tr>
+            <tr class="govuk-table__row">
+                <td class="govuk-table__cell">5</td>
+                <td class="govuk-table__cell">Gridding Former practice</td>
+                <td class="govuk-table__cell">
+                    Index polygons were indexed on the appropriate national grid 1km or quadrant sheet. The
+                    vectorisation
+                    programme was managed by
+                    national grid reference. Therefore where index polygons fell across sheets this was replicated. This
+                    means
+                    that index polygons
+                    stopped at sheet joins. The impact of this is that fields, houses, roads for example are sometimes
+                    split
+                    into parts each with
+                    its own PID.
+                </td>
+            </tr>
+            <tr class="govuk-table__row">
+                <td class="govuk-table__cell">6</td>
+                <td class="govuk-table__cell">Coexstensive leasehold Former practice</td>
+                <td class="govuk-table__cell">
+                    Some leasehold index polygons were captured to the extent of the freehold index polygon, even though
+                    the
+                    extent was lesser than the
+                    freehold. HM Land Registry changed this practice because it caused difficulties interrogating the
+                    index
+                    map
+                    to determine title numbers
+                    for parts of garden ground and parking spaces.
+                </td>
+            </tr>
+        </table>
+
+        <p class="govuk-body">
+            Topology is defined as how point, line and polygon features share coincident geometry. In the context of
+            index
+            polygons,
+            topology describes how polygons relate to and interact with each other.
+        </p>
+        <p class="govuk-body">
+            Overlaps, gaps, slivers and underlaps all exist in the dataset. Many are genuine and are acceptable but
+            there
+            are
+            some that
+            exist which should not.
+        </p>
+
+        <table class="govuk-table">
+            <tr class="govuk-table__row">
+                <th scope="col" class="govuk-table__header">Relationship</th>
+                <th scope="col" class="govuk-table__header">Description</th>
+            </tr>
+            <tr class="govuk-table__row">
+                <td class="govuk-table__cell">Acceptable overlapping polygons</td>
+                <td class="govuk-table__cell">
+                    HM Land Registry deals with registrations at different floor levels, strata, different tenures and
+                    classes
+                    of title; it is
+                    therefore acceptable for polygons to overlap. When overlapping polygons of this nature are referred
+                    to
+                    the
+                    caseworker they
+                    classify it accordingly and allow it to remain in the dataset.
+                </td>
+            </tr>
+            <tr class="govuk-table__row">
+                <td class="govuk-table__cell">Illegal overlapping polygons</td>
+                <td class="govuk-table__cell">
+                    These are overlaps that arise that shouldn’t be in our data. On system referral of an index polygon
+                    overlap,
+                    the caseworker
+                    investigates and may resolve index polygon overlaps. However, where title extents genuinely overlap,
+                    HM
+                    Land
+                    Registry has
+                    limited powers to amend registered extents so no action is taken until an application to
+                    amend/rectify
+                    is
+                    received.
+                </td>
+            </tr>
+            <tr class="govuk-table__row">
+                <td class="govuk-table__cell">Minor overlapping polygons</td>
+                <td class="govuk-table__cell">
+                    Overlaps less than 0.5m<sup>2</sup> are not referred to caseworkers for remedial action, this is
+                    because
+                    they are insignificant
+                    and are too small to satisfactorily resolve with the mapping toolset in the mapping system.
+                </td>
+            </tr>
+            <tr class="govuk-table__row">
+                <td class="govuk-table__cell">Gaps, slivers and underlaps between polygons</td>
+                <td class="govuk-table__cell">
+                    As part of the registration process consideration is given to adjoining registrations. Where titles
+                    are
+                    intended to adjoin,
+                    practice advices that minor index polygon discrepancies should be resolved. It is right that some
+                    registered
+                    titles do not
+                    adjoin and in that instance the index polygons will not either.
+                </td>
+            </tr>
+        </table>
+
+        <h2 id="maintenance" class="govuk-heading-l ">Data maintenance</h2>
+        <p class="govuk-body">
+            HM Land Registry does not routinely update title plans or index polygons. We may do so in the following
+            circumstances:
+        </p>
+        <ul class="govuk-list govuk-list--bullet">
+            <li>upon receipt of a query received from a customer
+            <li>
+                in dealing with an application for registration, HM Land Registry will consider adjoining registrations,
+                after
+                investigation
+                this can give rise to amendments to a title plan and/or index polygon
+            </li>
+            <li>when an incorrect index polygon is observed
+            <li>
+                some applications, for example sales off from parts of registered titles require the removal of a piece
+                of
+                land
+                from a
+                registered title and the index polygon
+            </li>
+        </ul>
+        <p class="govuk-body">
+            Overnight, index polygons created/updated/deleted in the production environment that day are uploaded to the
+            publication environment
+            as ESRI (Environmental Systems Research Institute)
+            <a class="govuk-link" href="https://www.esri.com/library/whitepapers/pdfs/shapefile.pdf" target="_blank"
+                title="This link will open in a new tab">shapefiles (PDF)</a>.
+            Through this process the polygons undergo simple validation; checking for zero co-ordinate polygons, zero
+            area
+            polygons and
+            duplicate co-ordinate points within polygons. Many of the self-intersections are cleaned for the publication
+            environment and polygons
+            with zero areas and those with an area below 0.1m<sup>2</sup> are removed from it.
+        </p>
+        <p class="govuk-body">
+            An index polygon may go through several changes but the change only update (COU) delivery will only contain
+            the
+            latest version.
+            HM Land Registry does not keep the previous versions of it.
+        </p>
+        <p class="govuk-body">
+            NPD is updated monthly.
+        </p>
+
+        <h2 id="glossary" class="govuk-heading-l ">Glossary</h2>
+        <table class="govuk-table">
+            <tr class="govuk-table__row">
+                <td class="govuk-table__cell">Attribute</td>
+                <td class="govuk-table__cell">
+                    Data that describes the properties of a feature, for example a point feature may have an attribute
+                    describing the point as;
+                    a well or a telegraph pole or a tree.
+                </td>
+            </tr>
+            <tr class="govuk-table__row">
+                <td class="govuk-table__cell">Class Diagram</td>
+                <td class="govuk-table__cell">A diagram describing the structure and content of a dataset.</td>
+            </tr>
+            <tr class="govuk-table__row">
+                <td class="govuk-table__cell">Feature</td>
+                <td class="govuk-table__cell">A data entity, for example a point, line or polygon.</td>
+            </tr>
+            <tr class="govuk-table__row">
+                <td class="govuk-table__cell">Feature Catalogue</td>
+                <td class="govuk-table__cell">A document that defines features, often by describing the feature
+                    attributes.
+                </td>
+            </tr>
+            <tr class="govuk-table__row">
+                <td class="govuk-table__cell">Feature Types</td>
+                <td class="govuk-table__cell">Homogenous collections of common features.</td>
+            </tr>
+            <tr class="govuk-table__row">
+                <td class="govuk-table__cell">GIS</td>
+                <td class="govuk-table__cell">
+                    Geographic information systems, a combination of information technology hardware and software and
+                    trained
+                    user that together
+                    can capture, analyse and use geographic information.
+                </td>
+            </tr>
+            <tr class="govuk-table__row">
+                <td class="govuk-table__cell">Index Polygons</td>
+                <td class="govuk-table__cell">A polygon feature representing the indexed extent of a registered title.
+                </td>
+            </tr>
+            <tr class="govuk-table__row">
+                <td class="govuk-table__cell">Index Map</td>
+                <td class="govuk-table__cell">A collection of index polygons to cover a particular area of interest.
+                </td>
+            </tr>
+            <tr class="govuk-table__row">
+                <td class="govuk-table__cell">MasterMap</td>
+                <td class="govuk-table__cell">The Ordnance Survey large scale topographic map of the UK.</td>
+            </tr>
+            <tr class="govuk-table__row">
+                <td class="govuk-table__cell">Topology</td>
+                <td class="govuk-table__cell">The relationship between geographic features, either within or between
+                    layers
+                    of
+                    information.</td>
+            </tr>
+        </table>
+
+        <h2 id="delivery" class="govuk-heading-l ">Data product delivery</h2>
+
+        <h3 class="govuk-heading-m">Access to the dataset</h3>
+        <p class="govuk-body">
+            There is a charge for the dataset and you will be required to sign a licence.
+        </p>
+        <p class="govuk-body">
+            If you intend to reuse the data within your products and services for commercial gain you must indicate on
+            the
+            Licence and confirm
+            your choice of reuse model.
+        </p>
+        <p class="govuk-body">
+            The Data Services Team can assist in determining your terms of proposed use, such as internal use or
+            permitted
+            reuse.
+        </p>
+        <p class="govuk-body">
+            Should you have any queries about the National Polygon Dataset, please contact the
+            <a class="govuk-link" href="#contact">Data Services Team</a>.
+        </p>
+
+        <h3 class="govuk-heading-m">Download package</h3>
+        <p class="govuk-body">
+            This package can start at any month of the year, you will be granted access to the Full Dataset, the change
+            only
+            updates and the validation files.
+        </p>
+        <p class="govuk-body">
+            All the files in this package are refreshed and available from the second working day of the stated months.
+        </p>
+
+        <h4 class="govuk-heading-s">File structure</h4>
+        <p class="govuk-body">
+            The data is provided as a CSV file. The format of each file will conform to the following:
+        </p>
+        <ul class="govuk-list govuk-list--bullet">
+            <li>the character used to delimit each field is a comma: ‘ , ’ (ASCII 44)</li>
+            <li>all fields will be enclosed within double-quote’s “ “ (ASCII 34)</li>
+            <li>when a field is NULL, it will be transmitted as no character between double quotes, i.e. ,” “,</li>
+            <li>date fields will be provided in the format DD-MM-YYYY HH:MM:SS For example the date; the fourteenth of
+                December
+                twenty thirteen would be represented as 14-12-2013</li>
+            <li>the file will use UTF-8 and ASCII encoding</li>
+            <li>steps will be taken to remove carriage return and line feeds from the data</li>
+            <li>the column heading name will be the first row of the file</li>
+        </ul>
+        <h4 class="govuk-heading-s">Naming convention</h4>
+        <p class="govuk-body">
+            Please note, if you intend to copy and paste the code below, you must remove any spaces within the text
+            string.
+        </p>
+        <p class="govuk-body">
+            The full file has been split into several files which have a 2GB limit:
+        </p>
+        <p class="govuk-body">
+            Full file LR_POLY_FULL_[3 character Month]_[number of file]
+        </p>
+        <p class="govuk-body">
+            Change Only Update file LR_POLY_COU_[DD_MMM_YYYY]
+        </p>
+        <p class="govuk-body">
+            Validation file LR_POLY_VALI_[3 character Month]
+        </p>
+
+        <h2 id="contact" class="govuk-heading-l ">Contact</h2>
+        <p class="govuk-body">
+            If you want to know more about the National Polygon dataset, please contact us:
+        </p>
+        <p class="govuk-body">
+            HM Land Registry<br>
+            Rosebrae Court<br>
+            Woodside Ferry Approach<br>
+            Birkenhead<br>
+            Merseyside<br>
+            CH41 6DU
+        </p>
+        <p class="govuk-body">
+            Email: <a class="govuk-link" href="mailto:data.services@landregistry.gov.uk"
+                title="This link will open your default email application">data.services@landregistry.gov.uk</a>
+        </p>
+        <p class="govuk-body">Telephone: 0300 006 0478</p>
+    </div>
+</div>
+{% include "app/partials/base_bar.html" %}
+{% endblock %}

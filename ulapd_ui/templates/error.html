@@ -1,0 +1,24 @@
+{% extends "app/base.html" %}
+{% block title %}{{title}}{% endblock %}
+{% block content %}
+
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+            <h1 class="govuk-heading-xl">{{title}}</h1>
+            
+            {% if info %}
+                <p class="govuk-body">
+                    {{ info }}
+                </p>
+            {% endif %}
+
+            {% if link %}
+                <p class="govuk-body">
+                    <a class="govuk-button govuk-!-margin-top-2 govuk-!-margin-bottom-8" href="{{ link['href'] }}">{{ link['text'] }}</a>
+                </p>
+            {% endif %}
+        </div>
+    </div>
+
+{% endblock %}
+

@@ -1,0 +1,24 @@
+{% extends "app/base.html" %}
+{% import "app/macros/form.html" as dps_form %}
+{% block title %}Create an account{% endblock %}
+{% block content %}
+<div class="govuk-grid-row filter-user-type">
+    <div class="govuk-grid-column-two-thirds">
+    {% include "app/partials/backbtn.html" %}
+        {% if fields %}
+            <script type="application/json" data-ga-form-validation="personal_address">
+                {{ fields|tojson }}
+            </script>
+        {% endif %}
+
+        <form action="/registration/address-type-personal" method="POST" enctype="application/x-www-form-urlencoded">
+            {{dps_form.dynamic_radio('uk_resident' ,value=session['dps-session']['registration']['uk_resident'], label_element="h1", label="Do you live in the UK?", label_class="govuk-heading-xl", options=[
+                {'label':'Yes', 'value': 'yes', 'id': 'yes'},
+                {'label':'No', 'value': 'no', 'id': 'no'},
+            ] ,fields=fields or none, error_list=True)}}
+            <br/>
+            <button type="submit" class="govuk-button">Continue</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

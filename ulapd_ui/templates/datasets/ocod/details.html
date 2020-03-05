@@ -1,0 +1,211 @@
+{% extends "app/base.html" %}
+{% from "app/macros/breadcrumbs.html" import bread_crumbs %}
+{% block title %}{{ dataset_details['title'] }}{% endblock %}
+{% block content %}
+{% include "app/partials/navbar.html" %}
+<div class="details-page">
+    {{ bread_crumbs(breadcrumb_links) }}
+
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full">
+            <span class="govuk-caption-xl">Dataset</span>
+            <h1 class="govuk-heading-xl">{{dataset_details['title']}}</h1>
+        </div>
+    </div>
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-one-third">
+            <div class="table_of_contents" id="contents">
+                <p class="govuk-body">Contents</p>
+                <ul>
+                    <li><a class="govuk-link" href="#dataset">The dataset</a></li>
+                    <li><a class="govuk-link" href="#example">Get example data</a></li>
+                    <li><a class="govuk-link" href="#access">Access the data</a></li>
+                    <li><a class="govuk-link" href="#contact">Contact us</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="govuk-grid-column-two-thirds">
+            <h2 id="dataset" class="govuk-heading-l">The dataset</h2>
+            <p class="govuk-body">
+                This data shows every completed record we have about non-UK companies that own land
+                or property in England and Wales.
+            </p>
+            <p class="govuk-body">
+                The data does not show land or property owned by:
+            </p>
+            <ul class="govuk-list govuk-list--bullet">
+                <li>private individuals</li>
+                <li>UK companies with an overseas address</li>
+                <li>charities</li>
+            </ul>
+            <p class="govuk-body">
+                We cannot show records that are being updated. For example, an overseas company buys
+                a property and tells us about it on 20 June 2019. We finish updating the record on
+                12 July 2019. You will not be able to download this data until the dataset is next
+                updated on the second day of August.
+            </p>
+            <h3 class="govuk-heading-m">Data quality</h3>
+            <h4 class="govuk-heading-s">Where the information comes from</h4>
+            <p class="govuk-body">
+                We get information from:
+            </p>
+            <ul class="govuk-list govuk-list--bullet">
+                <li>citizens</li>
+                <li>corporate bodies</li>
+                <li>conveyancers</li>
+                <li>deeds</li>
+                <li>other documents</li>
+            </ul>
+            <h4 class="govuk-heading-s">Inconsistencies in the data</h4>
+            <p class="govuk-body">
+                The data comes from different sources. This means that not everything is written
+                the same way. For example, one address may say '24 The Willows' and another might
+                be written as 'Field south of N14'.
+            </p>
+            <p class="govuk-body">
+                You may also see:
+            </p>
+            <ul class="govuk-list govuk-list--bullet">
+                <li>spelling errors or typos</li>
+                <li>descriptions instead of addresses (land being developed may not have an address)</li>
+                <li>partial postcodes or no postcodes at all</li>
+                <li>mistakes in company registration numbers or no company registration number</li>
+                <li>no data for date of registration</li>
+                <li>2 different companies with the same registration number</li>
+            </ul>
+            <p class="govuk-body">
+                Inconsistencies happen because of human error or because we do not have the data.
+                For example, companies who bought property before 1996 did not need to tell us
+                their registration number.
+            </p>
+            <h4 class="govuk-heading-s">Technical specification</h4>
+            <p class="govuk-body">
+                <a class="govuk-link" href="/datasets/ocod/tech-spec">Read the technical 
+                specification for overseas companies that own property in England and Wales</a> 
+                for full details about the data.
+            </p>
+            <p class="govuk-body">
+                <a class="govuk-link" href="#contact">Contact us</a> if you think there's a mistake in the data.
+            </p>
+            <br>
+            <br>
+            <br>
+            <h2 id="example" class="govuk-heading-l">Get example data</h2>
+            <p class="govuk-body">
+                You can <a class="govuk-link" href="{{url_for('datasets.download', dataset_id=dataset_details['name'], file_name='example.csv')}}">
+                download example data</a>. You do not need to create an account for the example data.
+            </p>
+            <table id="example-data" class="govuk-table table-hack">
+                <caption class="govuk-table__caption">Example data</caption>
+                <thead class="govuk-table__head">
+                    <tr class="govuk-table__row">
+                        <th scope="col" class="govuk-table__header">Data</th>
+                        <th scope="col" class="govuk-table__header">Example data 1</th>
+                        <th scope="col" class="govuk-table__header">Example data 2</th>
+                    </tr>
+                </thead>
+                <tbody class="govuk-table__body">
+                    {% for example in dataset_details['example_data']%}
+                    <tr class="govuk-table__row">
+                        <th scope="row" class="govuk-table__cell">{{example['data']}}</th>
+                        {% for example_data in example['examples'] %}
+                            {% if example['data'] == 'Property address' or example['data'] == 'Proprietor address' %}
+                            <td class="govuk-table__cell">
+                                {% for line in example_data %}
+                                    {{line}}<br>
+                                {% endfor %}
+                            </td>
+                            {% else %}
+                            <td class="govuk-table__cell">{{example_data}}</td>
+                            {% endif %}
+                        {% endfor %}
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <br>
+            <br>
+            <br>
+            <h2 id="access" class="govuk-heading-l">Access the dataset</h2>
+            {% if not g.user %}
+                <p class="govuk-body">
+                    You will need to <a class="govuk-link" href="{{ url_for('registration.user_type') }}">create an account</a>
+                    or <a class="govuk-link" href="{{ url_for('sign-in.get_signin') }}">sign in</a> to your account, and agree 
+                    to the <a class="govuk-link" href="/datasets/ocod/licence/view">data licence</a>.
+                </p>
+            {% endif %}
+            <h3 class="govuk-heading-m">Download the data</h3>
+            <p class="govuk-body">
+                The dataset is updated on the second working day of the month. The data includes
+                CSV files. You can download the: 
+            </p>
+            <ul class="govuk-list govuk-list--bullet">
+                <li>
+                    complete file - this is a complete file of the current data and contains all of the
+                    changes that happened during the month                
+                </li>
+                <li>
+                    change only file - this includes data that has changed since the previous month's release
+                </li>
+            </ul>
+            <h3 class="govuk-heading-m">Access the data with an API</h3>
+            <p class="govuk-body">
+                You will get an API key when you:
+            </p>
+            <ul class="govuk-list govuk-list--bullet">
+                <li>created your account</li>
+                <li>signed in</li>
+                <li>agreed to the data licence</li>
+            </ul>
+            <p class="govuk-body">
+                For more information, read our guides on <a class="govuk-link" href="{{ url_for('general.get_api_info') }}">
+                accessing data with the API</a> and <a class="govuk-link" href="{{ url_for('general.get_api_documentation') }}">
+                API technical details</a>.
+            </p>
+            <h3 class="govuk-heading-m">How the data can be used</h3>
+            <p class="govuk-body">
+                This data has a <a class="govuk-link" href="/datasets/ocod/licence/view">licence</a> which explains how you can use it. 
+                If you’re not sure that you can use the data in the way you need, 
+                email <a class="govuk-link" href="mailto:address.management@royalmail.com" title="This link will open your default email application">address.management@royalmail.com</a> to check.
+            </p>
+            <p class="govuk-body">
+                The licence sets out the conditions for the re-use of data (in this case, addresses) which contain third party intellectual 
+                property rights. Property addresses contained within the Overseas companies that own property in England and Wales data are 
+                processed against Ordnance Survey’s AddressBase Premium product, which incorporates Royal Mail’s PAF® database (Address Data).
+            </p>
+            {% if not g.user %}
+                <a class="govuk-button" href="{{ url_for('registration.user_type') }}">Create account</a>
+                <a class="govuk-link" href="{{ url_for('sign-in.get_signin') }}" 
+                    style="padding-left: 30px; margin-top: 8px; position: absolute; font-size: 22px">Sign in</a>
+            {% elif g.user and licence_signed %}
+                <a class="govuk-button" href="{{ url_for('general.get_list') }}">Download data</a>
+            {% else %}
+                <a class="govuk-button" href="{{ url_for('.get_agree_licence', dataset_id=dataset_details['name']) }}">Agree licence</a>
+            {% endif %}
+            <br>
+            <br>
+            <br>
+            <h2 id="contact" class="govuk-heading-l">Contact us</h2>
+            <p class="govuk-body">
+                Contact us if you need help with the dataset or have any questions:
+            </p>
+            <p class="govuk-body">
+                <strong>Data Services Team</strong><br>
+                HM Land Registry<br>
+                Rosebrae Court<br>
+                Woodside Ferry Approach<br>
+                Birkenhead<br>
+                Merseyside<br>
+                CH41 6DU
+            </p>
+            <p class="govuk-body">
+                Email: <a class="govuk-link" href="mailto:data.services@landregistry.gov.uk" title="This link will open your default email application">data.services@landregistry.gov.uk</a>
+            </p>
+            <p class="govuk-body">
+                Telephone: 0300 006 0478
+            </p>
+        </div>
+    </div>
+    {% include "app/partials/base_bar.html" %}
+</div>
+{% endblock %}

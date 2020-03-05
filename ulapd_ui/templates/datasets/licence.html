@@ -1,0 +1,39 @@
+{% extends "app/base.html" %}
+{% import "app/macros/form.html" as dps_form %}
+{% import "app/macros/error_list.html" as dps_error %}
+{% block title %}Licence{% endblock %}
+{% block content %}
+<div class="govuk-grid-row">
+{% include "app/partials/backbtn.html" %}
+    <div class="govuk-grid-column-two-thirds">
+        <br/>
+        {% if not agree %}
+            {% if md %}
+                {{ md | safe }}
+            {% else %}
+                {% include 'app/datasets/%s/licence_%s.html' % (dataset_id, licence_type) %}
+            {% endif %}
+        {% else %}
+            {% include 'app/macros/error_list.html' %}
+
+            {% if fields %}
+                <script type="application/json" data-ga-form-validation="licence">
+                    {{ fields|tojson }}
+                </script>
+            {% endif %}
+
+            {% if md %}
+                {{ md | safe }}
+            {% else %}
+                {% include 'app/datasets/%s/licence_%s.html' % (dataset_id, licence_type) %}
+            {% endif %}
+            <form action="{{ url_for('.post_agree_licence', dataset_id=dataset_id) }}" method="POST" enctype="application/x-www-form-urlencoded">
+                {{ dps_form.checkbox('agree-licence', 'I have read and agree to the terms and conditions of this licence.', fields=fields or none) }}
+                <div class="govuk-!-padding-bottom-5"></div>
+                <button type="submit" class="govuk-button">Continue</button>
+            </form>
+        {% endif %}
+    </div>
+</div>
+{% include "app/partials/base_bar.html" %}
+{% endblock %}

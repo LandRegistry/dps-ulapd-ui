@@ -1,0 +1,83 @@
+{% from "app/macros/breadcrumbs.html" import bread_crumbs %}
+{% extends "app/base.html" %}
+{% block title %}{% endblock %}
+{% block content %}
+{% include "app/partials/navbar.html" %}
+<div class="listings-grid">
+    {{ bread_crumbs() }}
+
+    {% if g.user %}
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full">
+            <h1 class="govuk-heading-xl">
+                <span class="govuk-caption-xl">HM Land Registry</span>
+                Use land and property data
+            </h1>
+        </div>
+    </div>
+
+    <div class="govuk-tabs" data-module="tabs">
+        <ul class="govuk-tabs__list">
+            <li class="govuk-tabs__list-item">
+                <a class="govuk-tabs__tab govuk-tabs__tab--selected" href="#my-datasets" data-ga-tab>
+                    My datasets
+                </a>
+            </li>
+            
+            <li class="govuk-tabs__list-item">
+                <a class="govuk-tabs__tab" href="#all-datasets" data-ga-tab>
+                    All datasets
+                </a>
+            </li>
+
+            <li class="govuk-tabs__list-item">
+                <a class="govuk-tabs__tab" href="#my-api-key" data-ga-tab>
+                    My API key
+                </a>
+            </li>
+        </ul>
+
+
+        <section class="govuk-tabs__panel" id="my-datasets">
+            {% include "app/partials/my_datasets_tab.html" %}
+        </section>
+
+        <section class="govuk-tabs__panel govuk-tabs__panel--hidden" id="all-datasets">
+            {% include "app/partials/all_datasets_tab.html" %}
+        </section>
+
+        <section class="govuk-tabs__panel govuk-tabs__panel--hidden" id="my-api-key">
+            {% include "app/partials/my_api_key_tab.html" %}
+        </section>
+    </div>
+    {% else %}
+        <div class="govuk-grid-row">
+            <div class="govuk-grid-column-full">
+                <h1 class="govuk-heading-xl">
+                    <span class="govuk-caption-xl">HM Land Registry</span>
+                    Use land and property data
+                </h1>
+                <p class="govuk-body-l">
+                    Access data about land and property in England and Wales from this new service.
+                </p>
+                <p class="govuk-body">
+                    Most of this data is free to access but you may need to create an account and sign a licence agreement first.
+                </p>
+                <div class="govuk-warning-text">
+                    <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+                    <strong class="govuk-warning-text__text">
+                        <span class="govuk-warning-text__assistive">Warning</span>
+                        <a class="govuk-link" href="https://lrdatapublication.kahootz.com">Sign in to Kahootz</a> if you normally use it to access Overseas companies or UK companies datasets.
+                    </strong>
+                <span class="govuk-warning-text__text">We'll be moving Kahootz users to this service from Febuary 2020.</span>
+                </div>
+                <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
+            </div>
+        </div>
+
+        {% include "app/partials/all_datasets_tab.html" %}
+    {% endif %}
+</div>
+{% include "app/partials/base_bar.html" %}
+{% endblock %}
+</div>

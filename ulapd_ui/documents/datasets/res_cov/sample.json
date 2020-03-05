@@ -1,0 +1,34 @@
+{
+    "example_data": [
+      {
+        "data": "Unique identifier",
+        "examples": ["4FO3CS3FO9C ...", "968BA3CDA2 ..."]
+      },
+      {
+        "data": "Tenure",
+        "examples": ["Freehold", "Freehold"]
+      },
+      {
+        "data": "Register property description",
+        "examples": [["23 Foxwood Holt", "London", "(SW4 5RF)"],
+          ["1 Longfield Strands", "Hontongdonith"]]
+      },
+      {
+        "data": "County",
+        "examples": ["GREATER LONDON", "GREATER LONDON"]
+      },
+      {
+        "data": "Region",
+        "examples": ["GREATER LONDON", "GREATER LONDON"]
+      },
+      {
+        "data": "Associated property description ID",
+        "examples": ["6171306", "8791108"]
+      },
+      {
+        "data": "Associated property description",
+        "examples": [["23 FOXWOOD HOLT", "LONDON", "SW4 5RF"],
+          ["1 LONGFIELD STRANDS", "HONTONGDONITH"]]
+      }
+    ]
+  }

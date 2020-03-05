@@ -1,0 +1,132 @@
+{% if agreed_dataset_list %}
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+        <h2 class="govuk-heading-m govuk-!-margin-bottom-6">
+            Welcome back, {{ dps_session['user']['user_details']['first_name'] }} {{ dps_session['user']['user_details']['last_name'] }}.
+            {% if dps_session['user']['principle'].get('lastLoginDate') %}
+                <span class="govuk-body-s govuk-caption-m">You last signed in {{ dps_session['user']['principle']['lastLoginDate'] }} at {{ dps_session['user']['principle']['lastLoginTime'] }} (UTC).</span>
+            {% endif %}
+        </h2>
+        <p class="govuk-body">
+            You've agreed to licences for the datasets on this page.
+        </p>
+        {% if user_has_activity %}
+        <p class="govuk-body">
+            You can download the full dataset or a change only file. A change only file includes only the data that has changed
+            since the previous version of the file.
+        </p>
+        {% endif %}
+    </div>
+</div>
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+        <hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible">
+    </div>
+</div>
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+    {% for dataset in agreed_dataset_list %}
+        <div class="govuk-!-padding-bottom-7 my-datasets-tile">
+            <h3 class="govuk-heading-m">
+                {% if dataset['type'] == 'confidential' %}
+                    {{ dataset['title'] }}
+                {% else %}
+                    <a class="govuk-link" href="{{ url_for('datasets.get_details', dataset_id=dataset['name']) }}">{{ dataset['title'] }}</a>
+                {% endif %}
+                {% if dataset['type'] == 'freemium' %}
+                <span class="govuk-caption-m">{{ freemium_licences[dataset['name']] }}</span>
+                {% endif %}
+            </h3>
+            <p class="govuk-body">
+                The latest data from <b>{{ dataset["last_updated"] }}</b> is available.
+            </p>
+
+            {% if dataset['resources']|length > 1 %}
+                <p class="govuk-body">Download the:</p>
+            {% endif %}
+
+            <div>
+                {% for resource in dataset['resources'] %}
+                    <a href="{{url_for('datasets.download', dataset_id=dataset['name'], file_name=resource['file_name'])}}" role="button" draggable="false" class="govuk-button" data-ga-download="{{resource['file_name']}}">
+                    <b>Download {{resource['name']}}</b> - {{resource['file_size']}}, {{resource['format']}}</a>
+                {% endfor %}
+            </div>
+            <details class="govuk-details">
+                <summary class="govuk-details__summary">
+                    <span class="govuk-details__summary-text">See older versions of this file</span>
+                </summary>
+                <div class="govuk-details__text">
+                    <table class="govuk-table">
+                        {% if dataset['history']['dataset_history'][0]['resource_list']|length > 1 %}
+                            <thead class="govuk-table__head">
+                                <tr class="govuk-table__row">
+                                    <th class="govuk-table__header" scope="col">Date</th>
+                                    <th class="govuk-table__header" scope="col">All data</th>
+                                    <th class="govuk-table__header" scope="col">Data that changed</th>
+                                </tr>
+                            </thead>
+                            <tbody class="govuk-table__body">
+                                {% for file in dataset['history']['dataset_history'] %}
+                                    <tr class="govuk-table__row">
+                                        <th class="govuk-table__header">{{ file["last_updated"] }}</th>
+                                        <td class="govuk-table__cell">
+                                            <a class="govuk-link" href="{{url_for('datasets.download', dataset_id=dataset['name'], last_updated=file['last_updated'], file_name=file['resource_list'][1]['file_name'])}}" 
+                                                title="Download the full {{ dataset['title'] }} file for {{ file['last_updated'] }}" role="button" draggable="false" data-ga-download="{{file['resource_list'][1]['file_name']}}">Download {{ file["resource_list"][1]["file_size"] }}</a>
+                                        </td>
+                                        <td class="govuk-table__cell">
+                                            <a class="govuk-link" href="{{url_for('datasets.download', dataset_id=dataset['name'], last_updated=file['last_updated'], file_name=file['resource_list'][0]['file_name'])}}" 
+                                                title="Download the change only {{ dataset['title'] }} file for {{ file['last_updated'] }}" role="button" draggable="false" data-ga-download="{{file['resource_list'][0]['file_name']}}">Download {{ file["resource_list"][0]["file_size"] }}</a>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        {% else %}
+                        <tbody class="govuk-table__body">
+                            {% for file in dataset['history']['dataset_history'] %}
+                                <tr class="govuk-table__row">
+                                    <th class="govuk-table__header" scope="row">{{ file["last_updated"] }}</th>
+                                    <td class="govuk-table__cell">
+                                        <a class="govuk-link" href="{{url_for('datasets.download', dataset_id=dataset['name'], last_updated=file['last_updated'], file_name=file['resource_list'][0]['file_name'])}}" 
+                                            title="Download the full {{ dataset['title'] }} file for {{ file['last_updated'] }}" role="button" draggable="false" data-ga-download="{{file['resource_list'][0]['file_name']}}">Download {{ file["resource_list"][0]["file_size"] }}</a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                        {% endif %}
+                    </table>
+                    <br>
+                    <p class="govuk-body">
+                        Contact us if you need data from a different month
+                    </p>
+                    <ul class="govuk-list govuk-list--bullet">
+                        <li>email: <a class="govuk-link" href="mailto:data.services@landregistry.gov.uk​" title="This link will open your default email application">data.services@landregistry.gov.uk​</a></li>
+                        <li>telephone: 0300 006 0478</li>
+                    </ul>
+                </div>
+            </details>
+        </div>
+    {% endfor %}
+
+    {% if not user_has_activity %}
+        <p class="govuk-body"><a href="#all-datasets" class="govuk-link">View all available datasets</a> from HM Land Registry.</p>
+    {% endif %}
+    </div>
+</div>
+{% else %}
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+        <h2 class="govuk-heading-m govuk-!-margin-bottom-6">
+            Welcome back, {{ dps_session['user']['user_details']['first_name'] }} {{ dps_session['user']['user_details']['last_name'] }}.
+            {% if dps_session['user']['principle'].get('lastLoginDate') %}
+                <span class="govuk-body-s govuk-caption-m">You last signed in {{ dps_session['user']['principle']['lastLoginDate'] }} at {{ dps_session['user']['principle']['lastLoginTime'] }} (UTC).</span>
+            {% endif %}
+        </h2>
+        <p class="govuk-body">
+            You'll see datasets on this page when you've agreed to the dataset licence.
+        </p>
+        <p class="govuk-body">
+            You have not agreed to any dataset licences. <a href="#all-datasets" class="govuk-link">View all datasets</a> from HM Land Registry.
+        </p>
+    </div>
+</div>
+{% endif %}

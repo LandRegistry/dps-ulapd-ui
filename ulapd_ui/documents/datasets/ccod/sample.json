@@ -1,0 +1,73 @@
+{
+  "example_data": [
+    {
+      "data": "Title number",
+      "examples": ["DTR365201", "DTT261501"]
+    },
+    {
+      "data": "Tenure",
+      "examples": ["Leasehold", "Leasehold"]
+    },
+    {
+      "data": "Property address",
+      "examples": [["Land lying to the south", "of", "West Parley Road", "Bournemouth"],
+        ["67 Arthur Green Walk", "Tuckton", "BH99 9ZZ"]]
+    },
+    {
+      "data": "District",
+      "examples": ["Bournemouth", "Christchurch"]
+    },
+    {
+      "data": "County",
+      "examples": ["Bournemouth", "Dorset"]
+    },
+    {
+      "data": "Region",
+      "examples": ["South West", "South West"]
+    },
+    {
+      "data": "Postcode",
+      "examples": ["", "BH99 9ZZ"]
+    },
+    {
+      "data": "Multiple address indicator",
+      "examples": ["N", "Y"]
+    },
+    {
+      "data": "Price paid",
+      "examples": ["", "59100"]
+    },
+    {
+      "data": "Proprietor name",
+      "examples": ["Sopley View Freehold Limited", "Downton Bloor Housing Association Limited"]
+    },
+    {
+      "data": "Company registration number",
+      "examples": ["9999999", "99999"]
+    },
+    {
+      "data": "Proprietorship category",
+      "examples": ["Limited Company or Public Limited Company", "Community Benefit Society (Company)"]
+    },
+    {
+      "data": "Proprietor address",
+      "examples": [["21 Norfolk Grange", "Bournemouth", "BH56 8UT"], ["Holborne House", "Tuckton", "BH56 3ML"]]
+    },
+    {
+      "data": "Date proprietor added",
+      "examples": ["24/09/2012", "25/01/2017"]
+    },
+    {
+      "data": "Additional proprietor indicator ",
+      "examples": ["N", "N"]
+    },
+    {
+      "data": "Change indicator (change only update)",
+      "examples": ["A", "D"]
+    },
+    {
+      "data": "Change date",
+      "examples": ["16/09/2019 ", "16/09/2019"]
+    }
+  ]
+}

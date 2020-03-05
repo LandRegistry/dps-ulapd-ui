@@ -1,0 +1,34 @@
+{% extends "app/base.html" %}
+{% import "app/macros/form.html" as dps_form %}
+
+{% block title %}Create an account{% endblock %}
+{% block content %}
+<div class="govuk-grid-row filter-user-type">
+    <div class="govuk-grid-column-two-thirds">
+    {% include "app/partials/backbtn.html" %}
+        {% if fields %}
+            <script type="application/json" data-ga-form-validation="personal_info">
+                {{ fields|tojson }}
+            </script>
+        {% endif %}
+        <form action="/registration/{{ route }}" method="POST" enctype="application/x-www-form-urlencoded">
+            <fieldset class="govuk-fieldset">
+                <legend>
+                    <h1 class="govuk-heading-xl">Your details</h1>
+                </legend>
+                
+                {% include 'app/macros/error_list.html' %}
+
+                {{dps_form.input('title', value=session['dps-session']['registration']['title'] or "", class='govuk-!-width-one-third', label='Title', fields=fields or none)}}
+                {{dps_form.input('first_name', value=session['dps-session']['registration']['first_name'] or "", class='govuk-!-width-three-quarters', label='First name',fields=fields or none)}}
+                {{dps_form.input('last_name', value=session['dps-session']['registration']['last_name'] or "", class='govuk-!-width-three-quarters', label='Last name', fields=fields or none)}}
+                {{dps_form.input('email', value=session['dps-session']['registration']['email'] or "", class='govuk-!-width-three-quarters', label='Email', hint='We’ll only use this to send you sign-in details for your account.', fields=fields or none)}}
+                {% if route == 'about-you-personal'%}
+                    {{dps_form.input('phone', value=session['dps-session']['registration']['phone'] or "", class='govuk-!-width-one-half', label='Phone', hint='For international numbers include the country code.', fields=fields or none)}}
+                {% endif %}
+            </fieldset>
+            <button type="submit" class="govuk-button">Continue</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

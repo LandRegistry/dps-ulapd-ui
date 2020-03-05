@@ -1,0 +1,59 @@
+{% extends "app/base.html" %}
+{% import "app/macros/form.html" as dps_form %}
+{% from "app/macros/breadcrumbs.html" import bread_crumbs %}
+{% block title %}Login{% endblock %}
+{% block content %}
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+    {{ bread_crumbs(breadcrumb_links) }}
+    {% for message in get_flashed_messages() %}
+        <div class="govuk-warning-text">
+            <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+            <strong class="govuk-warning-text__text">
+                <span class="govuk-warning-text__assistive">Warning</span>
+                {{ message }}
+            </strong>
+        </div>
+    {% endfor %}
+
+    <form action="/sign-in" method="POST" enctype="application/x-www-form-urlencoded">
+        <fieldset class="govuk-fieldset">
+            <legend>
+                <h1 class="govuk-heading-xl">
+                    Sign in
+                </h1>
+            </legend>
+
+            {% if fields %}
+            <div class="govuk-error-summary" aria-labelledby="error-summary-title" role="alert" tabindex="-1" data-module="error-summary">
+                <h2 class="govuk-error-summary__title" id="error-summary-title">
+                    {{ error_title }}
+                </h2>
+                <div class="govuk-error-summary__body">
+                    <ul class="govuk-list govuk-error-summary__list">
+                        {% for name, field in fields.items() %}
+                            {% if field['error'] %}
+                                {% for error in field['error'] %}
+                                {% set href = name if name != '#' else 'email' %}
+                                <li><a class="govuk-link" href="#{{ href }}">{{ error }}</a></li>
+                                {% endfor %}
+                            {% endif %}
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+            {% endif %}
+
+
+            {{ dps_form.input("email", label="Email", type="text", value="", fields=fields or none)}}
+            {{ dps_form.input("password", label="Password", type="password", value="", fields=fields or none) }}
+        </fieldset>
+        <button type="submit" class="govuk-button">Sign in</button>
+    </form>
+    <br>
+    <p class="govuk-body"><a class="govuk-link" href="/password/reset">I forgot my password</a></p>
+
+    <p class="govuk-body"><a class="govuk-link" href="/registration">Create an account</a></p>
+</div>
+</div>
+{% endblock %}

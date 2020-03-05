@@ -1,0 +1,199 @@
+{% extends "app/base.html" %}
+{% from "app/macros/breadcrumbs.html" import bread_crumbs %}
+{% block title %}{{ dataset_details['title'] }}{% endblock %}
+{% block content %}
+{% include "app/partials/navbar.html" %}
+<div class="details-page">
+    {{ bread_crumbs(breadcrumb_links) }}
+
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full">
+            <span class="govuk-caption-xl">Dataset</span>
+            <h1 class="govuk-heading-xl">{{dataset_details['title']}}</h1>
+        </div>
+    </div>
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-one-third">
+            <div class="table_of_contents" id="contents">
+                <p class="govuk-body">Contents</p>
+                <ul>
+                    <li><a class="govuk-link" href="#dataset">The dataset</a></li>
+                    <li><a class="govuk-link" href="#example">Get example data</a></li>
+                    <li><a class="govuk-link" href="#access">Access the data</a></li>
+                    <li><a class="govuk-link" href="#contact">Contact us</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="govuk-grid-column-two-thirds">
+            <h2 id="dataset" class="govuk-heading-l">The dataset</h2>
+            <p class="govuk-body">
+                This dataset shows registered land and property in England and Wales that has a restrictive covenant.
+            </p>
+            <p class="govuk-body">
+                The data does not give details about what the restrictive covenant is. If you want to find out the details of a restrictive
+                covenant, the information may be held in documents or registers retained by HM Land Registry.
+            </p>
+            <h3 class="govuk-heading-m">What is a restrictive covenant?</h3>
+            <p class="govuk-body">
+                A restrictive covenant is a contract between 2 landowners. One landowner promises the other landowner not to carry out
+                certain acts on their own land.
+            </p>
+            <p class="govuk-body">
+                Restrictive covenants usually happen when somebody selling land wishes to restrict what the buyer can do with it.
+                However, sometimes the vendor will agree to restrict their own use of the land they are keeping. The obligation 
+                to comply with the covenant remains no matter how often the land changes hands or how out of date the covenants seem to be.
+            </p>
+            <h2 id="example" class="govuk-heading-l">Get example data</h2>
+            <p class="govuk-body">
+                You can <a class="govuk-link" href="{{url_for('datasets.download', dataset_id=dataset_details['name'], file_name='example.csv')}}">
+                download example data</a>. You do not need to create an account for the example data.
+            </p>
+            <table id="example-data" class="govuk-table">
+                <caption class="govuk-table__caption">Example data</caption>
+                <thead class="govuk-table__head">
+                    <tr class="govuk-table__row">
+                        <th scope="col" class="govuk-table__header example-data-first-column">Data</th>
+                        <th scope="col" class="govuk-table__header">Example data 1</th>
+                        <th scope="col" class="govuk-table__header">Example data 2</th>
+                    </tr>
+                </thead>
+                <tbody class="govuk-table__body">
+                    {% for example in dataset_details['example_data']%}
+                    <tr class="govuk-table__row">
+                        <th scope="row" class="govuk-table__cell">{{example['data']}}</th>
+                        {% for example_data in example['examples'] %}
+                            {% if example['data'] == 'Register property description' or example['data'] == 'Associated property description' %}
+                            <td class="govuk-table__cell">
+                                {% for line in example_data %}
+                                    {{line}}<br>
+                                {% endfor %}
+                            </td>
+                            {% else %}
+                            <td class="govuk-table__cell">{{example_data}}</td>
+                            {% endif %}
+                        {% endfor %}
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <h4 id="explanation" class="govuk-heading-s">Technical specification</h4>
+            <p class="govuk-body">
+                <a class="govuk-link" href="/datasets/{{dataset_details['name']}}/tech-spec">Read the technical 
+                specification for Restrictive Covenants</a> for full details about the data.
+            </p>
+            <h2 id="access" class="govuk-heading-l">Access the dataset</h2>
+            <h3 class="govuk-heading-m">Download the data</h3>
+            <p class="govuk-body">
+                The dataset is updated on the 6th working day of the month. We publish the data as .CSV files. You can download the:
+            </p>
+            <ul class="govuk-list govuk-list--bullet">
+                <li>
+                    complete file - this is a complete file of the current data and contains all of the changes that happened during the month
+                </li>
+                <li>
+                    change only file - this includes data that has changed since the previous month's release
+                </li>
+            </ul>
+            <h3 class="govuk-heading-m">Access the data with an API</h3>
+            <p class="govuk-body">
+                If you have software engineering knowledge, you can access the data with an API. You'll get an API key when you've:
+            </p>
+            <ul class="govuk-list govuk-list--bullet">
+                <li>agreed to the licence</li>
+                <li>paid the fee if you have a commercial licence</li>
+                <li>signed in to your account</li>
+            </ul>
+            <p class="govuk-body">
+                For more information, read our guidelines on <a class="govuk-link" href="{{ url_for('general.get_api_info') }}">
+                accessing data with the API</a> and <a class="govuk-link" href="{{ url_for('general.get_api_documentation') }}">
+                API technical details</a>.
+            </p>
+            <h3 class="govuk-heading-m">How you can use the data</h3>
+            <p class="govuk-body">
+                There are 3 different licence types - commercial, exploration and direct use. Each licence describes how you can use the data.
+            </p>
+            <h4 class="govuk-heading-s">Commercial licence</h4>
+            <p class="govuk-body">
+                A <a class="govuk-link" href="/datasets/{{dataset_details['name']}}/licence/commercial/view">commercial licence</a> allows you to use the data
+                in a product or service that you'll sell. You might add or combine data to make your product.
+            </p>
+            <p class="govuk-body">
+                The data costs £475 plus VAT a year.
+            </p>
+            <h4 class="govuk-heading-s">Exploration licence</h4>
+            <p class="govuk-body">
+                An <a class="govuk-link" href="/datasets/{{dataset_details['name']}}/licence/exploration/view">exploration licence</a> allows you to take the data
+                for 3 months to see if you can make a product or service to sell. You'll be able to put the data in products, services or 
+                prototypes and show it to users or customers.
+            </p>
+            <p class="govuk-body">
+                The data is free of charge.
+            </p>
+            <p class="govuk-body">
+                You'll need to take a commercial licence if you decide to create your product or service after evaluating the data.
+            </p>
+            <h4 class="govuk-heading-s">Direct use licence</h4>
+            <p class="govuk-body">
+                A <a class="govuk-link" href="/datasets/{{dataset_details['name']}}/licence/direct/view">direct use licence</a> allows you to use this data
+                for research, for personal use or for your work.
+            </p>
+            <p class="govuk-body">
+                <strong>You are not allowed to:</strong>
+            </p>
+            <ul class="govuk-list govuk-list--bullet">
+                <li>show or give this dataset to anyone externally</li>
+                <li>publish the data online</li>
+                <li>use the data in commercial product or service</li>
+                <li>make money from the data</li>
+            </ul>
+            <p class="govuk-body">
+                The data is free of charge.
+            </p>
+            <h3 class="govuk-heading-m">What happens next?</h3>
+            <h4 class="govuk-heading-s">Commercial or exploratory licence</h4>
+            <p class="govuk-body">
+                <a class="govuk-link" href="#contact"> Contact us if you want a commercial or exploratory licence</a>. 
+                We'll check this is the correct licence for your needs. We'll send you the licence to sign and ask 
+                you to create an account on our service. You'll need this to access the data.
+            </p>
+            <p class="govuk-body">
+                Once you've returned the licence and paid any fee, we'll approve your access to the dataset and you can download the data.
+            </p>
+            <h4 class="govuk-heading-s">Direct use licence</h4>
+            <p class="govuk-body">
+                You'll need to create an account and agree to the licence to access the data.
+            </p>
+            {% if not g.user %}
+                <a class="govuk-button" href="{{ url_for('registration.user_type') }}">Create account</a>
+                <a class="govuk-link" href="{{ url_for('sign-in.get_signin') }}" 
+                    style="padding-left: 30px; margin-top: 8px; position: absolute; font-size: 22px">Sign in</a>
+            {% elif g.user and licence_signed %}
+                <a class="govuk-button" href="{{ url_for('general.get_list') }}">Access the data</a>
+            {% else %}
+                <a class="govuk-button" href="{{ url_for('.get_agree_licence', dataset_id=dataset_details['name']) }}">Agree licence</a>
+            {% endif %}
+
+            <h2 id="contact" class="govuk-heading-l">Contact us</h2>
+            <p class="govuk-body">
+                Contact us if you need help with the dataset or have any questions:
+            </p>
+            <p class="govuk-body">
+                <strong>Data Services Team</strong><br>
+                HM Land Registry<br>
+                Rosebrae Court<br>
+                Woodside Ferry Approach<br>
+                Birkenhead<br>
+                Merseyside<br>
+                CH41 6DU
+            </p>
+            <p class="govuk-body">
+                Email: <a class="govuk-link" href="mailto:data.services@landregistry.gov.uk​" title="This link will open your default email application">data.services@landregistry.gov.uk​</a>
+            </p>
+            <p class="govuk-body">
+                Telephone: 0300 006 0478
+            </p>
+        </div>
+    </div>
+    {% include "app/partials/base_bar.html" %}
+</div>
+{% endblock %}

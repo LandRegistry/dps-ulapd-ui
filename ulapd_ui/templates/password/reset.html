@@ -1,0 +1,21 @@
+{% extends "app/base.html" %}
+{% import "app/macros/form.html" as dps_form %}
+{% block title %}Create your password{% endblock %}
+{% block content %}
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+    {% include "app/partials/backbtn.html" %}
+        <h1 class="govuk-heading-xl">Forgot your password?</h1>
+        {% include "app/macros/error_list.html" %}
+
+        <form action="/password/reset" method="POST" enctype="application/x-www-form-urlencoded">
+            {{ dps_form.input("email", label="Email", type="text", value="", fields=fields or
+            none)}}
+            <button type="submit" class="govuk-button">Submit</button>
+        </form>
+        <br/>
+
+        <p class="govuk-body"><a class="govuk-link" href="{{ url_for('registration.user_type') }}">Create an account</a></p>
+    </div>
+</div>
+{% endblock %}

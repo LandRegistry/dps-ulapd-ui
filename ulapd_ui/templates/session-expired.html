@@ -1,0 +1,17 @@
+{% extends "app/base.html" %}
+{% block title %}Session expired{% endblock %}
+{% block content %}
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+            <h1 class="govuk-heading-xl">You've been signed out</h1>
+
+            <p class="govuk-body">
+                We signed you out of your account to keep your information secure.
+            </p>
+
+            <p>
+                <a class="govuk-link" href="{{ url_for('sign-in.get_signin') }}">Sign in</a>
+            </p>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,41 @@
+<div>
+    {% set dataset_id = dataset['name'] %}
+
+    <h2 class="govuk-heading-l" id="{{ dataset_id }}">
+        <a class="govuk-link" href="{{url_for('datasets.get_details', dataset_id=dataset_id)}}">{{ dataset['title'] }}</a>
+    </h2>
+    
+    <dl class="govuk-summary-list govuk-summary-list--no-border">
+        <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key govuk-!-font-weight-regular govuk-!-width-one-third govuk-!-padding-top-0 govuk-!-padding-bottom-1">Cost:</dt>
+            <dd class="govuk-summary-list__value govuk-!-font-weight-bold govuk-!-padding-top-0 govuk-!-padding-bottom-1">{{ dataset['fee'] }} a year</dd>
+        </div>
+        <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key govuk-!-font-weight-regular govuk-!-width-one-third govuk-!-padding-top-0 govuk-!-padding-bottom-1">Updated:</dt>
+            <dd class="govuk-summary-list__value govuk-!-font-weight-bold govuk-!-padding-top-0 govuk-!-padding-bottom-1">{{ dataset['update_frequency'] }}</dd>
+        </div>
+        <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key govuk-!-font-weight-regular govuk-!-width-one-third govuk-!-padding-top-0 govuk-!-padding-bottom-1">Licence type:</dt>
+            <dd class="govuk-summary-list__value govuk-!-font-weight-bold govuk-!-padding-top-0 govuk-!-padding-bottom-1">See individual licence</dd>
+        </div>
+        <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key govuk-!-font-weight-regular govuk-!-width-one-third govuk-!-padding-top-0 govuk-!-padding-bottom-1">File size and type:</dt>
+            <dd class="govuk-summary-list__value govuk-!-font-weight-bold govuk-!-padding-top-0 govuk-!-padding-bottom-1">{{ dataset['resources'][1]['format'] }} {{ dataset['resources'][1]['file_size'] }}, CSV and shape file</dd>
+        </div>
+        <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key govuk-!-font-weight-regular govuk-!-width-one-third govuk-!-padding-top-0 govuk-!-padding-bottom-1">API available:</dt>
+            <dd class="govuk-summary-list__value govuk-!-font-weight-bold govuk-!-padding-top-0 govuk-!-padding-bottom-1">Yes</dd>
+        </div>
+    </dl>
+
+    <p class="govuk-body">Download data about registered land and property that shows:</p>
+
+    <ul class="govuk-list govuk-list--bullet">
+        <li>indicative shape and position of boundaries</li>
+        <li>legal interests and class of title</li>
+        <li>unique property reference numbers</li>
+    </ul>
+    
+    <p class="govuk-body">It costs £20,000 plus VAT a year and you'll need to create an account to download this data.</p>
+</div>
+    

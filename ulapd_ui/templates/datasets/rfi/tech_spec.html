@@ -1,0 +1,323 @@
+{% extends "app/base.html" %}
+{% block title %}Request for information (requisition) data - Technical specification{% endblock %}
+{% block content %}
+{% include "app/partials/backbtn.html" %}
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+        <span class="govuk-caption-xl">Technical specification</span>
+        <h1 class="govuk-heading-xl">Request for information (requisition) data</h1>
+    </div>
+</div>
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-one-third">
+        <div class="table_of_contents" id="contents">
+            <p class="govuk-body"><strong>Contents</strong></p>
+            <ul>
+                <li><a class="govuk-link" href="#overview">Overview</a></li>
+                <li><a class="govuk-link" href="#scope">Specification scope</a></li>
+                <li><a class="govuk-link" href="#content">Data content and structure</a></li>
+                <li><a class="govuk-link" href="#quality">Data quality</a></li>
+                <li><a class="govuk-link" href="#maintenance">Data maintenance</a></li>
+                <li><a class="govuk-link" href="#delivery">Data product delivery</a></li>
+                <li><a class="govuk-link" href="#contact">Queries and contact</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="govuk-grid-column-two-thirds">
+        <h2 id="overview" class="govuk-heading-l">Overview</h2>
+
+        <p class="govuk-body">
+            Request for information (requisition) data is published quarterly and shows the 500 customers that sent the most applications in that quarter.
+        </p>
+        <p class="govuk-body">
+            The data shows how many:
+        </p>
+        <ul class="govuk-list govuk-list--bullet">
+            <li>applications we receive and complete</li>
+            <li>requests for information we send to our customers</li>
+        </ul>
+        <h2 id="scope" class="govuk-heading-l">Specification scope</h2>
+        <p class="govuk-body">
+            We send requests for information if an application does not have enough information or if there are inconsistencies in the documentation.
+        </p>
+        <p class="govuk-body">
+            The applications we receive are either to update the register or to create new titles.
+        </p>
+        <p class="govuk-body">
+            Sometimes, we send a request for information through no fault of the applicant or a third party. For example, where we:
+        </p>
+        <ul class="govuk-list govuk-list--bullet">
+            <li>ask for more information under rule 17 of the Land Registration Rules 2003</li>
+            <li>send a request for information in error</li>
+        </ul>
+        <p class="govuk-body">
+            Sometimes, issues arise from errors and oversights by conveyancers. In other cases, third parties do not provide the evidence to conveyancers
+            on time. Examples include:
+        </p>
+        <ul class="govuk-list govuk-list--bullet">
+            <li>no evidence of consents by third parties</li>
+            <li>name discrepancies</li>
+            <li>documents not being signed or witnessed properly</li>
+        </ul>
+        <h3 class="govuk-heading-m">Inclusions and exclusions</h3>
+        <p class="govuk-body">The data includes all types of requests for information but excludes:</p>
+        <ul class="govuk-list govuk-list--bullet">
+            <li>telephone requests for information</li>
+            <li>bankruptcy applications</li>
+            <li>bulk applications</li>
+            <li>applications that we've received but not yet completed</li>
+        </ul>
+        <h3 class="govuk-heading-m">Relationship to other HMLR data products</h3>
+        <p class="govuk-body">
+            This dataset is not linked to any other datasets from HM Land Registry.
+        </p>
+
+        <h2 id="content" class="govuk-heading-l">Data content and structure</h2>
+
+        <h3 class="govuk-heading-m">Table 1 - class diagram</h3>
+
+        <table class="govuk-table">
+            <tr class="govuk-table__row">
+                <th scope="col" class="govuk-table__header">Request for information</th>
+            </tr>
+            <tr class="govuk-table__row">
+                <td class="govuk-table__cell">Customer Name</td>
+            </tr>
+            <tr class="govuk-table__row">
+                <td class="govuk-table__cell">First Registration intake</td>
+            </tr>
+            <tr class="govuk-table__row">
+                <td class="govuk-table__cell">Transfer of Part intake</td>
+            </tr>
+            <tr class="govuk-table__row">
+                <td class="govuk-table__cell">Dispositionary First Lease intake</td>
+            </tr>
+            <tr class="govuk-table__row">
+                <td class="govuk-table__cell">Register Update intake</td>
+            </tr>
+            <tr class="govuk-table__row">
+                <td class="govuk-table__cell">Total intake</td>
+            </tr>
+            <tr class="govuk-table__row">
+                <td class="govuk-table__cell">First Registration output</td>
+            </tr>
+            <tr class="govuk-table__row">
+                <td class="govuk-table__cell">Transfer of Part output</td>
+            </tr>
+            <tr class="govuk-table__row">
+                <td class="govuk-table__cell">Dispositionary First Lease output</td>
+            </tr>
+            <tr class="govuk-table__row">
+                <td class="govuk-table__cell">Register Update output</td>
+            </tr>
+            <tr class="govuk-table__row">
+                <td class="govuk-table__cell">Total output</td>
+            </tr>
+            <tr class="govuk-table__row">
+                <td class="govuk-table__cell">First Registration Request for Information</td>
+            </tr>
+            <tr class="govuk-table__row">
+                <td class="govuk-table__cell">Transfer of Part Request for Information</td>
+            </tr>
+            <tr class="govuk-table__row">
+                <td class="govuk-table__cell">Dispositionary First Lease Request for Information</td>
+            </tr>
+            <tr class="govuk-table__row">
+                <td class="govuk-table__cell">Register Update Request for Information</td>
+            </tr>
+            <tr class="govuk-table__row">
+                <td class="govuk-table__cell">Total Request for Information</td>
+            </tr>
+        </table>
+        <hr class="govuk-section-break govuk-section-break--l">
+        <h3 class="govuk-heading-m">Table 2 - Request for Information (requisitions) table structure</h3>
+
+        <table class="govuk-table">
+            <tr class="govuk-table__row">
+                <th scope="col" class="govuk-table__header">Field name</th>
+                <th scope="col" class="govuk-table__header">Data type</th>
+                <th scope="col" class="govuk-table__header">Mandatory</th>
+                <th scope="col" class="govuk-table__header">Description</th>
+            </tr>
+            <tr class="govuk-table__row">
+                <td class="govuk-table__cell">Customer Name</td>
+                <td class="govuk-table__cell">Character</td>
+                <td class="govuk-table__cell">Yes</td>
+                <td class="govuk-table__cell">A group of credit accounts (key numbers) for the same customer under a single name.</td>
+            </tr>
+            <tr class="govuk-table__row">
+                <td class="govuk-table__cell">First Registration intake</td>
+                <td class="govuk-table__cell">Numerical</td>
+                <td class="govuk-table__cell">Yes</td>
+                <td class="govuk-table__cell">
+                    Combined volume of all First Registration applications received by HMLR for a customer group during the previous financial quarter.
+                </td>
+            </tr>
+            <tr class="govuk-table__row">
+                <td class="govuk-table__cell">Transfer of Part intake</td>
+                <td class="govuk-table__cell">Numerical</td>
+                <td class="govuk-table__cell">Yes</td>
+                <td class="govuk-table__cell">
+                    Combined volume of all Transfer of Part applications received by HMLR for a customer group during the previous financial quarter.
+                </td>
+            </tr>
+            <tr class="govuk-table__row">
+                <td class="govuk-table__cell">Dispositionary First Lease intake</td>
+                <td class="govuk-table__cell">Numerical</td>
+                <td class="govuk-table__cell">Yes</td>
+                <td class="govuk-table__cell">
+                    Combined volume of all Dispositionary First Lease applications received by HMLR for a customer group during the previous financial quarter.
+                </td>
+            </tr>
+            <tr class="govuk-table__row">
+                <td class="govuk-table__cell">Register Update intake</td>
+                <td class="govuk-table__cell">Numerical</td>
+                <td class="govuk-table__cell">Yes</td>
+                <td class="govuk-table__cell">
+                    Combined volume of all Register Update applications received by HMLR for a customer group during the previous financial quarter.
+                </td>
+            </tr>
+            <tr class="govuk-table__row">
+                <td class="govuk-table__cell">Total intake</td>
+                <td class="govuk-table__cell">Numerical</td>
+                <td class="govuk-table__cell">Yes</td>
+                <td class="govuk-table__cell">
+                    Combined volume of all applications received by HMLR for a customer group during the previous financial quarter.
+                </td>
+            </tr>
+            <tr class="govuk-table__row">
+                <td class="govuk-table__cell">First Registration output</td>
+                <td class="govuk-table__cell">Numerical</td>
+                <td class="govuk-table__cell">Yes</td>
+                <td class="govuk-table__cell">
+                    Combined volume of all First Registration applications completed or cancelled by HMLR for a customer group during the previous financial quarter.
+                </td>
+            </tr>
+            <tr class="govuk-table__row">
+                <td class="govuk-table__cell">Transfer of Part output</td>
+                <td class="govuk-table__cell">Numerical</td>
+                <td class="govuk-table__cell">Yes</td>
+                <td class="govuk-table__cell">
+                    Combined volume of all Transfer of Part applications completed or cancelled by HMLR for a customer group during the previous financial quarter.
+                </td>
+            </tr>
+            <tr class="govuk-table__row">
+                <td class="govuk-table__cell">Dispositionary First Lease output</td>
+                <td class="govuk-table__cell">Numerical</td>
+                <td class="govuk-table__cell">Yes</td>
+                <td class="govuk-table__cell">
+                    Combined volume of all Dispositionary First Lease applications completed or cancelled by HMLR for a customer group during the previous financial quarter.
+                </td>
+            </tr>
+            <tr class="govuk-table__row">
+                <td class="govuk-table__cell">Register Update output</td>
+                <td class="govuk-table__cell">Numerical</td>
+                <td class="govuk-table__cell">Yes</td>
+                <td class="govuk-table__cell">
+                    Combined volume of all Register Update applications completed or cancelled by HMLR for a customer group during the previous financial quarter.
+                </td>
+            </tr>
+            <tr class="govuk-table__row">
+                <td class="govuk-table__cell">Total output</td>
+                <td class="govuk-table__cell">Numerical</td>
+                <td class="govuk-table__cell">Yes</td>
+                <td class="govuk-table__cell">
+                    Combined volume of all applications completed or cancelled by HMLR for a customer group during the previous financial quarter.
+                </td>
+            </tr>
+            <tr class="govuk-table__row">
+                <td class="govuk-table__cell">First Registration Request for Information</td>
+                <td class="govuk-table__cell">Numerical</td>
+                <td class="govuk-table__cell">Yes</td>
+                <td class="govuk-table__cell">
+                    Combined volume of all C90s raised by HMLR for a customer group relating to completed First Registration application types during the previous financial quarter.
+                </td>
+            </tr>
+            <tr class="govuk-table__row">
+                <td class="govuk-table__cell">Transfer of Part Request for Information</td>
+                <td class="govuk-table__cell">Numerical</td>
+                <td class="govuk-table__cell">Yes</td>
+                <td class="govuk-table__cell">
+                    Combined volume of all C90s raised by HMLR for a customer group relating to completed Transfer of Part application types during the previous financial quarter.
+                </td>
+            </tr>
+            <tr class="govuk-table__row">
+                <td class="govuk-table__cell">Dispositionary First Lease Request for Information</td>
+                <td class="govuk-table__cell">Numerical</td>
+                <td class="govuk-table__cell">Yes</td>
+                <td class="govuk-table__cell">
+                    Combined volume of all C90s raised by HMLR for a customer group relating to completed Dispositionary First Lease application types during the previous financial quarter.
+                </td>
+            </tr>
+            <tr class="govuk-table__row">
+                <td class="govuk-table__cell">Register Update Request for Information</td>
+                <td class="govuk-table__cell">Numerical</td>
+                <td class="govuk-table__cell">Yes</td>
+                <td class="govuk-table__cell">
+                    Combined volume of all C90s raised by HMLR for a customer group relating to completed Register Update application types during the previous financial quarter.
+                </td>
+            </tr>
+            <tr class="govuk-table__row">
+                <td class="govuk-table__cell">Total Request for Information</td>
+                <td class="govuk-table__cell">Numerical</td>
+                <td class="govuk-table__cell">Yes</td>
+                <td class="govuk-table__cell">
+                    Combined volume of all C90s raised by HMLR for a customer group relating to all completed application types during the previous financial quarter.
+                </td>
+            </tr>
+        </table>
+        <hr class="govuk-section-break govuk-section-break--l">
+        <h2 id="quality" class="govuk-heading-l">Data quality</h2>
+
+        <p class="govuk-body">
+            We try to make sure that our public data is accurate, but cannot gurantee that it is free from errors or fit for your purpose or use.
+        </p>
+
+        <h2 id="maintenance" class="govuk-heading-l">Data maintenance</h2>
+        <p class="govuk-body">
+            The published data is a snapshot of the previous calendar quarter. We will not update this data. We'll publish a new dataset after the end
+            of the next calendar quarter.
+        </p>
+
+        <h2 id="delivery" class="govuk-heading-l">Data product delivery</h2>
+
+        <h3 class="govuk-heading-m">Access to the dataset</h3>
+        <p class="govuk-body">
+            The dataset is available as a .CSV and .ODS file on GOV.UK and is released under the 
+            <a class="govuk-link" href="http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/" target="_blank" title="This link will open in a new tab">Open Government Licence</a> (OGL).
+        </p>
+
+        <h3 class="govuk-heading-m">File structure</h3>
+
+        <p class="govuk-body">
+            The data is ordered alphabetically (ascending) by customer name. The data in each file will:
+        </p>
+        <ul class="govuk-list govuk-list--bullet">
+            <li>use a comma to seperate each field: ',' (ASCII 44)</li>
+            <li>enclosed all fields within double quotes: “ ” (ASCII 34)</li>
+            <li>send blank fields without a character between double quotes: “ ”</li>
+            <li>format dates DD-MM-YYYY HH:MM:SS</li>
+            <li>use UTF-8 and ASCII encoding (the way characters are coded for websites)</li>
+            <li>remove line seperation from the data</li>
+            <li>have the column heading name as the first row</li>
+        </ul>
+        <h3 class="govuk-heading-m">File name</h3>
+
+        <p class="govuk-body">The file name will be structured as follows:</p>
+        <p class="govuk-body">RI_Top_500_Customers_&lt;1&gt;_&lt;2&gt;.csv</p>
+        <p class="govuk-body">&lt;1&gt; Year</p>
+        <p class="govuk-body">&lt;2&gt; Quarter</p>
+        <p class="govuk-body">Example file name structure for January 2019: RI_Top_500_Customers_2018_Q4.csv</p>
+
+
+        <h2 id="contact" class="govuk-heading-l">Queries and contact</h2>
+
+        <p class="govuk-body">
+            If you have any feedback or questions about this data, email 
+            <a class="govuk-link" href="mailto:customer.service@landregistry.gov.uk" title="This link will open your default email application">customer.service@landregistry.gov.uk</a>
+        </p>
+    </div>
+</div>
+{% include "app/partials/base_bar.html" %}
+{% endblock %}

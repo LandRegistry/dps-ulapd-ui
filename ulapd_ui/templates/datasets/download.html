@@ -1,0 +1,50 @@
+{% from "app/macros/breadcrumbs.html" import bread_crumbs %}
+{% extends "app/base.html" %}
+{% block title %}Dataset Download{% endblock %}
+{% block content %}
+{% include "app/partials/navbar.html" %}
+<div>
+    {{ bread_crumbs(breadcrumb_links) }}
+
+    <h1 class="govuk-heading-xl" id="datatitle">Choose a file to download for {{dataset['title']}}</h1>
+    <p>You can download either:</p>
+    <ul>
+        <li>all the data (every record)</li>
+        <li>part of the data (only the records that have been changed in the last month)</li>
+    </ul>
+    <p class="meta">Last updated on the <b>{{dataset['last_updated']}}</b> (updated {{dataset['update_frequency']}})</p>
+    {% for resource in dataset['resources'] %}
+        <a href="{{url_for('.download', dataset_id=dataset['name'], file_name=resource['file_name'])}}" role="button" draggable="false" class="govuk-button" data-ga-download="{{resource['file_name']}}">
+            <b>Download {{resource['name']}}</b> - {{resource['file_size']}}, {{resource['format']}}
+        </a>
+    {% endfor %}
+    <div class="govuk-inset-text">
+        See other datasets from <a class="govuk-link" href="/">HM Land Registry here</a>
+    </div>
+    <h2 class="govuk-heading-m" id="historic-data">Historic data from the last 12 months</h2>
+    <table class="govuk-table" id="historic-data-table">
+        <thead class="govuk-table__head">
+            <tr class="govuk-table__row">
+                <th class="govuk-table__header" scope="col">Date</th>
+                <th class="govuk-table__header" scope="col">All data from that month</th>
+                <th class="govuk-table__header" scope="col">What changed that month</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for file in history['dataset_history'] %}
+            <tr class="govuk-table__row">
+                <th class="govuk-table__header">{{ file["last_updated"] }}</th>
+                <td class="govuk-table__cell">
+                    <a class="govuk-link" href="{{url_for('.download', dataset_id=dataset['name'], last_updated=file['last_updated'], file_name=file['resource_list'][1]['file_name'])}}" 
+                        role="button" draggable="false" data-ga-download="{{file['resource_list'][1]['file_name']}}">Download {{ file["resource_list"][1]["file_size"] }}</a>
+                </td>
+                <td class="govuk-table__cell">
+                    <a class="govuk-link" href="{{url_for('.download', dataset_id=dataset['name'], last_updated=file['last_updated'], file_name=file['resource_list'][0]['file_name'])}}" 
+                        role="button" draggable="false" data-ga-download="{{file['resource_list'][0]['file_name']}}">Download {{ file["resource_list"][0]["file_size"] }}</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody> 
+    </table>
+</div>
+{% endblock %}

@@ -1,0 +1,73 @@
+{
+  "example_data": [
+    {
+      "data": "Title number",
+      "examples": ["ZZ1234", "ZZ1235"]
+    },
+    {
+      "data": "Tenure",
+      "examples": ["Leasehold", "Freehold"]
+    },
+    {
+      "data": "Property address",
+      "examples": [["Flat 11", "Mahogany House", "Lensbury", "London", "SW61 2VT"],
+        ["336 High Street", "Cosham", "Portsmouth", "PO66 2XT"]]
+    },
+    {
+      "data": "District",
+      "examples": ["Hammersmith", "Portsmouth"]
+    },
+    {
+      "data": "Region",
+      "examples": ["Greater London", "South East"]
+    },
+    {
+      "data": "Postcode",
+      "examples": ["SW61 2VT", "PO66 2XT"]
+    },
+    {
+      "data": "Multiple address indicator",
+      "examples": ["Y", "N"]
+    },
+    {
+      "data": "Price paid",
+      "examples": ["", "456000"]
+    },
+    {
+      "data": "Proprietor name",
+      "examples": ["Property Limited Company", "Trace Property Limited"]
+    },
+    {
+      "data": "Company registration number",
+      "examples": ["1122334", ""]
+    },
+    {
+      "data": "Proprietorship category",
+      "examples": ["Limited Company or Public Limited Company", "Limited Company or Public Limited Company"]
+    },
+    {
+      "data": "Country incorporated",
+      "examples": ["Guernsey", "British Virgin Islands"]
+    },
+    {
+      "data": "Proprietor address",
+      "examples": [["PO Box 2400", "Bancroft", "La Route", "St Martin", "Guersey", "Channel Islands", "GY33 3LV"], ["478 Seven Gates Road", "London", "SW7 8AA"]]
+    },
+    {
+      "data": "Date proprietor added",
+      "examples": ["23/12/2008", "26/03/2009"]
+    },
+    {
+      "data": "Additional proprietor indicator ",
+      "examples": ["N", "N"]
+    },
+    {
+      "data": "Change indicator (change only update)",
+      "examples": ["A", "D"]
+    },
+    {
+      "data": "Change date",
+      "examples": ["16/09/2019 ", "16/09/2019"]
+    }
+  ]
+}

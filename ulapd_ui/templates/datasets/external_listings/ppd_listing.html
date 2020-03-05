@@ -1,0 +1,30 @@
+<div>    
+    <h2 class="govuk-heading-l" id="{{ dataset['name'] }}">
+        <a class="govuk-link" href="{{ dataset['url'] }}" target="_blank">{{ dataset['title'] }}</a>
+    </h2>
+
+    <dl class="govuk-summary-list govuk-summary-list--no-border">
+        <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key govuk-!-font-weight-regular govuk-!-width-one-third govuk-!-padding-top-0 govuk-!-padding-bottom-1">Cost:</dt>
+            <dd class="govuk-summary-list__value govuk-!-font-weight-bold govuk-!-padding-top-0 govuk-!-padding-bottom-1">Free of charge</dd>
+        </div>
+        <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key govuk-!-font-weight-regular govuk-!-width-one-third govuk-!-padding-top-0 govuk-!-padding-bottom-1">Updated:</dt>
+            <dd class="govuk-summary-list__value govuk-!-font-weight-bold govuk-!-padding-top-0 govuk-!-padding-bottom-1">Monthly</dd>
+        </div>
+        <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key govuk-!-font-weight-regular govuk-!-width-one-third govuk-!-padding-top-0 govuk-!-padding-bottom-1">Licence type:</dt>
+            <dd class="govuk-summary-list__value govuk-!-font-weight-bold govuk-!-padding-top-0 govuk-!-padding-bottom-1">Open Government Licence</dd>
+        </div>
+        <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key govuk-!-font-weight-regular govuk-!-width-one-third govuk-!-padding-top-0 govuk-!-padding-bottom-1">File size and type:</dt>
+            <dd class="govuk-summary-list__value govuk-!-font-weight-bold govuk-!-padding-top-0 govuk-!-padding-bottom-1">30.5MB, CSV (estimated)</dd>
+        </div>
+        <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key govuk-!-font-weight-regular govuk-!-width-one-third govuk-!-padding-top-0 govuk-!-padding-bottom-1">API available:</dt>
+            <dd class="govuk-summary-list__value govuk-!-font-weight-bold govuk-!-padding-top-0 govuk-!-padding-bottom-1">No</dd>
+        </div>
+    </dl>
+
+    <p class="govuk-body">{{ dataset['description'] }}</p>
+</div>

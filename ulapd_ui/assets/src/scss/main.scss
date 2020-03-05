@@ -1,0 +1,7 @@
+// GOV.UK design system
+$govuk-images-path: '/ui/govuk-frontend/images/';
+$govuk-fonts-path: '/ui/govuk-frontend/fonts/';
+@import 'govuk-frontend/govuk/all';  // Feel free to be more selective than this
+
+// App specific code
+@import 'partials/cookie-banner';

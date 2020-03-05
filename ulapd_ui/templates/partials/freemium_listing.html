@@ -1,0 +1,41 @@
+<div>
+    {% set dataset_id = dataset['name'] %}
+
+    <h2 class="govuk-heading-l" id="{{dataset_id}}">
+        <a class="govuk-link" href="{{url_for('datasets.get_details', dataset_id=dataset_id)}}">{{ dataset['title'] }}</a>
+    </h2>
+
+    <dl class="govuk-summary-list govuk-summary-list--no-border">
+        <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key govuk-!-font-weight-regular govuk-!-width-one-third govuk-!-padding-top-0 govuk-!-padding-bottom-1">Cost:</dt>
+            <dd class="govuk-summary-list__value govuk-!-font-weight-bold govuk-!-padding-top-0 govuk-!-padding-bottom-1">{{ dataset['fee'] }}</dd>
+        </div>
+        <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key govuk-!-font-weight-regular govuk-!-width-one-third govuk-!-padding-top-0 govuk-!-padding-bottom-1">Updated:</dt>
+            <dd class="govuk-summary-list__value govuk-!-font-weight-bold govuk-!-padding-top-0 govuk-!-padding-bottom-1">{{ dataset['update_frequency'] }}</dd>
+        </div>
+        <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key govuk-!-font-weight-regular govuk-!-width-one-third govuk-!-padding-top-0 govuk-!-padding-bottom-1">Licence:</dt>
+            <dd class="govuk-summary-list__value govuk-!-font-weight-bold govuk-!-padding-top-0 govuk-!-padding-bottom-1">3 licence types</dd>
+        </div>
+        <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key govuk-!-font-weight-regular govuk-!-width-one-third govuk-!-padding-top-0 govuk-!-padding-bottom-1">File size and type:</dt>
+            <dd class="govuk-summary-list__value govuk-!-font-weight-bold govuk-!-padding-top-0 govuk-!-padding-bottom-1">{{ dataset['file_size'] }}, {{ dataset['format'] }}</dd>
+        </div>
+        <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key govuk-!-font-weight-regular govuk-!-width-one-third govuk-!-padding-top-0 govuk-!-padding-bottom-1">API available:</dt>
+            <dd class="govuk-summary-list__value govuk-!-font-weight-bold govuk-!-padding-top-0 govuk-!-padding-bottom-1">Yes</dd>
+        </div>
+    </dl>
+
+    <p class="govuk-body">{{ dataset['description'] }}</p>
+
+    {% if dataset['name'] == 'res_cov' %}
+      <p class="govuk-body">The data shows if there's a restrictive covenant but it does not give details of what it is.</p>
+    {% else %}
+      <p class="govuk-body">It shows when the lease started and how long it lasts.</p>
+    {% endif %}
+    <p class="govuk-body">
+        You'll need to choose a licence based on how you're going to use the data and create an account to download it.
+    </p>
+</div>

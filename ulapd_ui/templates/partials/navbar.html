@@ -1,0 +1,20 @@
+<nav class="app-navigation govuk-clearfix full-screen">
+        <ul class="app-navigation__list">
+            {% if g.user %}
+                    {% with messages = get_flashed_messages() %}
+                    {% if messages %}
+                       {% for message in messages %}
+                       <li>{{ message }}</li>
+                       {% endfor %}
+                    {% endif %}
+                 {% endwith %}
+                     <li><a class="govuk-link" href="{{ url_for('sign-in.logout') }}">Sign out</a></li>
+            {% else %}
+                <li><a id="navbar-signin" class="govuk-link" href="{{ url_for('sign-in.get_signin') }}">Sign in</a></li>
+                <li><a class="govuk-link" href="{{ url_for('registration.user_type') }}">Create an account</a></li>
+            {% endif %}
+        </ul>
+    </nav>
+    <br/>
+    <br/>
+    

@@ -1,0 +1,25 @@
+{% extends "app/base.html" %}
+{% import "app/macros/form.html" as dps_form %}
+{% block title %}Create an account{% endblock %}
+{% block content %}
+<div class="govuk-grid-row filter-user-type">
+    <div class="govuk-grid-column-two-thirds">
+    {% include "app/partials/backbtn.html" %}
+        {% if fields %}
+            <script type="application/json" data-ga-form-validation="personal_address">
+                {{ fields|tojson }}
+            </script>
+        {% endif %}
+
+        <form action="/registration/research" method="POST" enctype="application/x-www-form-urlencoded">
+            {{dps_form.dynamic_radio('research', value=session['dps-session']['registration']['research'], label_element="h1", label="Can we contact you for feedback and research?", label_class="govuk-heading-xl govuk-!-margin-0", options=[
+                {'label':'Yes', 'value': 'yes', 'id': 'yes'},
+                {'label':'No', 'value': 'no', 'id': 'no'},
+            ] ,fields=fields or none, error_list=True, details="We will not give or sell your data to any third party. We’ll anonymise data in any published research. You can opt out at any time.")}}
+            <input type="hidden" id="user_type" name="user_type" value={{ session['dps-session']['registration']['user_type']}}>
+            <br/>
+            <button type="submit" class="govuk-button">Continue</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

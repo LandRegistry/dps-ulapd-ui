@@ -1,0 +1,627 @@
+{% extends "app/base.html" %}
+{% block title %}Title Descriptor dataset - Technical specification{% endblock %}
+{% block content %}
+{% include "app/partials/backbtn.html" %}
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+        <span class="govuk-caption-xl">Technical specification</span>
+        <h1 class="govuk-heading-xl">Title Descriptor dataset</h1>
+    </div>
+</div>
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-one-third">
+        <div class="table_of_contents" id="contents">
+            <p class="govuk-body"><strong>Contents</strong></p>
+            <ul>
+                <li><a class="govuk-link" href="#overview">Overview</a></li>
+                <li><a class="govuk-link" href="#scope">Specification scope</a></li>
+                <li><a class="govuk-link" href="#identification">Data product identification</a></li>
+                <li><a class="govuk-link" href="#content">Data content and structure</a></li>
+                <li><a class="govuk-link" href="#quality">Data quality</a></li>
+                <li><a class="govuk-link" href="#capture">Data capture information</a></li>
+                <li><a class="govuk-link" href="#maintenance">Data maintenance</a></li>
+                <li><a class="govuk-link" href="#delivery">Data product delivery</a></li>
+                <li><a class="govuk-link" href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="govuk-grid-column-two-thirds">
+        <h2 id="overview" class="govuk-heading-l">Overview</h2>
+        <p class="govuk-body">
+            The Title Descriptor dataset describes the estate or interest and class of title conferred on the estate or
+            interest registered
+            under each individual title number.
+        </p>
+        <p class="govuk-body">
+            The Title Descriptor dataset along with the National Polygon dataset and the UPRN dataset comprise the
+            complete
+            National Polygon dataset.
+            The Title Descriptor dataset describes the estate or interest and class of title conferred on each
+            registered
+            estate or interest in
+            England and Wales. Each registered estate or interest is referenced by a Title Number.
+        </p>
+        <p class="govuk-body">
+            The dataset also provides information about applications for registration currently being processed by Land
+            Registry, but not yet completed.
+        </p>
+        <p class="govuk-body">
+            An individual registered title will normally be either freehold or leasehold. A small number of titles are
+            registered with intermixed
+            freehold and leasehold estates where, on first registration, it was not possible to distinguish the
+            respective
+            freehold and leasehold
+            extents. These titles will also have more than one class of title in respect of the freehold and leasehold
+            extents.
+        </p>
+        <p class="govuk-body">
+            Scheme titles were used to facilitate registration of areas of land acquired piecemeal for redevelopment. At
+            the
+            start of a scheme a
+            title number was allocated with an outline title plan covering the intended extent which was gradually built
+            up
+            as the land was acquired.
+            Within the scheme title there may be both possessory and absolute titles.
+        </p>
+
+        <h2 id="scope" class="govuk-heading-l">Specification Scope</h2>
+
+        <h3 class="govuk-heading-m">Inclusions and exclusions</h3>
+        <p class="govuk-body">
+            The Title Descriptor data is a subset of the Land Register containing all registered titles relating to land
+            or
+            property.
+            Every registered title will always have a title number, an estate and class of title. If there is an
+            application
+            awaiting registration
+            there will be an associated title number, but no information will be provided regarding the estate and class
+            of
+            title.
+        </p>
+
+        <h3 class="govuk-heading-m">Relationship to other HM Land Registry data products</h3>
+        <p class="govuk-body">
+            The Title descriptor dataset is one of three datasets that together with the National Polygon dataset and
+            the
+            Title Number and Unique
+            Property Reference Number (UPRN) Look Up dataset make the <a class="govuk-link" href="/datasets/nps"
+                target="_blank" title="This link will open in a new tab">National Polygon Service</a>.
+            The separation of this data into three datasets means that each dataset is smaller and easier to handle and
+            that
+            data currency and
+            updates can be more simply managed.
+        </p>
+        <p class="govuk-body">
+            Relationships can be made between the National Polygon dataset or the Title Descriptor dataset and other
+            information in the title register
+            by linking to or through the title number, subject to the download or purchase of additional HM Land
+            Registry
+            data.
+        </p>
+
+        <h2 id="identification" class="govuk-heading-l">Data product identification</h2>
+
+        <h3 class="govuk-heading-m">Purpose</h3>
+        <p class="govuk-body">
+            HM Land Registry guarantees the titles it registers. The title granted is based on the type of estate, eg
+            freehold or leasehold, and the
+            strength of the evidence of title provided when an application is made for first registration. The class of
+            title granted effectively
+            describes the confidence the Registrar has in the registered owner’s title and the risk of this being
+            disturbed.
+            The class of title may
+            be relevant to property professionals and mortgage lenders when dealing with the registered title.
+        </p>
+
+        <h2 id="content" class="govuk-heading-l">Data content and structure</h2>
+
+        <h3 class="govuk-heading-m">Table 1 - Title Descriptor class diagram</h3>
+        <table class="govuk-table">
+            <tr class="govuk-table__row">
+                <th scope="col" class="govuk-table__header">Title Descriptor</th>
+            </tr>
+            <tr class="govuk-table__row">
+                <td class="govuk-table__cell">Title number</td>
+            </tr>
+            <tr class="govuk-table__row">
+                <td class="govuk-table__cell">Estate Interest</td>
+            </tr>
+            <tr class="govuk-table__row">
+                <td class="govuk-table__cell">Class of Title</td>
+            </tr>
+            <tr class="govuk-table__row">
+                <td class="govuk-table__cell">Registered Status</td>
+            </tr>
+            <tr class="govuk-table__row">
+                <td class="govuk-table__cell">Change Indicator</td>
+            </tr>
+        </table>
+
+        <h3 class="govuk-heading-m">Table 2 - Title Descriptor table structure</h3>
+        <table class="govuk-table">
+            <tr class="govuk-table__row">
+                <th scope="col" class="govuk-table__header">Field name</th>
+                <th scope="col" class="govuk-table__header">Data type</th>
+                <th scope="col" class="govuk-table__header">Mandatory</th>
+                <th scope="col" class="govuk-table__header">Description</th>
+            </tr>
+            <tr class="govuk-table__row">
+                <td class="govuk-table__cell">Title_No</td>
+                <td class="govuk-table__cell">Character</td>
+                <td class="govuk-table__cell">Yes</td>
+                <td class="govuk-table__cell">A unique identifier for each registered title</td>
+            </tr>
+            <tr class="govuk-table__row">
+                <td class="govuk-table__cell">Estate Interest</td>
+                <td class="govuk-table__cell">Character</td>
+                <td class="govuk-table__cell">No</td>
+                <td class="govuk-table__cell">
+                    The estate interest describes the legal estate or the legal interest that has been registered.
+                    Estate
+                    Interest types are described
+                    in table 3 below.
+                </td>
+            </tr>
+            <tr class="govuk-table__row">
+                <td class="govuk-table__cell">Class of Title</td>
+                <td class="govuk-table__cell">Character</td>
+                <td class="govuk-table__cell">No</td>
+                <td class="govuk-table__cell">
+                    The class of title describes the confidence the Registrar has in the ownership of the title at the
+                    point
+                    of first registration.
+                    When we register land, we guarantee the titles that we register. Under this guarantee, we may pay
+                    indemnity (compensation) to a
+                    party who suffers loss as a result of an error. We may limit the guarantee where the evidence of
+                    title
+                    falls short of certain
+                    requirements. Any limitation is reflected by the class of title granted. Class of title types are
+                    describes in table 4 below.
+                </td>
+            </tr>
+            <tr class="govuk-table__row">
+                <td class="govuk-table__cell">Registered status</td>
+                <td class="govuk-table__cell">Character</td>
+                <td class="govuk-table__cell">Yes</td>
+                <td class="govuk-table__cell">
+                    Indicates if the title is registered Pending = application with HM Land Registry being processed or
+                    Blank = registered
+                </td>
+            </tr>
+            <tr class="govuk-table__row">
+                <td class="govuk-table__cell">Change Indicator</td>
+                <td class="govuk-table__cell">Character</td>
+                <td class="govuk-table__cell">Yes</td>
+                <td class="govuk-table__cell">Indicates the change to the row; New, Changed, Deleted</td>
+            </tr>
+        </table>
+
+        <h3 class="govuk-heading-m">Table 3 - Estate interests</h3>
+        <table class="govuk-table">
+            <tr class="govuk-table__row">
+                <th scope="col" class="govuk-table__header">No</th>
+                <th scope="col" class="govuk-table__header">Code</th>
+                <th scope="col" class="govuk-table__header">Legal Estate/Interest</th>
+                <th scope="col" class="govuk-table__header">Description</th>
+            </tr>
+            <tr class="govuk-table__row">
+                <td class="govuk-table__cell">1</td>
+                <td class="govuk-table__cell">EL</td>
+                <td class="govuk-table__cell">Estate in land</td>
+                <td class="govuk-table__cell">
+                    This describes the nature of the ownership of land and the duration the land is to be held. Estates
+                    can
+                    be freehold or leasehold,
+                    freehold estates continue for an indefinite period, whilst leasehold estates have a fixed duration.
+                </td>
+            </tr>
+            <tr class="govuk-table__row">
+                <td class="govuk-table__cell">2</td>
+                <td class="govuk-table__cell">FA</td>
+                <td class="govuk-table__cell">Affecting franchise</td>
+                <td class="govuk-table__cell">
+                    A franchise is a right granted by the Crown. An affecting franchise relates to a defined area of
+                    land
+                    and is an adverse right
+                    affecting, or capable of affecting, the title to an estate or charge. A franchise does not carry
+                    with it
+                    ownership of the physical
+                    land and is distinct from the freehold or leasehold estates in land.
+                </td>
+            </tr>
+            <tr class="govuk-table__row">
+                <td class="govuk-table__cell">3</td>
+                <td class="govuk-table__cell">FC</td>
+                <td class="govuk-table__cell">Relating franchise</td>
+                <td class="govuk-table__cell">
+                    A franchise is a right granted by the Crown. A relating franchise does not relate to a defined area
+                    of
+                    land. A franchise does not
+                    carry with it ownership of the physical land and is distinct from the freehold or leasehold estates
+                    in
+                    land.
+                </td>
+            </tr>
+            <tr class="govuk-table__row">
+                <td class="govuk-table__cell">4</td>
+                <td class="govuk-table__cell">MA</td>
+                <td class="govuk-table__cell">Manor</td>
+                <td class="govuk-table__cell">
+                    A manor is an intangible right, i.e the lordship of a manor. It is no longer possible under the Land
+                    Registration Act 2002 to
+                    register a manor.
+                </td>
+            </tr>
+            <tr class="govuk-table__row">
+                <td class="govuk-table__cell">5</td>
+                <td class="govuk-table__cell">PG</td>
+                <td class="govuk-table__cell">Profit a prendre in gross</td>
+                <td class="govuk-table__cell">
+                    Profits are the right to take something from the land of another, for example the right to fish from
+                    a
+                    river or to hunt game.
+                    The thing must be capable of ownership and could be part of the land itself. Profits a prendre in
+                    gross
+                    exist independently in
+                    their own right.
+                </td>
+            </tr>
+            <tr class="govuk-table__row">
+                <td class="govuk-table__cell">6</td>
+                <td class="govuk-table__cell">RC</td>
+                <td class="govuk-table__cell">Rentcharge</td>
+                <td class="govuk-table__cell">
+                    A rentcharge is any sum of money charged on land payable either annually or periodically, other than
+                    rent reserved by a lease or
+                    interest charged under a charge.
+                </td>
+            </tr>
+            <tr class="govuk-table__row">
+                <td class="govuk-table__cell">7</td>
+                <td class="govuk-table__cell">RP</td>
+                <td class="govuk-table__cell">Rentcharge (Perpetual)</td>
+                <td class="govuk-table__cell">
+                    A rentcharge is any sum of money charged on land payable either annually or periodically, other than
+                    rent reserved by a lease or
+                    interest charged under a charge. A perpetual rentcharge describes a rentcharge intended to be
+                    payable
+                    indefinitely.
+                </td>
+            </tr>
+            <tr class="govuk-table__row">
+                <td class="govuk-table__cell">8</td>
+                <td class="govuk-table__cell">RT</td>
+                <td class="govuk-table__cell">Rentcharge (Terminable)</td>
+                <td class="govuk-table__cell">
+                    A rentcharge is any sum of money charged on land payable either annually or periodically, other than
+                    rent reserved by a lease or
+                    interest charged under a charge. A terminable rentcharge describes a rentcharge granted for a term
+                    of
+                    years absolute.
+                </td>
+            </tr>
+        </table>
+
+        <h3 class="govuk-heading-m">Table 4 - Class of title</h3>
+        <table class="govuk-table">
+            <tr class="govuk-table__row">
+                <th scope="col" class="govuk-table__header">No</th>
+                <th scope="col" class="govuk-table__header">Code</th>
+                <th scope="col" class="govuk-table__header">Class of Title</th>
+                <th scope="col" class="govuk-table__header">Description</th>
+            </tr>
+            <tr class="govuk-table__row">
+                <td class="govuk-table__cell">1</td>
+                <td class="govuk-table__cell">AF</td>
+                <td class="govuk-table__cell">Absolute freehold title</td>
+                <td class="govuk-table__cell">
+                    This is the best class of freehold title. An application based on a purchase of unregistered land
+                    for
+                    value by the estate owner
+                    or a predecessor in title and supported by a proper documentary title commencing with a good root of
+                    at
+                    least 15 years old at the
+                    date of acquisition will normally result in the grant of an absolute title. We guarantee this title
+                    against being disturbed by
+                    any adverse claim arising from an error in the register.
+                </td>
+            </tr>
+            <tr class="govuk-table__row">
+                <td class="govuk-table__cell">2</td>
+                <td class="govuk-table__cell">QF</td>
+                <td class="govuk-table__cell">Qualified freehold title</td>
+                <td class="govuk-table__cell">
+                    This class of title may be approved where a person has applied for an absolute title but on
+                    examination
+                    it appears to the Registrar
+                    that the title is affected by some specific defect which he cannot disregard.
+                </td>
+            </tr>
+            <tr class="govuk-table__row">
+                <td class="govuk-table__cell">3</td>
+                <td class="govuk-table__cell">PF</td>
+                <td class="govuk-table__cell">Possessory freehold title</td>
+                <td class="govuk-table__cell">
+                    This class of title is most likely to be approved in two cases:
+                    <ol class="govuk-list govuk-list--number">
+                        <li>Where the applicant claims adverse possession of unregistered land;</li>
+                        <li>
+                            Where the title deeds have been lost or destroyed. In each case the lack of conventional
+                            documentary title means there
+                            is a risk that the title may be affected by undisclosed adverse interests.
+                        </li>
+                    </ol>
+                </td>
+            </tr>
+            <tr class="govuk-table__row">
+                <td class="govuk-table__cell">4</td>
+                <td class="govuk-table__cell">AL</td>
+                <td class="govuk-table__cell">Absolute leasehold title</td>
+                <td class="govuk-table__cell">
+                    This is the best class of leasehold title. A person will not be registered with absolute leasehold
+                    title
+                    unless the Registrar
+                    is satisfied that the landlord had the power to grant the lease and that the title to the estate is
+                    such
+                    that a willing buyer
+                    could properly be advised by a competent professional adviser to accept.
+                </td>
+            </tr>
+            <tr class="govuk-table__row">
+                <td class="govuk-table__cell">5</td>
+                <td class="govuk-table__cell">GL</td>
+                <td class="govuk-table__cell">Good leasehold title</td>
+                <td class="govuk-table__cell">
+                    Good leasehold is approved where the Registrar is of the opinion that the person’s title to the
+                    leasehold estate is such as a
+                    willing buyer could be properly advised by a competent professional adviser to accept. In practice
+                    this
+                    means that the lessee’s
+                    right to assign the lease has been shown but the registrar has not approved the lessor’s title to
+                    grant
+                    the lease.
+                </td>
+            </tr>
+            <tr class="govuk-table__row">
+                <td class="govuk-table__cell">6</td>
+                <td class="govuk-table__cell">QL</td>
+                <td class="govuk-table__cell">Qualified leasehold title</td>
+                <td class="govuk-table__cell">
+                    This class of title may be approved where on examination it appears to the Registrar that the title
+                    of
+                    the lessor to the
+                    reversion or of the lessee to the leasehold interest is subject to some specific defect.
+                </td>
+            </tr>
+            <tr class="govuk-table__row">
+                <td class="govuk-table__cell">7</td>
+                <td class="govuk-table__cell">PL</td>
+                <td class="govuk-table__cell">Possessory leasehold title</td>
+                <td class="govuk-table__cell">
+                    This class of title may be granted where the applicant title is primarily dependant, not upon a
+                    conventional documentary title,
+                    but upon them being in possession of land which is comprised in a lease. It may be approved where
+                    the
+                    leasehold documents have
+                    been lost or destroyed or where a squatter claims to have acquired a leasehold title by adverse
+                    possession.
+                </td>
+            </tr>
+            <tr class="govuk-table__row">
+                <td class="govuk-table__cell">8</td>
+                <td class="govuk-table__cell">SF</td>
+                <td class="govuk-table__cell">Scheme Title Freehold</td>
+                <td class="govuk-table__cell">
+                    A scheme title describes the process that allows a public authority, private developer or other
+                    organisation to apply to register
+                    a defined area of land acquired piecemeal over a period of time and build up its title as land is
+                    acquired. A freehold scheme
+                    title is an acquisition of freehold land.
+                </td>
+            </tr>
+            <tr class="govuk-table__row">
+                <td class="govuk-table__cell">9</td>
+                <td class="govuk-table__cell">CF</td>
+                <td class="govuk-table__cell">Commonhold Freehold</td>
+                <td class="govuk-table__cell">
+                    A form of land ownership of registered freehold land. It gives owners of individual units in a
+                    development the security of freehold
+                    ownership but allows them to control and collectively manage their own common areas and to apply
+                    positive obligations to every
+                    successive owner of the individual units in the development.
+                </td>
+            </tr>
+            <tr class="govuk-table__row">
+                <td class="govuk-table__cell">10</td>
+                <td class="govuk-table__cell">SL</td>
+                <td class="govuk-table__cell">Scheme Title Leasehold</td>
+                <td class="govuk-table__cell">
+                    A scheme title describes the process that allows a public authority, private developer or other
+                    organisation to apply to register
+                    a defined area of land acquired piecemeal over a period of time and build up its title as land is
+                    acquired. A leasehold scheme
+                    title is an acquisition of leasehold land.
+                </td>
+            </tr>
+            <tr class="govuk-table__row">
+                <td class="govuk-table__cell">11</td>
+                <td class="govuk-table__cell">CL</td>
+                <td class="govuk-table__cell">Commonhold Leasehold</td>
+                <td class="govuk-table__cell">
+                    A form of land ownership of registered leasehold land. It gives owners of individual units in a
+                    development the security of
+                    leasehold ownership but allows them to control and collectively manage their own common areas and to
+                    apply positive obligations to
+                    every successive owner of the individual units in the development.
+                </td>
+            </tr>
+            <tr class="govuk-table__row">
+                <td class="govuk-table__cell">12</td>
+                <td class="govuk-table__cell">AR</td>
+                <td class="govuk-table__cell">Absolute Rentcharge</td>
+                <td class="govuk-table__cell">
+                    A rentcharge is any sum of money charged on land payable either annually or periodically, other than
+                    rent reserved by a lease
+                    or interest charged under a charge. An absolute rentcharge is the best class of title for a
+                    rentcharge.
+                </td>
+            </tr>
+            <tr class="govuk-table__row">
+                <td class="govuk-table__cell">13</td>
+                <td class="govuk-table__cell">PR</td>
+                <td class="govuk-table__cell">Possessory Rentcharge</td>
+                <td class="govuk-table__cell">
+                    A rentcharge is any sum of money charged on land payable either annually or periodically, other than
+                    rent reserved by a lease
+                    or interest charged under a charge. A possessory rentcharge may be applicable where conventional
+                    documentary evidence of the
+                    rentcharge is not available.
+                </td>
+            </tr>
+            <tr class="govuk-table__row">
+                <td class="govuk-table__cell">14</td>
+                <td class="govuk-table__cell">QR</td>
+                <td class="govuk-table__cell">Qualified Rentcharge</td>
+                <td class="govuk-table__cell">
+                    A rentcharge is any sum of money charged on land payable either annually or periodically, other than
+                    rent reserved by a lease or
+                    interest charged under a charge. A qualified rentcharge is applicable where an absolute rentcharge
+                    has
+                    been applied for but on
+                    examination it appears to the Registrar that the application has some defect.
+                </td>
+            </tr>
+            <tr class="govuk-table__row">
+                <td class="govuk-table__cell">15</td>
+                <td class="govuk-table__cell">CN</td>
+                <td class="govuk-table__cell">Caution Against First Registration</td>
+                <td class="govuk-table__cell">
+                    Describes an interest in an unregistered legal estate, so that the cautioner will receive notice by
+                    the
+                    Registrar of any
+                    application for first registration of that estate.
+                </td>
+            </tr>
+        </table>
+
+        <h3 class="govuk-heading-m">Example of extract</h3>
+        <p class="govuk-body">Title Number, Estate Interest, Class of title, Registered status, Change indicator</p>
+        <p class="govuk-body">“HS112345”,”EL”,”AF”,””,”C”</p>
+        <p class="govuk-body">“HS112345”,”EL”,”AF”,””,”C”</p>
+        <p class="govuk-body">“AGL076542”,”EL”,”AF”,””,”C”</p>
+        <p class="govuk-body">“SYK012345”,”EL”,”AF”,””,”C”</p>
+        <p class="govuk-body">“CYM23456”,”EL”,””,”Pending”,”A”</p>
+
+        <h2 id="quality" class="govuk-heading-l">Data quality</h2>
+        <p class="govuk-body">
+            While we do our best to maintain the quality of our Title Descriptor data and ensure it conforms to the
+            specification, occasionally
+            small errors may occur. Any <a class="govuk-link" href="https://www.smartsurvey.co.uk/s/HMLR_feedback/"
+                target="_blank" title="This link will open in a new tab">feedback</a> on the quality
+            of this data is appreciated.
+        </p>
+
+        <h2 id="capture" class="govuk-heading-l">Data capture information</h2>
+        <p class="govuk-body">
+            When an application is lodged to register land for the first time, the title deeds lodged as evidence of
+            title
+            reveal whether the land
+            is held under freehold or leasehold tenure. Where there is an application to register a new lease out of
+            land
+            already registered, the
+            new lease must be lodged.
+        </p>
+        <p class="govuk-body">
+            The class of title given depends on the strength of the evidence of title lodged and the risk of that title
+            being disturbed.
+            There are 3 classes of title for freehold land and 4 for leasehold land. The best class of title is
+            absolute. A
+            qualified title may be
+            granted if there is a specific defect in title. This defect will be specified in the register. A possessory
+            title is normally granted
+            where the title is held under adverse possession of unregistered land or the title deeds have been lost or
+            destroyed. A good leasehold
+            title may be granted where we do not have evidence of the landlord’s right to grant the lease. On a lease
+            out of
+            a registered title,
+            we grant good leasehold where we do not have documentary evidence of the landlord’s title back to the
+            freehold
+            and the landlord’s title
+            is not registered with absolute title.
+        </p>
+
+        <h2 id="maintenance" class="govuk-heading-l">Data maintenance</h2>
+        <p class="govuk-body">
+            The tenure of the title does not normally change. A long leasehold title can in certain circumstances be
+            enlarged into a freehold.
+        </p>
+        <p class="govuk-body">
+            Where the class of title is not absolute, an application can be made to upgrade the class of title. The
+            evidence
+            required to do this
+            will depend on the current class of title, eg a qualified title will need evidence to remedy the defect in
+            title
+            entered in the register.
+        </p>
+        <p class="govuk-body">
+            HM Land Registry will publish a full extract of the Title Descriptor dataset each month. Change only update
+            files will be provided each
+            month, however as the data can change more than once within a month only the latest change will be
+            published. A
+            file will also be provided
+            to enable you to validate that the all information has been downloaded correct and agrees with the latest
+            position in HM Land Registry.
+        </p>
+        <p class="govuk-body">
+            NPD is updated monthly.
+        </p>
+
+        <h2 id="delivery" class="govuk-heading-l">Data product delivery</h2>
+        <h3 class="govuk-heading-m">File structure</h3>
+        <p class="govuk-body">
+            The data is provided as a CSV file. The format of each file will conform to the following:
+        </p>
+        <ul class="govuk-list govuk-list--bullet">
+            <li>the character used to delimit each field is a comma: ‘ , ’ (ASCII 44)</li>
+            <li>all fields will be enclosed within double-quote’s “ “ (ASCII 34)</li>
+            <li>when a field is NULL, it will be transmitted as no character between double quotes, i.e. ,” “,</li>
+            <li>date fields will be provided in the format DD-MM-YYYY HH:MM:SS For example the date; the fourteenth of
+                December twenty thirteen would be represented as 14-12-2013</li>
+            <li>the file will use UTF-8 and ASCII encoding</li>
+            <li>steps will be taken to remove carriage return and line feeds from the data</li>
+            <li>the column heading name will be the first row of the file</li>
+        </ul>
+        <h3 class="govuk-heading-m">Naming convention</h3>
+        <p class="govuk-body">
+            Full file LR_TENURE_FULL_[3 character Month]
+        </p>
+        <p class="govuk-body">
+            Change Only Update file LR_TENURE-COU-[DD-MMM-YYYY]
+        </p>
+        <p class="govuk-body">
+            Validation file LR_TENURE_VALI_[3 character Month]
+        </p>
+
+        <h2 id="contact" class="govuk-heading-l">Contact</h2>
+        <p class="govuk-body">
+            Should you have any queries about the Title Descriptor dataset, please contact us:
+        </p>
+        <p class="govuk-body">
+            HM Land Registry<br>
+            Rosebrae Court<br>
+            Woodside Ferry Approach<br>
+            Birkenhead<br>
+            Merseyside<br>
+            CH41 6DU
+        </p>
+        <p class="govuk-body">
+            Email: <a class="govuk-link" href="mailto:data.services@landregistry.gov.uk"
+                title="This link will open your default email application">data.services@landregistry.gov.uk</a>
+        </p>
+        <p class="govuk-body">Telephone: 0300 006 0478</p>
+    </div>
+</div>
+{% include "app/partials/base_bar.html" %}
+{% endblock %}

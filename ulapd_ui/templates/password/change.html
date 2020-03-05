@@ -1,0 +1,40 @@
+{% extends "app/base.html" %}
+{% import "app/macros/form.html" as dps_form %}
+{% block title %}Enter new password{% endblock %}
+{% block content %}
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+        <form action="/password/{{action}}" method="POST" enctype="application/x-www-form-urlencoded">
+            <fieldset class="govuk-fieldset">
+                <legend>
+                    <h1 class="govuk-heading-xl">Create your password</h1>
+                </legend>
+
+                {% include "app/macros/error_list.html"%}
+
+                <div class="govuk-body">
+                    <p>Use a password that has at least:</p>
+                    <ul class="list list-bullet">
+                        <li>8 characters</li>
+                        <li>1 number</li>
+                        <li>1 capital letter</li>
+                        <li>1 letter that isn't a capital</li>
+                        <li>1 symbol, for example a question mark</li>
+                    </ul>
+                    <p>
+                        Don't include anything that is easy to guess, for example your first or last name.
+                    </p>
+                </div>
+
+                {{dps_form.field_group('passwords', [
+                    { "name":"password", "label":"Password", "value":"", "type":"password", "class":"govuk-input--width-10" },
+                    { "name":"confirm_password", "label":"Confirm password", "value":"", "type":"password", "class":"govuk-input--width-10" }
+                ], fields=fields or none)}}
+                <input name="t" type="hidden" value="{{token}}" />
+            </fieldset>
+            <button type="submit" class="govuk-button">Create password</button>
+        </form>
+        <br/>
+    </div>
+</div>
+{% endblock %}

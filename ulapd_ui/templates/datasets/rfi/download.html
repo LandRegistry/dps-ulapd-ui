@@ -1,0 +1,98 @@
+{% from "app/macros/breadcrumbs.html" import bread_crumbs %}
+{% extends "app/base.html" %}
+{% block title %}Dataset Download{% endblock %}
+{% block content %}
+{% include "app/partials/navbar.html" %}
+<div>
+  {{ bread_crumbs(breadcrumb_links) }}
+
+  <h1 class="govuk-heading-xl" id="datatitle">
+    <span class="govuk-caption-xl">Download</span>
+    {{dataset['title']}}
+  </h1>
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      <p class="govuk-body-l">
+        Data about how many requests for information we send to customers about their applications.
+        This is updated every 3 months.
+      </p>
+      <p class="govuk-body">
+        By downloading this dataset, you are agreeing to the
+        <a class="govuk-link" href="http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/" target="_blank">
+          OGL conditions of use</a>.
+      </p>
+      <h2 class="govuk-heading-l">
+        Latest data
+        <span class="govuk-body-s govuk-caption-m">
+          Published {{dataset['last_updated']}}.
+        </span>
+      </h2>
+
+      <table id="current-quarter-table" class="govuk-table">
+        <caption class="govuk-visually-hidden">Latest data for {{dataset['title']}}</caption>
+        <tbody class="govuk-table__body">
+          <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header govuk-!-width-one-third">
+              {{dataset['month_range']}}
+            </th>
+            <td class="govuk-table__cell"><a class="govuk-link" href="{{ dataset['view_url'] }}">View online</a></td>
+
+            {% for resource in dataset['resources'] %}
+            <td class="govuk-table__cell">
+              <a class="govuk-link"
+                href="{{url_for('.download', dataset_id=dataset['name'], file_name=resource['file_name'])}}"
+                data-ga-download="{{resource['file_name']}}">Download .{{resource['format'].lower()}}</a>
+            </td>
+            {% endfor %}
+          </tr>
+        </tbody>
+      </table>
+
+      <h2 id="previous" class="govuk-heading-l">Previous data</h2>
+      <div class="govuk-accordion" data-module="accordion" id="accordion-with-summary-sections">
+        {% for row in history %}
+        <div class="govuk-accordion__section ">
+          <div class="govuk-accordion__section-header">
+            <h2 class="govuk-accordion__section-heading">
+              <span class="govuk-accordion__section-button"
+                id="accordion-with-summary-sections-heading-{{ loop.index }}">
+                {{ row['year'] }}
+              </span>
+            </h2>
+
+          </div>
+
+          <div id="accordion-with-summary-sections-content-{{ loop.index }}" class="govuk-accordion__section-content"
+            aria-labelledby="accordion-with-summary-sections-heading-{{ loop.index }}">
+            <table id="historical-quarter-table-{{ loop.index }}" class="govuk-table">
+              <caption class="govuk-visually-hidden">Previous data for {{dataset['title']}} from {{row['year']}}</caption>
+              <tbody class="govuk-table__body">
+                {% for item in row['details'] %}
+                <tr {% if loop.last %} class="govuk-table__row no-bottom-border" {% else %} class="govuk-table__row"
+                  {% endif %}>
+                  <th scope="row" class="govuk-table__header govuk-!-width-one-third">
+                    {{item['month_range']}}
+                  </th>
+                  <td class="govuk-table__cell"><a class="govuk-link" href="{{ item['view_url_history'] }}">View online</a></td>
+
+                  {% for data in item['resource_list'] %}
+                  <td class="govuk-table__cell">
+                    <a class="govuk-link"
+                      href="{{url_for('.download', dataset_id=dataset['name'], last_updated=item['last_updated'], file_name=data['file_name'])}}"
+                      data-ga-download="{{data['file_name']}}">Download .{{data['format'].lower()}}</a>
+                  </td>
+                  {% endfor %}
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

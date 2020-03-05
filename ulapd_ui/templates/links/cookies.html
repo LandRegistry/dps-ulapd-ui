@@ -1,0 +1,14 @@
+{% extends "app/base.html" %}
+{% block title %}Cookies{% endblock %}
+{% block content %}
+<div class="govuk-width-container">
+  {% include "app/partials/backbtn.html" %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      <h1 class="govuk-heading-xl">Cookies</h1>
+
+      {{ md | safe }}
+    </div>
+  </div>
+</div>
+{% endblock %}

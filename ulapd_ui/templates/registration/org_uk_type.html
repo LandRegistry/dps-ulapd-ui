@@ -1,0 +1,27 @@
+{% extends "app/base.html" %}
+{% import "app/macros/form.html" as dps_form %}
+{% block title %}Choose your company type{% endblock %}
+{% block content %}
+<div class="govuk-grid-row filter-user-type">
+    {% include "app/partials/backbtn.html" %}
+    <div class="govuk-grid-column-two-thirds">
+        {% if fields %}
+        <script type="application/json" data-ga-form-validation="uk_org_info">
+                {{ fields|tojson }}
+            </script>
+        {% endif %}
+        <form action="/registration/organisation-type" method="POST" enctype="application/x-www-form-urlencoded">
+            <div class="govuk-radios">
+                {{dps_form.dynamic_radio('type', value=session['dps-session']['registration']['uk_org_type'], label="Organisation details", label_element="h1", label_class="govuk-heading-xl", options=[
+                    {'label':'Company', 'value': 'Company', 'id': 'company'},
+                    {'label':'Charity', 'value': 'Charity', 'id': 'charity'},
+                    {'label':'Government', 'value': 'Government', 'id': 'government'},
+                    {'label':'Local authority', 'value': 'Local authority', 'id': 'local_authority'},
+                ] ,fields=fields or none, error_list=True, question='What type of organisation do you work for?')}}
+            </div>
+            <br />
+            <button type="submit" class="govuk-button">Continue</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

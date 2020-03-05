@@ -1,0 +1,96 @@
+{% extends "app/base.html" %}
+{% import "app/macros/form.html" as dps_form %}
+{% import "app/macros/summary_list_with_actions.html" as summary %}
+{% block title %}Check your answers{% endblock %}
+{% block content %}
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+    {% include "app/partials/backbtn.html" %}
+        <br/>
+        <h1 class="govuk-heading-xl">
+            Check your answers
+        </h1>
+
+        {% include 'app/macros/error_list.html' %}
+
+        {% if fields %}
+            <script type="application/json" data-ga-form-validation="uk_org_check_answers">
+                {{ fields|tojson }}
+            </script>
+        {% endif %}
+
+        {% set full_name = session['dps-session']['registration']['title']|title + " " + 
+                           session['dps-session']['registration']['first_name'] + " " + 
+                           session['dps-session']['registration']['last_name']
+                           %}
+        
+        {% set contact_details = [
+            session['dps-session']['registration']['email'],
+            session['dps-session']['registration']['phone'] ]
+        %}
+        {% set full_address = 
+            [
+            session['dps-session']['registration']['uk_org_street_line_1'],
+            session['dps-session']['registration']['uk_org_street_line_2'],
+            session['dps-session']['registration']['uk_org_city'],
+            session['dps-session']['registration']['uk_org_county'],
+            session['dps-session']['registration']['uk_org_postcode'] 
+            ]
+        %}
+        <h2 class="govuk-heading-l">
+                Your details
+        </h2>
+        <dl class="govuk-summary-list govuk-!-margin-bottom-9">
+                {{ summary.row('Name', full_name, 'about-you-uk-organisation') }}
+                {{ summary.row('Email', session['dps-session']['registration']['email'], 'about-you-uk-organisation') }}
+        </dl>
+
+        <h2 class="govuk-heading-l">
+                Organisation details
+        </h2>
+        <dl class="govuk-summary-list govuk-!-margin-bottom-9">
+                {{ summary.row('Type', session['dps-session']['registration']['uk_org_type'], '/registration/organisation-type') }}
+                
+                <!--create link depending on company type-->
+                {% if session['dps-session']['registration']['uk_org_type'] == 'Company' %}
+                    {% set org_name_link = '/registration/company-details' %}
+                {% elif session['dps-session']['registration']['uk_org_type'] == 'Charity' %}
+                    {% set org_name_link = '/registration/charity-details' %}
+                {% else %}
+                    {% set org_name_link = '/registration/about-your-organisation-uk' %}
+                {% endif %}
+                {{ summary.row('Name', session['dps-session']['registration']['uk_org_name'], org_name_link) }}
+                {% if session['dps-session']['registration']['uk_org_type'] == 'Company' %}
+                    {{ summary.row('Registration number', session['dps-session']['registration']['uk_org_reg_no'], '/registration/company-details') }}
+                {% endif %}
+                {% if session['dps-session']['registration']['uk_org_type'] == 'Charity' %}
+                    {{ summary.row('Charity number', session['dps-session']['registration']['uk_org_reg_no'], '/registration/charity-details') }}
+                {% endif %}
+            {{ summary.row('Address', full_address, 'about-your-organisation-uk', multiline=true) }}
+            {{ summary.row('Phone', session['dps-session']['registration']['uk_org_phone'], '/registration/about-your-organisation-uk') }}
+        </dl>
+
+        <h2 class="govuk-heading-l">
+                Research
+        </h2>
+        <dl class="govuk-summary-list govuk-!-margin-bottom-9">
+            {{ summary.row('Take part in research', session['dps-session']['registration']['research']|title, '/registration/research') }}
+            {% if session['dps-session']['registration']['research'] == 'yes' %}
+                {{ summary.row('Contact by', session['dps-session']['registration']['contact_preferences'], '/registration/contact-preferences', multiline=true) }}
+            {% endif %}
+        </dl>
+
+        <form action="/registration/check-your-answers-uk-organisation" onsubmit="ukReg.disabled=true" method="POST">
+            <h2>Terms of use</h2>
+            <div class="govuk-form-group">
+                {{ dps_form.checkbox('terms', 'I have read and agreed to <a class="govuk-link" href="/service-terms-of-use" title="This link will open in a new tab" target="_blank">the terms of use </a>', fields=fields or none) }}
+            </div>
+            <button type="submit" class="govuk-button" name="ukReg">Send application</button>
+        </form>
+
+        <p>
+            <a class="govuk-link" href="/">Cancel</a>
+        </p>
+    </div>
+</div>
+{% endblock %}

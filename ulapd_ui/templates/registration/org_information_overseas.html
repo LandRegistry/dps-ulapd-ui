@@ -1,0 +1,30 @@
+{% extends "app/base.html" %}
+{% import "app/macros/form.html" as dps_form %}
+{% block title %}Create an account{% endblock %}
+{% block content %}
+<div class="govuk-grid-row filter-user-type">
+    <div class="govuk-grid-column-two-thirds">
+    {% include "app/partials/backbtn.html" %}
+        {% if fields %}
+            <script type="application/json" data-ga-form-validation="overseas_org_info">
+                {{ fields|tojson }}
+            </script>
+        {% endif %}
+
+        <form action="/registration/about-your-organisation-overseas" method="POST" enctype="application/x-www-form-urlencoded">
+            <fieldset class="govuk-fieldset">
+                <legend>
+                    <h1 class="govuk-heading-xl">Organisation details</h1>
+                </legend>
+                
+                {% include 'app/macros/error_list.html' %}
+
+                {{dps_form.input('name', value=session['dps-session']['registration']['overseas_org_name'] or "", class='govuk-!-width-three-quarters', label='Name', fields=fields or none)}}
+                {{dps_form.input('country', value=session['dps-session']['registration']['overseas_org_country_incorp'] or "", class='govuk-!-width-three-quarters', label='Country of incorporation', hint='This is the country where the organisation was registered.', fields=fields or none)}}
+                <br/>
+            </fieldset>
+            <button type="submit" class="govuk-button">Continue</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

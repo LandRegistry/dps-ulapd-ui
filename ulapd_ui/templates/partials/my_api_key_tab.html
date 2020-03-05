@@ -1,0 +1,36 @@
+<h2 class="govuk-heading-m">My API Key</h2>
+<p>
+    You can use this key to download datasets via the API. This key is unique to you and can be used by others to impersonate you while interacting with the service, so <strong>do not share it</strong>.
+</p>
+<div class="govuk-inset-text">
+    <p>
+        For more details about what an API is and what you can do with this API, see the <a class="govuk-link" href="{{ url_for('general.get_api_info') }}">API information page</a>.
+        For technical information on how to use the API, see the <a class="govuk-link" href="{{ url_for('general.get_api_documentation') }}">documentation</a>.
+    </p>
+</div>
+<div class="grey-highlight-panel">
+    <pre class="grey-highlight-panel plaintext">
+        <code>{{ api_key }}</code>
+    </pre>
+</div>
+<button title="Activating this button will copy your API key to your PC" class="govuk-button govuk-button--secondary govuk-button--js-only" onclick="copyToClipboard(event, '{{ api_key }}')">
+    Copy API key
+</button>
+<br/>
+<h2 class="govuk-heading-m">Reset your API key</h2>
+<form action="{{ url_for('general.reset_api_key') }}" method="POST">
+    <button type="submit" class="govuk-button govuk-button--warning">Reset key</button>
+</form>
+<script>
+    function copyToClipboard(e, value) {
+        var tempInput = document.createElement("input")
+        tempInput.style = "position: absolute; left: -1000px; top: -1000px"
+        tempInput.value = value
+        document.body.appendChild(tempInput)
+        tempInput.select()
+        document.execCommand("copy")
+        document.body.removeChild(tempInput)
+        e.target.focus()
+    }
+</script>
+

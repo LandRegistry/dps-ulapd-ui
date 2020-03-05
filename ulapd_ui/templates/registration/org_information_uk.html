@@ -1,0 +1,51 @@
+{% extends "app/base.html" %}
+{% import "app/macros/form.html" as dps_form %}
+
+{% if session['dps-session']['registration']['uk_org_type'] == 'Company' %}
+{% set title="Company address" %}
+{% elif session['dps-session']['registration']['uk_org_type'] == 'Charity' %}
+{% set title="Charity address" %}
+{% elif session['dps-session']['registration']['uk_org_type'] == 'Government' %}
+{% set title="Government organisation details" %}
+{% else %}
+{% set title="Local authority details" %}
+{% endif %}
+
+{% block title %}{{ title }}{% endblock %}
+{% block content %}
+<div class="govuk-grid-row filter-user-type">
+    <div class="govuk-grid-column-two-thirds">
+        {% include "app/partials/backbtn.html" %}
+
+        {% if fields %}
+            <script type="application/json" data-ga-form-validation="uk_org_info">
+                {{ fields|tojson }}
+            </script>
+        {% endif %}
+        <form action="/registration/about-your-organisation-uk" method="POST" enctype="application/x-www-form-urlencoded">
+            <fieldset class="govuk-fieldset">
+                <legend>
+                    <h1 class="govuk-heading-xl">{{title}}</h1>
+                </legend>
+
+                {% include 'app/macros/error_list.html' %}
+
+                {% if session['dps-session']['registration']['uk_org_type'] == 'Government' or session['dps-session']['registration']['uk_org_type'] == 'Local authority' %}
+                    {{dps_form.input('name', value=session['dps-session']['registration']['uk_org_name'] or "", class='', label='Name', fields=fields or none)}}
+                {% endif %}
+                {{dps_form.field_group('building_and_street', [
+                    {"name": 'street_line_1', "label": "Building and street", "hidden_label": "line 1 of 2", "value": session['dps-session']['registration']['uk_org_street_line_1'] or "", "class":"" },
+                    {"name": 'street_line_2', "hidden_label": "Building and street line 2 of 2", "value": session['dps-session']['registration']['uk_org_street_line_2'] or "", "class":"" }
+                ], fields=fields or none)}}
+                {{dps_form.input('city', value=session['dps-session']['registration']['uk_org_city'] or "", class='govuk-!-width-two-thirds', label='Town or city',fields=fields or none)}}
+                {{dps_form.input('county', value=session['dps-session']['registration']['uk_org_county'] or "", class='govuk-!-width-two-thirds', label='County',fields=fields or none)}}
+                {{dps_form.input('postcode', value=session['dps-session']['registration']['uk_org_postcode'] or "", class='govuk-!-width-one-third', label='Postcode',fields=fields or none)}}
+                {{dps_form.input('phone', value=session['dps-session']['registration']['uk_org_phone'] or "", class='govuk-!-width-one-half', label='Phone',fields=fields or none)}}
+                <input type="hidden" id="type" name="type" value="{{ session['dps-session']['registration']['uk_org_type'] }}">
+
+            </fieldset>
+            <button type="submit" class="govuk-button">Continue</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

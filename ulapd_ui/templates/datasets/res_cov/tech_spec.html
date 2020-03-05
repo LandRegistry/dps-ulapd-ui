@@ -1,0 +1,280 @@
+{% extends "app/base.html" %}
+{% block title %}Restrictive Covenants - Technical specification{% endblock %}
+{% block content %}
+{% include "app/partials/backbtn.html" %}
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+        <span class="govuk-caption-xl">Technical specification</span>
+        <h1 class="govuk-heading-xl">Restrictive Covenants</h1>
+    </div>
+</div>
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-one-third">
+        <div class="table_of_contents" id="contents">
+            <p class="govuk-body"><strong>Contents</strong></p>
+            <ul>
+                <li><a class="govuk-link" href="#overview">Overview</a></li>
+                <li><a class="govuk-link" href="#scope">Specification scope</a></li>
+                <li><a class="govuk-link" href="#content">Data content and structure</a></li>
+                <li><a class="govuk-link" href="#quality">Data quality</a></li>
+                <li><a class="govuk-link" href="#capture">Data capture information</a></li>
+                <li><a class="govuk-link" href="#maintenance">Data maintenance</a></li>
+                <li><a class="govuk-link" href="#delivery">Data product delivery</a></li>
+                <li><a class="govuk-link" href="#contact">Contact information</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="govuk-grid-column-two-thirds">
+        <h2 id="overview" class="govuk-heading-l">Overview</h2>
+
+        <p class="govuk-body">
+            A restrictive covenant is a contract in a deed between the 2 landowners. One land owner (the covenantor), promises the other
+            (the covenantee), not to carry out a specified act on the defined area of their land. For example, the covenantor cannot build on the
+            land without getting consent from the covenantee first.
+        </p>
+        <p class="govuk-body">
+            Restrictive covenants usually happen when somebody selling land wishes to restrict what the buyer can do with it. However, sometimes
+            the vendor will agree to restrict their own use of the land they are keeping. The obligation to comply with the covenants remains,
+            no matter how often the land changes hands or how out of date the covenants seem to be.
+        </p>
+        <h2 id="scope" class="govuk-heading-l">Specification scope</h2>
+        <h3 class="govuk-heading-m">Inclusions and exclusions</h3>
+        <p class="govuk-body">
+            This dataset includes all registered land and property in England and Wales that have a restrictive covenant recorded against them.
+            Due to the data protection regulations, it excludes any personal data. It excludes details of what the restrictive covenant is. This
+            information may be available in individual registers or in documents referred to on the register and retained by HM Land Registry.
+        </p>
+        <h3 class="govuk-heading-m">Relationship to other HM Land Registry data products</h3>
+        <p class="govuk-body">
+            The Unique Identifier (UID) will be consistent across HM Land Registry's datasets and allow relational links with other datasets
+            with this attribute.
+        </p>
+        <h3 class="govuk-heading-m">Address relationships</h3>
+        <p class="govuk-body">
+            The UID represents an individual registered title. Where there is more than one address associated with a registered title these
+            are listed as multiple rows for the ID.
+        </p>
+        <h2 id="content" class="govuk-heading-l">Data content and structure</h2>
+
+        <h3 class="govuk-heading-m">Table 1 - class diagram</h3>
+
+        <table class="govuk-table">
+            <tr class="govuk-table__row">
+                <th scope="col" class="govuk-table__header">Restrictive Covenants</th>
+            </tr>
+            <tr class="govuk-table__row">
+                <td class="govuk-table__cell">Unique Identifier</td>
+            </tr>
+            <tr class="govuk-table__row">
+                <td class="govuk-table__cell">Tenure</td>
+            </tr>
+            <tr class="govuk-table__row">
+                <td class="govuk-table__cell">Register Property Description</td>
+            </tr>
+            <tr class="govuk-table__row">
+                <td class="govuk-table__cell">County</td>
+            </tr>
+            <tr class="govuk-table__row">
+                <td class="govuk-table__cell">Region</td>
+            </tr>
+            <tr class="govuk-table__row">
+                <td class="govuk-table__cell">Associated Property ID</td>
+            </tr>
+            <tr class="govuk-table__row">
+                <td class="govuk-table__cell">Associated Property Description</td>
+            </tr>
+            <tr class="govuk-table__row">
+                <td class="govuk-table__cell">Change Indicator</td>
+            </tr>
+            <tr class="govuk-table__row">
+                <td class="govuk-table__cell">Change Date</td>
+            </tr>
+        </table>
+        <hr class="govuk-section-break govuk-section-break--l">
+        <h3 class="govuk-heading-m">Table 2 - Restrictive Covenants table structure</h3>
+
+        <table class="govuk-table">
+            <tr class="govuk-table__row">
+                <th scope="col" class="govuk-table__header">Field name</th>
+                <th scope="col" class="govuk-table__header">Data type</th>
+                <th scope="col" class="govuk-table__header">Mandatory</th>
+                <th scope="col" class="govuk-table__header">Description</th>
+            </tr>
+            <tr class="govuk-table__row">
+                <td class="govuk-table__cell">Unique identifier</td>
+                <td class="govuk-table__cell">CharacterString</td>
+                <td class="govuk-table__cell">Yes</td>
+                <td class="govuk-table__cell">A unique reference number given to a piece of registered land</td>
+            </tr>
+            <tr class="govuk-table__row">
+                <td class="govuk-table__cell">Tenure</td>
+                <td class="govuk-table__cell">CharacterString</td>
+                <td class="govuk-table__cell">Yes</td>
+                <td class="govuk-table__cell">
+                    The conditions upon which a person holds land i.e. Freehold or Leasehold
+                </td>
+            </tr>
+            <tr class="govuk-table__row">
+                <td class="govuk-table__cell">Register Property Description</td>
+                <td class="govuk-table__cell">CharacterString</td>
+                <td class="govuk-table__cell">Yes</td>
+                <td class="govuk-table__cell">
+                    The unformatted property description on the register
+                </td>
+            </tr>
+            <tr class="govuk-table__row">
+                <td class="govuk-table__cell">INSERT</td>
+                <td class="govuk-table__cell">CharacterString</td>
+                <td class="govuk-table__cell">Yes</td>
+                <td class="govuk-table__cell">
+                    Date on which the polygon in the title was initially created on the index map
+                </td>
+            </tr>
+            <tr class="govuk-table__row">
+                <td class="govuk-table__cell">County</td>
+                <td class="govuk-table__cell">CharacterString</td>
+                <td class="govuk-table__cell">Yes</td>
+                <td class="govuk-table__cell">
+                    Name of current County in England and Wales
+                </td>
+            </tr>
+            <tr class="govuk-table__row">
+                <td class="govuk-table__cell">Region</td>
+                <td class="govuk-table__cell">CharacterString</td>
+                <td class="govuk-table__cell">Yes</td>
+                <td class="govuk-table__cell">
+                    Name of a geographic region which comprises one or more current counties, former counties or unitary authorities or any
+                    combination of these
+                </td>
+            </tr>
+            <tr class="govuk-table__row">
+                <td class="govuk-table__cell">Associated Property ID</td>
+                <td class="govuk-table__cell">CharacterString</td>
+                <td class="govuk-table__cell">Yes</td>
+                <td class="govuk-table__cell">
+                    Required to uniquely identify the Associated Property Description
+                </td>
+            </tr>
+            <tr class="govuk-table__row">
+                <td class="govuk-table__cell">Associated Property Description</td>
+                <td class="govuk-table__cell">CharacterString</td>
+                <td class="govuk-table__cell">No</td>
+                <td class="govuk-table__cell">
+                    All Land Registry Property Gazetteer addresses associated with the Title Number. One address per row. No special formatting. Title Number is not revealed
+                </td>
+            </tr>
+            <tr class="govuk-table__row">
+                <td class="govuk-table__cell">Change Indicator</td>
+                <td class="govuk-table__cell">Character</td>
+                <td class="govuk-table__cell">No</td>
+                <td class="govuk-table__cell">
+                    Indicates the type of change made to a row in the change only update file:<br>
+                    A indicates a new entry<br>
+                    D indicates an entry has been removed
+                </td>
+            </tr>
+            <tr class="govuk-table__row">
+                <td class="govuk-table__cell">Change Date</td>
+                <td class="govuk-table__cell">Date</td>
+                <td class="govuk-table__cell">No</td>
+                <td class="govuk-table__cell">
+                    The date of the extract
+                </td>
+            </tr>
+        </table>
+        <hr class="govuk-section-break govuk-section-break--l">
+
+        <h2 id="quality" class="govuk-heading-l">Data quality</h2>
+        <p class="govuk-body">
+            The dataset is made up of elements copied from HM Land Registry's database systems via an automated process. Before we release the
+            dataset, we check it for inclusions and exclusions through a quality control process. We try to make sure our public data is accurate
+            but cannot guarantee it is free from errors or fit for your purpose or use.
+        </p>
+        <h2 id="capture" class="govuk-heading-l">Data capture information</h2>
+        <p class="govuk-body">
+            Restrictive covenants are entered in the register by way of notice (s.32, LRA 2002 and rr. 35 and 72, LRR 2003).
+        </p>
+
+        <h2 id="maintenance" class="govuk-heading-l">Data maintenance</h2>
+        <p class="govuk-body">
+            The published data gives a snapshot of land and property that has a restrictive covenant recorded at the point of monthly extraction.
+        </p>
+
+        <h2 id="delivery" class="govuk-heading-l">Data product delivery</h2>
+
+        <h3 class="govuk-heading-m">Access to the dataset</h3>
+        <p class="govuk-body">
+            Two files will be published from the 6th working day of the month.
+        </p>
+        <p class="govuk-body">
+            The data is published in both a monthly complete file and a change only update file which shows the changes made in the dataset
+            since the previous month.
+        </p>
+        <p class="govuk-body">
+            Once the full dataset has been downloaded, the UID allows the user to maintain the data by adding the change only update to the
+            full dataset each month. Alternatively, the user can download the full dataset again, which also contains all changes made to date.
+        </p>
+        <h3 class="govuk-heading-m">Granting access</h3>
+        <p class="govuk-body">
+            You'll need to create an account on the Use Land and Property Data service.
+        </p>
+        <p class="govuk-body">
+            To create the account, you'll need to provide some information about yourself. We collect and hold personal and non-personal
+            information, which may be validated, to identify who has requested the data. For more information about how HMLR handles personal
+            data, see the <a class="govuk-link" href="https://www.gov.uk/government/organisations/land-registry/about/personal-information-charter"
+            target="_blank" title="This link will open in a new tab">Personal information charter</a>.
+        </p>
+        <p class="govuk-body">
+            There are 3 different licences for this dataset. You have to choose which licence you need based on how you're going to use the
+            data. Once your account has been approved and you've agreed to the correct licence, you can sign in to the service to access the data.
+        </p>
+        <h3 class="govuk-heading-m">File structure</h3>
+
+        <p class="govuk-body">
+            The data is provided as a .CSV file. The data in each file will:
+        </p>
+        <ul class="govuk-list govuk-list--bullet">
+            <li>use a comma to seperate each field: ',' (ASCII 44)</li>
+            <li>enclose all fields within double quotes: “ ” (ASCII 34)</li>
+            <li>send blank fields without a character between double quotes: “ ”</li>
+            <li>have a date format of YYYY-MM-DD. For example, 14 December 2013 will be shown as 2013-12-14</li>
+            <li>will use UTF-8 encoding (the way characters are coded for websites)</li>
+            <li>have line seperation removed</li>
+            <li>have the column heading name as the first row</li>
+            <li>have the row count as the last row</li>
+        </ul>
+        <h3 class="govuk-heading-m">File name</h3>
+
+        <p class="govuk-body">The file name will be structured as follows:</p>
+
+        <ul class="govuk-list">
+            <li>Monthly full extract</li>
+            <li>file name: RES_COVENANTS___.csv</li>
+        </ul>
+
+        <ul class="govuk-list">
+            <li>Monthly change only update (COU)</li>
+            <li>filename: RES_COVENANTS___.csv</li>
+        </ul>
+
+        <h3 class="govuk-heading-m">File management</h3>
+        <p class="govuk-body">
+            The current full file and current change only update file will be availble for download each month.
+        </p>
+
+
+        <h2 id="contact" class="govuk-heading-l">Contact information</h2>
+
+        <p class="govuk-body">
+            If you have any feedback or questions about this data, contact us via:
+        </p>
+        <p class="govuk-body">
+            Email: <a class="govuk-link" href="mailto:data.services@landregistry.gov.uk" title="This link will open your default email application">data.services@landregistry.gov.uk</a>
+        </p>
+        <p class="govuk-body">
+            Telephone: 0300 006 0478
+        </p>
+    </div>
+</div>
+{% include "app/partials/base_bar.html" %}
+{% endblock %}

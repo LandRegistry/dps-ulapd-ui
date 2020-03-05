@@ -1,0 +1,526 @@
+{% extends "app/base.html" %}
+{% block title %}{% endblock %}
+{% block content %}
+<div class="govuk-grid-row">
+    {% include "app/partials/backbtn.html" %}
+    <div class="govuk-grid-column-two-thirds">
+        <span class="govuk-caption-xl">Use land and property data</span>
+        <h1 class="govuk-heading-xl">API technical documentation</h1>
+    </div>
+</div>
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+        <p>This is technical information for software engineers who will access Use land and property data using the
+            API.</p>
+
+        <br>
+        <h2 id="overview" class="govuk-heading-l">API overview</h2>
+        <p>This API is used as way to access datsets programatically. By creating an account you get an API key by
+            default, which is used to call the endpoints.</p>
+        <br>
+        <h2 id="authentication" class="govuk-heading-l">Authentication</h2>
+        <p>The Use land and property data API uses a key to authenticate you. We'll ask for authentication on every
+            request.</p>
+        <p>The API Key should be given on every request as the <code
+                class="code-highlight-grey-panel">Authorization</code> header.</p>
+        <p>It is also advisable to pass in the <code class="code-highlight-grey-panel">Accept</code> header with the
+            value of <code class="code-highlight-grey-panel">application/json</code> to ensure you get the correct
+            responses when querying the API.</p>
+
+        <br>
+        <h2 id="parameters" class="govuk-heading-l">Parameters</h2>
+        <p>Following Restful API standards, any parameters should be passed to endpoints as URL encoded parameters.</p>
+
+        <br>
+        <h2 id="url" class="govuk-heading-l">URL</h2>
+        <p>The URL for all endpoints should be:</p>
+        <p><code
+                class="code-highlight-grey-panel">https://use-land-property-data.landregistry.gov.uk/api/v1/{endpoint}</code>
+        </p>
+        <p><code class="code-highlight-grey-panel">{endpoint}</code> should be replaced by a suitable endpoint name
+            below.</p>
+
+        <br>
+        <h2 id="definition" class="govuk-heading-l">Definition of terms</h2>
+        <p>The dataset names have changed.</p>
+        <ul class="govuk-list govuk-list--bullet">
+            <li> ccod is now called UK companies that own property in England and Wales</li>
+            <li> ocod is now called Overseas companies that own property in England and Wales</li>
+        </ul>
+        <p>The terms CCOD and OCOD are still used in the file name and dataset name variables.</p>
+        <ul class="govuk-list govuk-list--bullet">
+            <li>file name - <code class="code-highlight-grey-panel">CCOD_FULL_2019_08.zip</code></li>
+            <li>dataset name - <code class="code-highlight-grey-panel">ccod</code></li>
+        </ul>
+
+        <br>
+        <h2 id="actions" class="govuk-heading-l">Endpoints</h2>
+        <h3 class="govuk-heading-m">/datasets</h3>
+        <p>returns a JSON list of the dataset names and titles that are available in the service.</p>
+        <p>Methods available: <code class="code-highlight-grey-panel">GET</code></p>
+        <h3 class="govuk-heading-m">Parameters:</h3>
+        <p>None</p>
+        <p><b>JSON Object</b></p>
+        <b>Example:</b>
+        <pre class="code-highlight-grey-panel">
+            <code class="code-highlight-grey-panel">
+{
+"result": [
+    {
+    "name": "ccod",
+    "title": "UK companies that own property in England and Wales"
+    },
+    {
+    "name": "ocod",
+    "title": "Overseas companies that own property in England and Wales"
+    },
+    {
+    "name": "nps",
+    "title": "National Polygon Service"
+    },
+    {
+    "name": "nps_sample",
+    "title": "National Polygon Service Sample"
+    }
+],
+"success": true
+}
+            </code>
+            </pre>
+
+        <hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible">
+
+        <h3 class="govuk-heading-m">/datasets/{dataset_name}</h3>
+        <p>Returns the metadata of a dataset and its resources</p>
+        <p>Methods available: <code class="code-highlight-grey-panel">GET</code></p>
+        <h3 class="govuk-heading-m">Parameters:</h3>
+        <p>None</p>
+        <p><b>JSON Object</b></p>
+        <b>Example: </b>
+        <pre class="code-highlight-grey-panel">
+            <code class="code-highlight-grey-panel">
+{
+"result": {
+    "description": "Download data about UK companies that own land or property in England and Wales. This data includes (where available) company name, type of company, registration number, address and price paid. This data was originally called Commercial and corporate data (CCOD).",
+    "external": false,
+    "fee": "Free of charge",
+    "file_count": 1,
+    "file_size": "1.23 MB",
+    "format": "CSV",
+    "last_updated": "7 August 2019",
+    "licence_id": "ccod",
+    "name": "ccod",
+    "private": false,
+    "public_resources": [
+    {
+        "file_count": 1,
+        "file_name": "example.csv",
+        "file_size": "10 B",
+        "format": "CSV",
+        "name": "Example Data",
+        "row_count": 1
+    }
+    ],
+    "resources": [
+    {
+        "file_count": 1,
+        "file_name": "CCOD_COU_2019_09.zip",
+        "file_size": "1.3 MB",
+        "format": "CSV",
+        "name": "Change Only File",
+        "row_count": 4138
+    },
+    {
+        "file_count": 1,
+        "file_name": "CCOD_FULL_2019_09.zip",
+        "file_size": "1.23 MB",
+        "format": "CSV",
+        "name": "Full File",
+        "row_count": 4138
+    }
+    ],
+    "state": "active",
+    "tech_spec_url": "https://www.gov.uk/government/publications/overseas-companies-ownership-data-technical-specification",
+    "title": "UK companies that own property in England and Wales",
+    "type": "free",
+    "update_frequency": "Monthly",
+    "version": "v1"
+},
+"success": true
+}
+            </code>
+            </pre>
+
+        <hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible">
+
+        <h3 class="govuk-heading-m">datasets/{dataset_name}/{file_name}</h3>
+        <p>Returns a download URL valid for 10 seconds for a specific file in a dataset</p>
+        <p><b>Note:</b> This endpoint will only work if you have agreed to the dataset licence and have the correct
+            access. You can do this on the Use land and property data service.</p>
+        <p>Methods available: <code class="code-highlight-grey-panel">GET</code></p>
+        <h3 class="govuk-heading-m">Parameters:</h3>
+        <p>None</p>
+        <p><b>JSON Object</b></p>
+        <b>Example:</b>
+        <pre class="code-highlight-grey-panel">
+            <code class="code-highlight-grey-panel">
+{
+"result": {
+    "download_url": "https://bucket.s3.amazonaws.com/ccod/CCOD_COU_2019_09.zip?response-content-type=application%2Fforce-download&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIA2UQ4ZYORJ3Q7HI7G%2F20191129%2Feu-west-2%2Fs3%2Faws4_request&X-Amz-Date=20191129T121417Z&X-Amz-Expires=10&X-Amz-SignedHeaders=host&X-Amz-Signature=44778c5d5c0183ae3d1147eff91822936cd0f114845e8ec384ffc8c5927717cb",
+    "resource": "CCOD_COU_2019_09.zip",
+    "valid_for_seconds": 10
+},
+"success": true
+}
+            </code>
+            </pre>
+
+        <hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible">
+
+        <h3 class="govuk-heading-m">/datasets/history{dataset_name}</h3>
+        <p>Returns a list of available historical resources for a dataset</p>
+        <p>Methods available: <code class="code-highlight-grey-panel">GET</code></p>
+        <h3 class="govuk-heading-m">Parameters:</h3>
+        <p>None</p>
+        <p><b>JSON Object</b></p>
+        <b>Example: </b>
+        <pre class="code-highlight-grey-panel">
+                <code class="code-highlight-grey-panel">
+{
+
+    "success": true,
+    "dataset": "ccod",
+    "dataset_history": [
+        {
+        "file_size": "1.3 MB",
+        "filename": "CCOD_COU_2019_08.zip",
+        "last_updated": "August 2019",
+        "unsorted_date": "07-08-2019"
+        },
+        {
+        "file_size": "1.23 MB",
+        "filename": "CCOD_FULL_2019_08.zip",
+        "last_updated": "August 2019",
+        "unsorted_date": "07-08-2019"
+        },
+        {
+        "file_size": "577.91 KB",
+        "filename": "CCOD_COU_2019_07.zip",
+        "last_updated": "July 2019",
+        "unsorted_date": "29-07-2019"
+        },
+        {
+        "file_size": "542.35 KB",
+        "filename": "CCOD_FULL_2019_07.zip",
+        "last_updated": "July 2019",
+        "unsorted_date": "29-07-2019"
+        },
+        {
+        "file_size": "60.24 MB",
+        "filename": "CCOD_COU_2019_06.zip",
+        "last_updated": "June 2019",
+        "unsorted_date": "03-06-2019"
+        },
+        {
+        "file_size": "1.3 GB",
+        "filename": "CCOD_FULL_2019_06.zip",
+        "last_updated": "June 2019",
+        "unsorted_date": "03-06-2019"
+        },
+        {
+        "file_size": "37.03 KB",
+        "filename": "CCOD_COU_2019_05.zip",
+        "last_updated": "May 2019",
+        "unsorted_date": "01-05-2019"
+        },
+        {
+        "file_size": "35.3 KB",
+        "filename": "CCOD_FULL_2019_05.zip",
+        "last_updated": "May 2019",
+        "unsorted_date": "01-05-2019"
+        },
+        {
+        "file_size": "37.03 KB",
+        "filename": "CCOD_COU_2019_05.zip",
+        "last_updated": "April 2019",
+        "unsorted_date": "01-04-2019"
+        },
+        {
+        "file_size": "35.3 KB",
+        "filename": "CCOD_FULL_2019_05.zip",
+        "last_updated": "April 2019",
+        "unsorted_date": "01-04-2019"
+        },
+        {
+        "file_size": "37.03 KB",
+        "filename": "CCOD_COU_2019_03.zip",
+        "last_updated": "March 2019",
+        "unsorted_date": "01-03-2019"
+        },
+        {
+        "file_size": "35.3 KB",
+        "filename": "CCOD_FULL_2019_03.zip",
+        "last_updated": "March 2019",
+        "unsorted_date": "01-03-2019"
+        },
+        {
+        "file_size": "37.03 KB",
+        "filename": "CCOD_COU_2019_02.zip",
+        "last_updated": "February 2019",
+        "unsorted_date": "01-02-2019"
+        },
+        {
+        "file_size": "35.3 KB",
+        "filename": "CCOD_FULL_2019_02.zip",
+        "last_updated": "February 2019",
+        "unsorted_date": "01-02-2019"
+        },
+        {
+        "file_size": "37.03 KB",
+        "filename": "CCOD_COU_2019_05.zip",
+        "last_updated": "January 2019",
+        "unsorted_date": "01-01-2019"
+        },
+        {
+        "file_size": "35.3 KB",
+        "filename": "CCOD_FULL_2019_05.zip",
+        "last_updated": "January 2019",
+        "unsorted_date": "01-01-2019"
+        }
+    ]
+}
+                </code>
+                </pre>
+
+        <hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible">
+
+        <h3 class="govuk-heading-m">datasets/history/{dataset_name}/{file_name}</h3>
+        <p>Returns a download URL valid for 10 seconds for a specific historical file for the provided dataset</p>
+        <p><b>Note:</b> This endpoint will only work if you have agreed to the dataset licence and have the correct
+            access. You can do this on the Use land and property data service.</p>
+        <p>Methods available: <code class="code-highlight-grey-panel">GET</code></p>
+        <h3 class="govuk-heading-m">Parameters:</h3>
+        <p>None</p>
+        <p><b>JSON Object</b></p>
+        <b>Example:</b>
+        <pre class="code-highlight-grey-panel">
+                <code class="code-highlight-grey-panel">
+{
+    "success": true,
+    "result": {
+        "download_url": "https://datapub-integration-bucket.s3.amazonaws.com/ccod/history/2019_02/CCOD_COU_2019_02.zip?response-content-type=application%2Fforce-download&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIA2UQ4ZYORJ3Q7HI7G%2F20191219%2Feu-west-2%2Fs3%2Faws4_request&X-Amz-Date=20191219T133951Z&X-Amz-Expires=10&X-Amz-SignedHeaders=host&X-Amz-Signature=2f5c974977a110ad9d2a4aaf3ce4253c73f37ab237e33b30cbef7ef18bbb9146",
+        "resource": "CCOD_COU_2019_02.zip",
+        "valid_for_seconds": 10
+    }
+}
+                </code>
+                </pre>
+        <hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible">
+
+        <h2 id="responses" class="govuk-heading-l">Response codes</h2>
+
+        <h3 class="govuk-heading-m">200 OK</h3>
+
+        <p>The user request was successful.</p>
+
+        <h3 class="govuk-heading-m">Request example</h3>
+
+        <p><code
+                class="code-highlight-grey-panel">https://use-land-property-data.landregistry.gov.uk/api/v1/datasets</code>
+        </p>
+        <h3 class="govuk-heading-m">Response example</h3>
+        <pre class="code-highlight-grey-panel">
+            <code class="code-highlight-grey-panel">
+{
+"result": [
+    {
+    "name": "ccod",
+    "title": "UK companies that own property in England and Wales"
+    },
+    {
+    "name": "ocod",
+    "title": "Overseas companies that own property in England and Wales"
+    },
+    {
+    "name": "nps",
+    "title": "National Polygon Service"
+    },
+    {
+    "name": "nps_sample",
+    "title": "National Polygon Service Sample"
+    }
+],
+"success": true
+}
+            </code>
+            </pre>
+        <hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible">
+
+        <h2 id="errors" class="govuk-heading-l">Error response codes</h2>
+
+        <h3 class="govuk-heading-m">403 forbidden</h3>
+
+        <p>The user is not authorised to use the API.</p>
+        <p>This could happen if the user:</p>
+
+        <ul class="govuk-list govuk-list--bullet">
+            <li>does not provide an API key</li>
+            <li>has not agreed to the dataset licence</li>
+            <li>does not have access to the request dataset, if it is a paid datset for example</li>
+        </ul>
+
+        <h3 class="govuk-heading-m">Request example 1</h3>
+
+        <p><code
+                class="code-highlight-grey-panel">https://use-land-property-data.landregistry.gov.uk/api/v1/datasets</code>
+        </p>
+        <h3 class="govuk-heading-m">Response example 1</h3>
+        <pre class="code-highlight-grey-panel">
+            <code class="code-highlight-grey-panel">
+{
+"error": "Access denied: You need to provide your API Key to perform this operation",
+"success": false
+}
+            </code>
+            </pre>
+        <hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible">
+
+        <h3 class="govuk-heading-m">Request example 2</h3>
+
+        <p><code
+                class="code-highlight-grey-panel">https://use-land-property-data.landregistry.gov.uk/api/v1/datasets/ocod/OCOD_COU_2019_10.zip</code>
+        </p>
+
+        <h3 class="govuk-heading-m">Response example 2</h3>
+        <pre class="code-highlight-grey-panel">
+            <code class="code-highlight-grey-panel">
+{
+"error": "You have not yet signed the licence for this dataset",
+"success": false
+}</code>
+            </pre>
+        <hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible">
+
+        <h3 class="govuk-heading-m">Request example 3</h3>
+
+        <p><code
+                class="code-highlight-grey-panel">https://use-land-property-data.landregistry.gov.uk/api/v1/datasets/nps/NSD_COU_2019_08.zip</code>
+        </p>
+
+        <h3 class="govuk-heading-m">Response example 3</h3>
+        <pre class="code-highlight-grey-panel">
+            <code class="code-highlight-grey-panel">
+{
+"error": "You have not paid for access to this dataset",
+"success": false
+}
+            </code>
+            </pre>
+        <hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible">
+
+        <h3 class="govuk-heading-m">404 Not found</h3>
+
+        <p>The user has requested something that does not exist.</p>
+        <p>This could happen if the user:</p>
+
+        <ul class="govuk-list govuk-list--bullet">
+            <li>enters a URL that cannot be found</li>
+            <li>the API key that you entered has expired, is incorrect or does not exist</li>
+            <li>the resource/file name provided does not exist</li>
+        </ul>
+
+        <h3 class="govuk-heading-m">Request example 1</h3>
+
+        <p><code
+                class="code-highlight-grey-panel">https://use-land-property-data.landregistry.gov.uk/api/v1/non_existent_resource</code>
+        </p>
+
+        <h3 class="govuk-heading-m">Response example 1</h3>
+        <pre class="code-highlight-grey-panel">
+            <code class="code-highlight-grey-panel">
+{}
+            </code>
+            </pre>
+
+        <h3 class="govuk-heading-m">Request example 2</h3>
+
+        <p><code
+                class="code-highlight-grey-panel">https://use-land-property-data.landregistry.gov.uk/api/v1/datasets</code>
+        </p>
+
+        <h3 class="govuk-heading-m">Response example 2</h3>
+        <pre class="code-highlight-grey-panel">
+            <code class="code-highlight-grey-panel">
+{
+"error": "API Key provided is incorrect or does not exist",
+"success": false
+}
+            </code>
+            </pre>
+
+        <h3 class="govuk-heading-m">Request example 3</h3>
+
+        <p><code
+                class="code-highlight-grey-panel">https://use-land-property-data.landregistry.gov.uk/api/v1/datasets/ocod/INVALID_FILE_NAME.zip</code>
+        </p>
+
+        <h3 class="govuk-heading-m">Response example 3</h3>
+        <pre class="code-highlight-grey-panel">
+            <code class="code-highlight-grey-panel">
+{
+"error": "The File name provided does not exist",
+"success": false
+}
+            </code>
+            </pre>
+
+        <hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible">
+
+        <h3 class="govuk-heading-m">500 Internal server error</h3>
+
+        <p>There is an undefined error in the server.</p>
+
+        <h3 class="govuk-heading-m">Response example</h3>
+        <pre class="code-highlight-grey-panel">
+            <code class="code-highlight-grey-panel">
+{ }
+            </code>
+            </pre>
+
+        <h3 class="govuk-heading-m">Suggested resolution</h3>
+
+        <p>Read the <a class="govuk-link" href="/api-information">API documentation</a> to check you are using the API
+            as instructed.</p>
+
+        <p>There may be a problem with the service. Try again in a few minutes or <a class="govuk-link"
+                href="#support">get in contact</a>.</p>
+
+        <br><br>
+        <h2 id="support" class="govuk-heading-l">Support</h2>
+
+        <p><a class="govuk-link" href="https://www.smartsurvey.co.uk/s/HMLR_feedback/">Use our online contact form</a>
+            if you:</p>
+
+        <ul class="govuk-list govuk-list--bullet">
+            <li>need help using the service</li>
+            <li>want to report a problem</li>
+            <li>want to leave feedback</li>
+        </ul>
+
+        <p>You can also contact us via:</p>
+        <p>
+            HM Land Registry <br>
+            Rosebrae Court <br>
+            Woodside Ferry Approach <br>
+            Birkenhead <br>
+            Merseyside <br>
+            CH41 6DU <br>
+        </p>
+        <p>Email: <a class="govuk-link" href="mailto:data.services@landregistry.gov.uk"
+                title="This link will open your default email application">data.services@landregistry.gov.uk</a></p>
+
+        <p>Telephone: 0300 006 0478</p>
+    </div>
+</div>
+{% endblock %}

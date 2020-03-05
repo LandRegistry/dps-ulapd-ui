@@ -1,0 +1,19 @@
+flake:
+  image: python:alpine
+  tags:
+  - "docker/python:alpine"
+  script:
+  - pip install flake8
+  - flake8
+
+unit:
+  image: hmlandregistry/dev_base_python_flask:5-3.6
+  tags:
+    - "docker/hmlandregistry/*"
+  coverage: /TOTAL\ *(\d*\ *\d*\ *)(\d*)/
+  script:
+    - pip3 install -q -r requirements_pipeline.txt
+    - python3 unit_test_env.py
+    - echo "export PYTHONPATH=$(pwd)" >> env.sh
+    - echo "py.test -s unit_tests" >> env.sh
+    - bash env.sh

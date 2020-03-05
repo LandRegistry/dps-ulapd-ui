@@ -1,0 +1,156 @@
+{% extends "app/base.html" %}
+{% from "app/macros/breadcrumbs.html" import bread_crumbs %}
+{% block title %}{{ dataset_details['title'] }}{% endblock %}
+{% block content %}
+{% include "app/partials/navbar.html" %}
+<div class="details-page">
+    {{ bread_crumbs(breadcrumb_links) }}
+
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full">
+            <span class="govuk-caption-xl">Dataset</span>
+            <h1 class="govuk-heading-xl">{{dataset_details['title']}}</h1>
+
+            <p class="govuk-body-l">
+                Data about how many requests for information we send to customers about their applications. <br>
+                <span class="govuk-body">
+                    (Requests for information were formerly known as requisitions).
+                </span>
+            </p>
+        </div>
+    </div>
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-one-third">
+            <div class="table_of_contents" id="contents">
+                <p class="govuk-body">Contents</p>
+                <ul>
+                    <li><a class="govuk-link" href="#dataset">The dataset</a></li>
+                    <li><a class="govuk-link" href="#use_the_data">How you can use the data</a></li>
+                    <li><a class="govuk-link" href="#get_the_data">How to get the data</a></li>
+                    <li><a class="govuk-link" href="#contact">Contact us</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="govuk-grid-column-two-thirds">
+            <h2 id="dataset" class="govuk-heading-l">The dataset</h2>
+            <p class="govuk-body">
+                This dataset shows:
+            </p>
+            <ul class="govuk-list govuk-list--bullet">
+                <li>the 500 customers that send the most applications to us</li>
+                <li>the number and type of applications we receive and complete</li>
+                <li>how many requests for information we send to customers</li>
+            </ul>
+            <p class="govuk-body">
+                It includes all types of requests for information but excludes:
+            </p>
+            <ul class="govuk-list govuk-list--bullet">
+                <li>telephone requests for information</li>
+                <li>bankruptcy applications</li>
+                <li>bulk applications</li>
+                <li>applications that we've received but not yet completed</li>
+            </ul>
+            <h3 class="govuk-heading-m">Technical specification</h3>
+            <p class="govuk-body">
+                <a class="govuk-link" href="/datasets/{{ dataset_details['name'] }}/tech-spec">Read the technical
+                    specification for Request for information</a> for full details about the data and
+                what the column headings mean.
+            </p>
+            <h2 id="use_the_data" class="govuk-heading-l">How you can use the data</h2>
+            <p class="govuk-body">
+                The data is available free of charge for use and re-use under the
+                <a class="govuk-link" href="http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/">
+                    Open Government Licence</a> (OGL).
+            </p>
+            <p class="govuk-body">
+                Make sure that you understand the terms of the OGL before using the data. If you use or publish this
+                data,
+                you must add the following statement:
+            </p>
+            <blockquote class="noquotes">
+                <p class="govuk-body">
+                    Contains HM Land Registry data © Crown copyright and database right 2019. This data is licensed
+                    under
+                    the Open Government Licence v3.0.
+                </p>
+            </blockquote>
+            <p class="govuk-body">
+                You must also provide a link in the data you publish to this <a class="govuk-link" href="#explanation">
+                    explanation of the dataset</a>.
+            </p>
+            <h3 id="explanation" class="govuk-heading-m">About requests for information</h3>
+            <p class="govuk-body">
+                We send requests for information if an application does not have enough information or if there are
+                inconsistencies in the documentation.
+            </p>
+            <p class="govuk-body">
+                Applications are either register update applications or register create applications.
+            </p>
+            <h4 class="govuk-heading-s">Register update applications</h4>
+            <p class="govuk-body">
+                These involve changing the details on an existing register. For example, recording the names of new
+                owners of a property.
+            </p>
+            <h4 class="govuk-heading-s">Register create applications</h4>
+            <p class="govuk-body">
+                These involve creating a brand-new title. For example, a property being registered
+                for the first time.
+            </p>
+            <p class="govuk-body">
+                In this dataset, register create applications are broken down into:
+            </p>
+            <ul class="govuk-list govuk-list--bullet">
+                <li>First registrations (FR)</li>
+                <li>Transfer of part (TP)</li>
+                <li>Dispositionary first lease (DFL)</li>
+            </ul>
+            <p class="govuk-inset-text">
+                We send more requests for information about register create applications. This is because they are more
+                complex. Conveyancers who send more register create applications will receive more requests for
+                information
+                than a company with a different profile of work.
+            </p>
+            <h3 class="govuk-heading-m">Why we send requests for information</h3>
+            <p class="govuk-body">
+                Sometimes, we send a request for information through no fault of the applicant or a third party.
+                For example, where we:
+            </p>
+            <ul class="govuk-list govuk-list--bullet">
+                <li>
+                    ask for more information under
+                    <a class="govuk-link" href="http://www.legislation.gov.uk/uksi/2003/1417/article/17/made">
+                        rule 17 of the Land Registration Rules 2003</a>
+                </li>
+                <li>send a request for information in error</li>
+            </ul>
+            <p class="govuk-body">
+                Sometimes, issues arise from errors and oversights by conveyancers. In other cases, third parties do not
+                provide the evidence to conveyancers on time. Examples include:
+            </p>
+            <ul class="govuk-list govuk-list--bullet">
+                <li>no evidence of consents by third parties</li>
+                <li>name discrepancies</li>
+                <li>documents not being signed or witnessed properly</li>
+            </ul>
+            <h2 id="get_the_data" class="govuk-heading-l">How to get the data</h2>
+            <p class="govuk-body">
+                This dataset covers a period of 3 months. It's normally available to access on the 15<sup>th</sup> working day of
+                the
+                following month.
+            </p>
+            <p class="govuk-body">
+                You can download or view the data online.
+            </p>
+            <a class="govuk-button"
+                href="{{ url_for('.get_download_page', dataset_id=dataset_details['name']) }}">Access data</a>
+            <h2 id="contact" class="govuk-heading-l">Contact us</h2>
+            <p class="govuk-body">
+                If you have any questions about this data, email our customers service team:
+                <a class="govuk-link"
+                    href="mailto:customer.service@landregistry.gov.uk​" title="This link will open your default email application">customer.service@landregistry.gov.uk​</a>
+            </p>
+        </div>
+    </div>
+    {% include "app/partials/base_bar.html" %}
+</div>
+{% endblock %}

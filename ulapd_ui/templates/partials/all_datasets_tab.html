@@ -1,0 +1,28 @@
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-one-third table_of_contents">
+        <p class="govuk-body">Contents</p>
+        <ul>
+            {% for dataset in datasets_list %}
+                <li>
+                    <a class="govuk-link" href="#{{ dataset['name'] }}">{{ dataset['title'] }}</a>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+    <div class="govuk-grid-column-two-thirds">
+        {% for dataset in datasets_list %}
+            <div class="govuk-!-padding-bottom-9 data-list-tile">
+                {% if dataset['private'] and not dataset['type'] == 'freemium' %}
+                    {% include "app/partials/restricted_listing.html" %}
+                {% elif dataset['external'] %}
+                    {% include "app/datasets/external_listings/%s_listing.html" % dataset['name']%}
+                {% elif dataset['type'] == 'freemium' %}
+                    {% include "app/partials/freemium_listing.html" %}
+                {% else %}
+                    {% include "app/partials/open_listing.html" %}
+                {% endif %}
+            </div>
+        {% endfor %}
+    </div>
+</div>
+    

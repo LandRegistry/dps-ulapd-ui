@@ -1,0 +1,52 @@
+{% extends "app/base.html" %}
+{% block title %}{% endblock %}
+{% block content %}
+<div class="govuk-grid-row">
+{% include "app/partials/backbtn.html" %}
+    <div class="govuk-grid-column-two-thirds">
+        <h1 class="govuk-heading-xl">Accessing data with our API</h1>
+    </div>
+</div>
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+        <h2 id="about-this-service" class="govuk-heading-l">About the API</h2>
+        <p>If you have programming knowledge you can use this API to access datasets in the Use land and property data service. 
+        This is a <a class="govuk-link" href="https://en.wikipedia.org/wiki/Representational_state_transfer">RESTful</a> API in 
+        <a class="govuk-link" href="https://en.wikipedia.org/wiki/JSON">JSON</a> format, making it suitable for a range of programming languages.</p>
+
+        <h2 id="whats-included" class="govuk-heading-l">What you can access with the API</h2>
+        <p>You can use the API to get:</p>
+        <ul class="govuk-list govuk-list--bullet">
+            <li>a list of HM Land Registry datasets that are available from this service</li>
+            <li>a list of HM Land Registry datasets that are not part of the service</li>
+            <li>information and metadata about datasets</li>
+            <li>secure links for downloading datasets</li>
+        </ul>
+        <p>You can access datasets that show: </p>
+        <ul class="govuk-list govuk-list--bullet">
+            <li><a class="govuk-link" href="{{ url_for('datasets.get_details', dataset_id='ccod') }}">UK companies that own property in England and Wales</a></li>
+            <li><a class="govuk-link" href="{{ url_for('datasets.get_details', dataset_id='ocod') }}">Overseas companies that own property in England and Wales</a></li>
+            <li><a class="govuk-link" href="{{ url_for('datasets.get_details', dataset_id='nps') }}">National Polygon Service</a></li>
+        </ul>
+
+        <h2 id="using-this-service" class="govuk-heading-l">How to access the datasets</h2>
+        <p>You need to create an account to agree to a licence to access the datasets.</p>
+        <ol class="govuk-list govuk-list--number" type="1">
+            <li><a class="govuk-link" href="{{ url_for('registration.user_type') }}">Create an account</a> if you do not have one</li>
+            <li><a class="govuk-link" href="{{ url_for('sign-in.get_signin') }}">Sign in</a> to your account</li>
+            <li><a class="govuk-link" href="/">Agree to the data licence(s)</a> on the Use land and property data website</li>
+            <li>Get your API key</li>
+        </ol>
+
+        <h2 id="base-url" class="govuk-heading-l">Base URL</h2>
+        <p>Access the API from the base URL: <a class="govuk-link" href="{{ site_url }}/api/v1/">{{ site_url }}/api/v1/</a>
+
+        <h2 id="licences" class="govuk-heading-l">API versions</h2>
+        <p>This is API version [1.0].</p>
+
+        <h2 id="tech-docs" class="govuk-heading-l">API documentation</h2>
+        <p>For technical information read the <a class="govuk-link" href="{{ url_for('general.get_api_documentation') }}">API technical documentation</a>.</p>
+    </div>
+</div>
+{% endblock %}

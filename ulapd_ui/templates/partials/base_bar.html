@@ -1,0 +1,51 @@
+<script>
+    (function () {
+        scrollFunc = function (e) {
+            footer = document.querySelector('footer.govuk-footer');
+            backToTopFixed = document.getElementById('back-to-top-fixed');
+            backToTopBottom = document.getElementById('back-to-top-bottom');
+            windowScrollBottom = window.pageYOffset + window.innerHeight;
+
+            if (window.pageYOffset < 400) {
+                backToTopFixed.style.display = 'none';
+                backToTopBottom.classList.add('base-bar--hidden');
+            } else {
+                if (windowScrollBottom > document.body.clientHeight - footer.offsetHeight) {
+                    backToTopFixed.style.display = 'none';
+
+                    backToTopBottom.classList.remove('base-bar--hidden');
+                    backToTopBottom.setAttribute('aria-hidden', false);
+                } else {
+                    backToTopFixed.style.display = 'block';
+
+                    backToTopBottom.classList.add('base-bar--hidden');
+                    backToTopBottom.setAttribute('aria-hidden', true);
+                }
+            }
+        };
+
+        window.addEventListener('scroll', scrollFunc);
+    })();
+</script>
+
+<div class="base-bar-wrapper">
+    <div id="back-to-top-fixed" class="base-bar base-bar--fixed">
+        <div class="govuk-width-container">
+            <a class="govuk-link govuk-link--no-visited-state" href="#top">
+                <svg role="presentation" focusable="false" class="back-to-top__icon" xmlns="http://www.w3.org/2000/svg"
+                    width="13" height="17" viewBox="0 0 13 17">
+                    <path fill="currentColor" d="M6.5 0L0 6.5 1.4 8l4-4v12.7h2V4l4.3 4L13 6.4z"></path>
+                </svg>Back to top
+            </a>
+        </div>
+    </div>
+
+    <div id="back-to-top-bottom" class="base-bar base-bar--bottom">
+        <a class="govuk-link govuk-link--no-visited-state" href="#top">
+            <svg role="presentation" focusable="false" class="back-to-top__icon" xmlns="http://www.w3.org/2000/svg"
+                width="13" height="17" viewBox="0 0 13 17">
+                <path fill="currentColor" d="M6.5 0L0 6.5 1.4 8l4-4v12.7h2V4l4.3 4L13 6.4z"></path>
+            </svg>Back to top
+        </a>
+    </div>
+</div>
