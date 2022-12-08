@@ -1,5 +1,5 @@
 cachelib==0.1
-certifi==2019.6.16        # via requests
+certifi==2022.12.7        # via requests
 cffi==1.12.3              # via misaka
 chardet==3.0.4            # via requests
 click==7.0                # via flask
